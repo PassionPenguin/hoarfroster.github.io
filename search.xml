@@ -1523,6 +1523,15 @@ DNA一般是<strong>两条脱氧核苷酸链</strong>构成，RNA一般是<stron
 </table>
 <p>​
 <strong>减数分裂</strong>是进行有性生殖的生物，在产生成熟生殖细胞时进行的染色体数目减半的细胞分裂，在减数分裂前，染色体复制一次；在减数分裂时，细胞连续分裂两次，形成成熟生殖细胞的染色体数目比原始生殖细胞的减少一半。</p>
+<blockquote>
+<h5 id="有丝分裂分期歧义">有丝分裂分期歧义</h5>
+<p>​ 与人教版（2019）生物学必修一指出有丝分裂分为前中后末四期<a href="#ref-BiologyTextbook_Mitosis_Stages" class="citation"><sup>[1]</sup></a>
+相异，生物学普遍将有丝分裂分为前、前中、中、后、末五期<a href="#ref-CellBiology_Mitosis_Stages" class="citation"><sup>[2]</sup></a> <a href="#ref-MedicalCellBiology_Mitosis_Stages" class="citation"><sup>[3]</sup></a><a href="#ref-Wikipedia_Mitosis_Stages" class="citation"><sup>[4]</sup></a> <a href="#ref-WikipediaZH_Mitosis_Stages" class="citation"><sup>[5]</sup></a>。区分的依据在于前期染色质凝集、分裂极确定、纺锤体形成、核仁缩小解体，前中期核膜崩解、完成纺锤体装配、染色体列队，中期由同一条染色体相连的两极动粒微管等长而达到力量平衡，导致所有染色体排列在细胞中央的赤道面上，该状态的染色体是最短粗的，姐妹染色单体的臂较易分离，适合染色体数目、结构等细胞遗传学的研究。</p>
+<figure>
+<img src="https://raw.githubusercontent.com/PassionPenguin/picgo-database/main/image-20220228224604927.png" alt="高等动物细胞欧丝分裂过程（罗佳博士与张传茂博士提供）[3]">
+<figcaption aria-hidden="true">高等动物细胞欧丝分裂过程（罗佳博士与张传茂博士提供）<a href="#ref-MedicalCellBiology_Mitosis_Stages" class="citation"><sup>[3]</sup></a></figcaption>
+</figure>
+</blockquote>
 <h4 id="exp-观察蝗虫精母细胞减数分裂装片">2. 探究实践：观察蝗虫精母细胞减数分裂装片 </h4>
 <h4 id="受精作用">3. 受精作用</h4>
 <p>​
@@ -1543,7 +1552,29 @@ DNA一般是<strong>两条脱氧核苷酸链</strong>构成，RNA一般是<stron
 <p>​
 基因分离定律的实质是，<mark>杂合子中的细胞，一对同源染色体上的等位基因具有一定的独立性，在减数分裂形成配子过程中，等位基因随同源染色体的分开而分开，分别进入两个配子中，独立地遗传给后代</mark>。</p>
 <p>​
-基因自由组合定律的实质是，<mark>非同源染色体上的非等位基因的分离或组合互不感染，在减数分裂过程中，同源染色体上的等位基因彼此分离的同时，非同源染色体上的非等位基因自由组合</mark>。</p>]]></content>
+基因自由组合定律的实质是，<mark>非同源染色体上的非等位基因的分离或组合互不感染，在减数分裂过程中，同源染色体上的等位基因彼此分离的同时，非同源染色体上的非等位基因自由组合</mark>。</p>
+<div id="refs" class="references csl-bib-body" role="doc-bibliography">
+<div id="ref-BiologyTextbook_Mitosis_Stages" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">生物课程教材研究开发中心. 普通高中教科书 生物学
+必修1 分子与细胞[M]. 人民教育出版社, 2019: 111.</div>
+</div>
+<div id="ref-CellBiology_Mitosis_Stages" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">丁明孝. 细胞生物学[M]. 高等教育出版社, 2020:
+269.</div>
+</div>
+<div id="ref-MedicalCellBiology_Mitosis_Stages" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">陈誉华. 陈志南. 医学细胞生物学[M].
+高等教育出版社, 2018: 301.</div>
+</div>
+<div id="ref-Wikipedia_Mitosis_Stages" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">Mitosis[EB/OL]//Wikipedia. Wikimedia
+Foundation, 2022. <a href="https://en.wikipedia.org/wiki/Mitosis#Prometaphase">https://en.wikipedia.org/wiki/Mitosis#Prometaphase</a>.</div>
+</div>
+<div id="ref-WikipediaZH_Mitosis_Stages" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">有絲分裂[EB/OL]//Wikipedia. Wikimedia
+Foundation. <a href="https://zh.wikipedia.org/wiki/%E6%9C%89%E7%B5%B2%E5%88%86%E8%A3%82#%E5%89%8D%E4%B8%AD%E6%9C%9F">https://zh.wikipedia.org/wiki/%E6%9C%89%E7%B5%B2%E5%88%86%E8%A3%82#%E5%89%8D%E4%B8%AD%E6%9C%9F</a>.</div>
+</div>
+</div>]]></content>
       <categories>
         <category>High School</category>
         <category>Biology</category>
