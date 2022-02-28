@@ -1758,7 +1758,7 @@ pre .javascript .function {
   --color-cm-v3: #43a8b3;
   --color-cm-v: #c53929;
   --color-cm-link: #24a3c3;
-  --text-link: #486df1;
+  --text-link: var(--color-scale-blue-6);
   --bookmark-color: #311b92;
   --bookmark-bg: #ae92e3;
   --star-color: #044289;
@@ -2687,6 +2687,19 @@ body {
 .post-body .math.latex.display svg {
   display: block;
   margin: 0 auto;
+}
+.post-body .citation {
+  display: inline-block;
+  text-decoration: none;
+  margin: 0 2px;
+  border-bottom: 0;
+  color: var(--color-scale-gray-7);
+}
+.post-body figcaption {
+  text-align: center;
+  font-size: 12px;
+  display: block;
+  margin-top: 4px;
 }
 .post-sticky-flag {
   display: inline-block;
