@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://hoarfroster.github.io/High-School/Physics/Optics/%E5%85%89%E7%9A%84%E6%8A%98%E5%B0%84%E4%B8%8E%E5%85%A8%E5%8F%8D%E5%B0%84/</loc>
+    
+    <lastmod>2022-02-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://hoarfroster.github.io/High-School/Biology/Genetics/%E9%81%97%E4%BC%A0%E5%9B%A0%E5%AD%90%E3%80%81%E5%9F%BA%E5%9B%A0%E4%B8%8E%E6%9F%93%E8%89%B2%E4%BD%93%E7%9A%84%E5%85%B3%E7%B3%BB/</loc>
     
     <lastmod>2022-02-28</lastmod>
@@ -281,6 +290,13 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>https://hoarfroster.github.io/tags/Physics/</loc>
+    <lastmod>2022-02-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
   <url>
@@ -313,6 +329,20 @@
   
   <url>
     <loc>https://hoarfroster.github.io/categories/High-School/Biology/Genetics/</loc>
+    <lastmod>2022-02-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://hoarfroster.github.io/categories/High-School/Physics/</loc>
+    <lastmod>2022-02-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://hoarfroster.github.io/categories/High-School/Physics/Optics/</loc>
     <lastmod>2022-02-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
