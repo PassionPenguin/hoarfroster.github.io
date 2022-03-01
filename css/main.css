@@ -2860,9 +2860,6 @@ body {
   margin: 0 auto;
   display: block;
 }
-.post-body figure figcaption {
-  display: none;
-}
 @media (min-width: 992px) {
   .post-body {
     text-align: justify;
