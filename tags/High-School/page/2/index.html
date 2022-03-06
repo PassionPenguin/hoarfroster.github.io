@@ -22,15 +22,31 @@
     document.querySelectorAll("p").forEach(e=>{
       e.innerHTML = e.innerHTML.replaceAll(/==(.+?)==/g, "<mark>$1</mark>").replaceAll(/​\s+?/g, "<span class='tab'></span>");
     });
+    
+    [...document.querySelectorAll("pre > code")].forEach(e=> {
+        var codeClass = e.parentElement.classList.value;
+        if (codeClass == null || codeClass === "") {
+            e.classList.add("hljs");
+        } else {
+            var map = {
+                js: "javascript"
+            };
+            if (map[codeClass]) {
+                codeClass = map[codeClass];
+            }
+            codeClass.split(" ").forEach(i=>e.classList.add(i));
+            hljs.highlightElement(e);
+        }
+    });
   }
 </script>
 <script async src="/js/cursor.js"></script>
+<script async src="/js/highlight.min.js"></script>
 <script data-ad-client="ca-pub-2275811890061218" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"hoarfroster.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqusjs","storage":true,"lazyload":false,"nav":null,"activeClass":"disqusjs"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
-
   <meta name="description" content="这里是霜羽~~咕咕咕">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Hoarfroster 的小窝">
@@ -323,6 +339,66 @@ mjx-container[display="true"] + br {
 
       <div class="post-meta">
         <time itemprop="dateCreated"
+              datetime="2022-02-22T21:54:04+08:00"
+              content="2022-02-22">
+          02-22
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/High-School/Biology/Cell-Biology/%E7%BB%86%E8%83%9E%E5%8F%8A%E5%85%B6%E7%BB%84%E6%88%90/" itemprop="url">
+            <span itemprop="name">细胞及其组成</span>
+          </a>
+      </div>
+
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2022-02-22T21:54:04+08:00"
+              content="2022-02-22">
+          02-22
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/High-School/Biology/Genetics/%E9%81%97%E4%BC%A0%E5%9B%A0%E5%AD%90%E3%80%81%E5%9F%BA%E5%9B%A0%E4%B8%8E%E6%9F%93%E8%89%B2%E4%BD%93%E7%9A%84%E5%85%B3%E7%B3%BB/" itemprop="url">
+            <span itemprop="name">遗传因子、基因与染色体的关系</span>
+          </a>
+      </div>
+
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2022-02-10T01:13:04+08:00"
+              content="2022-02-10">
+          02-10
+        </time>
+      </div>
+
+      <div class="post-title">
+          <a class="post-title-link" href="/High-School/Chemistry/%E7%83%83%E7%9A%84%E8%A1%8D%E7%94%9F%E7%89%A9/" itemprop="url">
+            <span itemprop="name">烃的衍生物</span>
+          </a>
+      </div>
+
+    </header>
+  </article>
+
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <div class="post-meta">
+        <time itemprop="dateCreated"
               datetime="2022-02-09T02:53:16+08:00"
               content="2022-02-09">
           02-09
@@ -458,66 +534,6 @@ mjx-container[display="true"] + br {
     </header>
   </article>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-02-02T00:31:09+08:00"
-              content="2022-02-02">
-          02-02
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/High-School/Chemistry/%E5%85%83%E7%B4%A0%E5%91%A8%E6%9C%9F%E5%BE%8B/" itemprop="url">
-            <span itemprop="name">元素周期律</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-01-31T22:27:56+08:00"
-              content="2022-01-31">
-          01-31
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/High-School/Chemistry/%E5%BC%B1%E7%94%B5%E8%A7%A3%E8%B4%A8%E7%94%B5%E7%A6%BB%E5%B9%B3%E8%A1%A1/" itemprop="url">
-            <span itemprop="name">弱电解质电离平衡</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2022-01-31T22:27:56+08:00"
-              content="2022-01-31">
-          01-31
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/High-School/Chemistry/%E7%9B%90%E7%B1%BB%E6%B0%B4%E8%A7%A3%E5%B9%B3%E8%A1%A1/" itemprop="url">
-            <span itemprop="name">盐类水解平衡</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
     </div>
   </div>
   
@@ -575,12 +591,12 @@ mjx-container[display="true"] + br {
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="Symbols count total">61k</span>
+    <span title="Symbols count total">75k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">3:40</span>
+    <span title="Reading time total">4:34</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT</a>
   </div>
@@ -698,19 +714,19 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

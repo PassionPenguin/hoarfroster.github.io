@@ -22,15 +22,31 @@
     document.querySelectorAll("p").forEach(e=>{
       e.innerHTML = e.innerHTML.replaceAll(/==(.+?)==/g, "<mark>$1</mark>").replaceAll(/​\s+?/g, "<span class='tab'></span>");
     });
+    
+    [...document.querySelectorAll("pre > code")].forEach(e=> {
+        var codeClass = e.parentElement.classList.value;
+        if (codeClass == null || codeClass === "") {
+            e.classList.add("hljs");
+        } else {
+            var map = {
+                js: "javascript"
+            };
+            if (map[codeClass]) {
+                codeClass = map[codeClass];
+            }
+            codeClass.split(" ").forEach(i=>e.classList.add(i));
+            hljs.highlightElement(e);
+        }
+    });
   }
 </script>
 <script async src="/js/cursor.js"></script>
+<script async src="/js/highlight.min.js"></script>
 <script data-ad-client="ca-pub-2275811890061218" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"hoarfroster.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqusjs","storage":true,"lazyload":false,"nav":null,"activeClass":"disqusjs"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
-
   <meta name="description" content="课程标准 2.3 细胞会经历生长、增殖、分化、衰老和死亡等生命进程 2.3.1 描述细胞通过不同的方式进行分裂，其中有丝分裂保证了遗传信息在亲代和子代细胞中的一致性。 2.3.2 说明在个体发育过程中，细胞在形态、结构和功能方面发生特异性的分化，形成了复杂的多细胞生物体。 2.3.3 描述在正常情况下，细胞衰老和死亡是一种自然的生理过程。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="细胞的生命历程">
@@ -39,7 +55,7 @@
 <meta property="og:description" content="课程标准 2.3 细胞会经历生长、增殖、分化、衰老和死亡等生命进程 2.3.1 描述细胞通过不同的方式进行分裂，其中有丝分裂保证了遗传信息在亲代和子代细胞中的一致性。 2.3.2 说明在个体发育过程中，细胞在形态、结构和功能方面发生特异性的分化，形成了复杂的多细胞生物体。 2.3.3 描述在正常情况下，细胞衰老和死亡是一种自然的生理过程。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-02-27T04:36:23.000Z">
-<meta property="article:modified_time" content="2022-02-27T15:57:18.747Z">
+<meta property="article:modified_time" content="2022-03-06T04:30:42.365Z">
 <meta property="article:author" content="Hoarfroster">
 <meta property="article:tag" content="School Notes">
 <meta property="article:tag" content="Biology">
@@ -332,10 +348,16 @@ mjx-container[display="true"] + br {
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-02-27 12:36:23 / Modified: 23:57:18" itemprop="dateCreated datePublished" datetime="2022-02-27T12:36:23+08:00">2022-02-27</time>
+              <time title="Created: 2022-02-27 12:36:23" itemprop="dateCreated datePublished" datetime="2022-02-27T12:36:23+08:00">2022-02-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-06 12:30:42" itemprop="dateModified" datetime="2022-03-06T12:30:42+08:00">2022-03-06</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -366,7 +388,7 @@ mjx-container[display="true"] + br {
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>1.4k</span>
+              <span>1.5k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -423,7 +445,9 @@ mjx-container[display="true"] + br {
 <p>​
 细胞分化是一种普遍存在的现象，是个体发育的<strong>基础</strong>，其中分化的实质（产生原因）是<strong>基因的选择性表达</strong>。</p>
 <p>​
-<strong>细胞的全能性</strong>指细胞经分裂分化后仍具有产生完整有机体或分化成其他各种细胞的潜能与特性。没有分化的细胞具有全能性，高度分化的植物细胞具有全能性，动物和人体中仍然保留少数具有分裂分化能力的细胞（干细胞），如人骨髓中的造血干细胞。</p>
+<strong>细胞的全能性</strong>指细胞经分裂分化后仍具有产生完整有机体或分化成其他各种细胞的潜能与特性。没有分化的细胞具有全能性，高度分化的植物细胞具有全能性，动物和人体中仍然保留少数具有分裂分化能力的细胞（干细胞），如人骨髓中的造血干细胞。根据细胞的全能性，我们有了[[High
+School, Biology, Bioengineering], 细胞工程,
+细胞工程]利用这一特性培植、繁育产生新的个体。</p>
 <h3 id="细胞的衰老和死亡">三、细胞的衰老和死亡</h3>
 <p>​
 细胞的<strong>衰老</strong>过程是细胞生理状态和化学反应发生复杂变化的过程，最终表现为细胞形态、结构和功能发生变化：</p>
@@ -453,21 +477,6 @@ mjx-container[display="true"] + br {
               <a href="/tags/Biology/" rel="tag"># Biology</a>
               <a href="/tags/High-School/" rel="tag"># High School</a>
           </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/High-School/Biology/Cell-Biology/%E7%BB%86%E8%83%9E%E7%9A%84%E8%83%BD%E9%87%8F%E4%BE%9B%E5%BA%94%E4%B8%8E%E5%88%A9%E7%94%A8/" rel="prev" title="细胞的能量供应与利用">
-      <i class="fa fa-chevron-left"></i> 细胞的能量供应与利用
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/High-School/Physics/Optics/%E5%85%89%E7%9A%84%E6%8A%98%E5%B0%84%E4%B8%8E%E5%85%A8%E5%8F%8D%E5%B0%84/" rel="next" title="光的折射与全反射">
-      光的折射与全反射 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
       </footer>
     
   </article>
@@ -479,6 +488,7 @@ mjx-container[display="true"] + br {
 
           </div>
           
+  <button class="show-comments" onclick="document.querySelector('.comments').classList.toggle('active');this.innerText = this.innerText === 'Show Comments' ? 'Hide Comments' : 'Show Comments'">Show Comments</button>
     
   <div class="comments">
     <div id="disqus_thread">
@@ -528,12 +538,12 @@ mjx-container[display="true"] + br {
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="Symbols count total">61k</span>
+    <span title="Symbols count total">75k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">3:40</span>
+    <span title="Reading time total">4:34</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT</a>
   </div>
@@ -653,19 +663,19 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

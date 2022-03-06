@@ -22,15 +22,31 @@
     document.querySelectorAll("p").forEach(e=>{
       e.innerHTML = e.innerHTML.replaceAll(/==(.+?)==/g, "<mark>$1</mark>").replaceAll(/​\s+?/g, "<span class='tab'></span>");
     });
+    
+    [...document.querySelectorAll("pre > code")].forEach(e=> {
+        var codeClass = e.parentElement.classList.value;
+        if (codeClass == null || codeClass === "") {
+            e.classList.add("hljs");
+        } else {
+            var map = {
+                js: "javascript"
+            };
+            if (map[codeClass]) {
+                codeClass = map[codeClass];
+            }
+            codeClass.split(" ").forEach(i=>e.classList.add(i));
+            hljs.highlightElement(e);
+        }
+    });
   }
 </script>
 <script async src="/js/cursor.js"></script>
+<script async src="/js/highlight.min.js"></script>
 <script data-ad-client="ca-pub-2275811890061218" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"hoarfroster.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqusjs","storage":true,"lazyload":false,"nav":null,"activeClass":"disqusjs"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
-
   <meta name="description" content="知识聚焦 一、原电池 1. 原电池 ​ 原电池指将化学能转变为电能的装置。 2. 原电池的构成 ​ 构成原电池的条件包括：  两个活泼性不同的电极；（一个发生氧化反应，一个发生还原反应） 电解质溶液或熔融电解质作为介质；（阴离子向负极移动，阳离子向正极移动） 形成闭合回路 存在自发的氧化还原反应 原电池可以用盐桥连接两个反应池，也可以用离子膜隔离两个反应池，以实现反应独立不干扰和反应定向发生等目的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="化学能与电能">
@@ -42,8 +58,8 @@
 <meta property="article:modified_time" content="2022-02-11T14:05:30.000Z">
 <meta property="article:author" content="Hoarfroster">
 <meta property="article:tag" content="School Notes">
-<meta property="article:tag" content="High School">
 <meta property="article:tag" content="Chemistry">
+<meta property="article:tag" content="High School">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://hoarfroster.github.io/High-School/Chemistry/%E5%8C%96%E5%AD%A6%E8%83%BD%E4%B8%8E%E7%94%B5%E8%83%BD/">
@@ -587,21 +603,9 @@ mjx-container[display="true"] + br {
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/School-Notes/" rel="tag"># School Notes</a>
-              <a href="/tags/High-School/" rel="tag"># High School</a>
               <a href="/tags/Chemistry/" rel="tag"># Chemistry</a>
+              <a href="/tags/High-School/" rel="tag"># High School</a>
           </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item"></div>
-      <div class="post-nav-item">
-    <a href="/High-School/Chemistry/%E5%8C%96%E5%AD%A6%E8%83%BD%E4%B8%8E%E7%83%AD%E8%83%BD/" rel="next" title="化学能与热能">
-      化学能与热能 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
       </footer>
     
   </article>
@@ -613,6 +617,7 @@ mjx-container[display="true"] + br {
 
           </div>
           
+  <button class="show-comments" onclick="document.querySelector('.comments').classList.toggle('active');this.innerText = this.innerText === 'Show Comments' ? 'Hide Comments' : 'Show Comments'">Show Comments</button>
     
   <div class="comments">
     <div id="disqus_thread">
@@ -662,12 +667,12 @@ mjx-container[display="true"] + br {
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="Symbols count total">61k</span>
+    <span title="Symbols count total">75k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">3:40</span>
+    <span title="Reading time total">4:34</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT</a>
   </div>
@@ -786,19 +791,19 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

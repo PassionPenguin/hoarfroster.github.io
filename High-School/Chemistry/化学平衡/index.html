@@ -22,15 +22,31 @@
     document.querySelectorAll("p").forEach(e=>{
       e.innerHTML = e.innerHTML.replaceAll(/==(.+?)==/g, "<mark>$1</mark>").replaceAll(/​\s+?/g, "<span class='tab'></span>");
     });
+    
+    [...document.querySelectorAll("pre > code")].forEach(e=> {
+        var codeClass = e.parentElement.classList.value;
+        if (codeClass == null || codeClass === "") {
+            e.classList.add("hljs");
+        } else {
+            var map = {
+                js: "javascript"
+            };
+            if (map[codeClass]) {
+                codeClass = map[codeClass];
+            }
+            codeClass.split(" ").forEach(i=>e.classList.add(i));
+            hljs.highlightElement(e);
+        }
+    });
   }
 </script>
 <script async src="/js/cursor.js"></script>
+<script async src="/js/highlight.min.js"></script>
 <script data-ad-client="ca-pub-2275811890061218" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"hoarfroster.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqusjs","storage":true,"lazyload":false,"nav":null,"activeClass":"disqusjs"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
-
   <meta name="description" content="知识聚焦 一、化学平衡状态 ​ 在一定条件下的可逆反应中，正反应速率和逆反应速率相等，反应混合物中各组分的质量分数保持不变的状态称为化学平衡状态。  化学平衡状态特征  化学平衡是一个动态平衡，平衡后正逆反应仍然在进行，并没有停止。 可逆反应平衡后，反应物中各组分的浓度保持不变。   二、化学平衡移动 ​ 在反应平衡后，改变外界条件，如果让正逆反应速率不再相同，化学反应就会在新的条件下达到新的平衡">
 <meta property="og:type" content="article">
 <meta property="og:title" content="化学平衡">
@@ -43,8 +59,8 @@
 <meta property="article:modified_time" content="2022-02-11T14:05:30.000Z">
 <meta property="article:author" content="Hoarfroster">
 <meta property="article:tag" content="School Notes">
-<meta property="article:tag" content="High School">
 <meta property="article:tag" content="Chemistry">
+<meta property="article:tag" content="High School">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/PassionPenguin/picgo-database/main/image-20220131003834295.png">
 
@@ -579,24 +595,9 @@ mjx-container[display="true"] + br {
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/School-Notes/" rel="tag"># School Notes</a>
-              <a href="/tags/High-School/" rel="tag"># High School</a>
               <a href="/tags/Chemistry/" rel="tag"># Chemistry</a>
+              <a href="/tags/High-School/" rel="tag"># High School</a>
           </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/High-School/Chemistry/%E5%8C%96%E5%AD%A6%E8%83%BD%E4%B8%8E%E7%83%AD%E8%83%BD/" rel="prev" title="化学能与热能">
-      <i class="fa fa-chevron-left"></i> 化学能与热能
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/High-School/Chemistry/%E5%8C%96%E5%AD%A6%E5%8F%8D%E5%BA%94%E9%80%9F%E7%8E%87%E3%80%81%E6%96%B9%E5%90%91/" rel="next" title="化学反应速率、方向">
-      化学反应速率、方向 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
       </footer>
     
   </article>
@@ -608,6 +609,7 @@ mjx-container[display="true"] + br {
 
           </div>
           
+  <button class="show-comments" onclick="document.querySelector('.comments').classList.toggle('active');this.innerText = this.innerText === 'Show Comments' ? 'Hide Comments' : 'Show Comments'">Show Comments</button>
     
   <div class="comments">
     <div id="disqus_thread">
@@ -657,12 +659,12 @@ mjx-container[display="true"] + br {
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="Symbols count total">61k</span>
+    <span title="Symbols count total">75k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">3:40</span>
+    <span title="Reading time total">4:34</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT</a>
   </div>
@@ -781,19 +783,19 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

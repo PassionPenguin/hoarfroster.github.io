@@ -22,15 +22,31 @@
     document.querySelectorAll("p").forEach(e=>{
       e.innerHTML = e.innerHTML.replaceAll(/==(.+?)==/g, "<mark>$1</mark>").replaceAll(/​\s+?/g, "<span class='tab'></span>");
     });
+    
+    [...document.querySelectorAll("pre > code")].forEach(e=> {
+        var codeClass = e.parentElement.classList.value;
+        if (codeClass == null || codeClass === "") {
+            e.classList.add("hljs");
+        } else {
+            var map = {
+                js: "javascript"
+            };
+            if (map[codeClass]) {
+                codeClass = map[codeClass];
+            }
+            codeClass.split(" ").forEach(i=>e.classList.add(i));
+            hljs.highlightElement(e);
+        }
+    });
   }
 </script>
 <script async src="/js/cursor.js"></script>
+<script async src="/js/highlight.min.js"></script>
 <script data-ad-client="ca-pub-2275811890061218" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"hoarfroster.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqusjs","storage":true,"lazyload":false,"nav":null,"activeClass":"disqusjs"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
-
   <meta name="description" content="知识聚焦 一、糖类  二、蛋白质 三、核酸 四、">
 <meta property="og:type" content="article">
 <meta property="og:title" content="生物大分子">
@@ -39,11 +55,11 @@
 <meta property="og:description" content="知识聚焦 一、糖类  二、蛋白质 三、核酸 四、">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-02-12T08:20:44.000Z">
-<meta property="article:modified_time" content="2022-02-18T16:28:23.000Z">
+<meta property="article:modified_time" content="2022-02-18T16:28:24.000Z">
 <meta property="article:author" content="Hoarfroster">
 <meta property="article:tag" content="School Notes">
-<meta property="article:tag" content="High School">
 <meta property="article:tag" content="Chemistry">
+<meta property="article:tag" content="High School">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://hoarfroster.github.io/High-School/Chemistry/%E7%94%9F%E7%89%A9%E5%A4%A7%E5%88%86%E5%AD%90/">
@@ -340,7 +356,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-19 00:28:23" itemprop="dateModified" datetime="2022-02-19T00:28:23+08:00">2022-02-19</time>
+                <time title="Modified: 2022-02-19 00:28:24" itemprop="dateModified" datetime="2022-02-19T00:28:24+08:00">2022-02-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -388,7 +404,7 @@ mjx-container[display="true"] + br {
       
         <h2 id="知识聚焦">知识聚焦</h2>
 <h3 id="糖类">一、糖类</h3>
-<p></p><p class="math latex display" data-md5="0f1edcd0e93792a28616a118ef8bca6c"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="11.7" height="104.542" viewBox="0 -43.321 8.775 78.406"><defs><path id="0f1edcd0e93792a28616a118ef8bca6c_a" d="M7.795-8.141c0-.216 0-.275-.12-.275-.072 0-.083.023-.155.143l-.586.944c-.538-.669-1.35-1.087-2.212-1.087C2.534-8.416.646-6.528.646-4.09c0 2.475 1.912 4.34 4.076 4.34 1.96 0 3.073-1.71 3.073-3.025 0-.131 0-.203-.132-.203-.12 0-.131.06-.131.144-.108 1.9-1.495 2.737-2.654 2.737-.837 0-3.12-.502-3.12-3.993 0-3.455 2.247-3.98 3.108-3.98 1.255 0 2.355 1.063 2.594 2.857.024.143.024.179.167.179.168 0 .168-.036.168-.275v-2.833Z"></path><path id="0f1edcd0e93792a28616a118ef8bca6c_b" d="M7.137-7.257c0-.442.036-.562.897-.562h.239v-.346c-.287.024-1.267.024-1.614.024-.359 0-1.339 0-1.626-.024v.346h.24c.86 0 .896.12.896.562v2.834H2.594v-2.834c0-.442.036-.562.897-.562h.239v-.346c-.287.024-1.267.024-1.614.024-.359 0-1.339 0-1.626-.024v.346h.24c.86 0 .896.12.896.562v6.348c0 .443-.036.562-.897.562H.49V0c.287-.024 1.267-.024 1.614-.024.359 0 1.34 0 1.626.024v-.347h-.24c-.86 0-.896-.12-.896-.562v-3.168H6.17v3.168c0 .443-.036.562-.897.562h-.239V0C5.32-.024 6.3-.024 6.647-.024c.359 0 1.34 0 1.626.024v-.347h-.24c-.86 0-.896-.12-.896-.562v-6.348Z"></path></defs><use x="4.388" xlink:href="#0f1edcd0e93792a28616a118ef8bca6c_a" transform="translate(-4.227)"></use><use x="4.388" xlink:href="#0f1edcd0e93792a28616a118ef8bca6c_b" transform="translate(-4.388 -35.151)"></use><path d="M4.387-10.16v-22.934" stroke="#000" fill="none" stroke-width=".399" stroke-miterlimit="10"></path><use x="4.388" xlink:href="#0f1edcd0e93792a28616a118ef8bca6c_b" transform="translate(-4.388 35.086)"></use><path d="M5.383 1.992v22.93M3.39 1.992v22.93" stroke="#000" fill="none" stroke-width=".399" stroke-miterlimit="10"></path></svg></p><p></p>
+<p><span class="math latex inline" data-sha1="5e3060a3be3cde36132afda440b51629320a98f4"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="11.7" height="104.542" viewBox="0 -43.288 8.775 78.406"><defs><path id="5e3060a3be3cde36132afda440b51629320a98f4_a" d="M7.795-8.141c0-.216 0-.275-.12-.275-.072 0-.083.023-.155.143l-.586.944c-.538-.669-1.35-1.087-2.212-1.087C2.534-8.416.646-6.528.646-4.09c0 2.475 1.912 4.34 4.076 4.34 1.96 0 3.073-1.71 3.073-3.025 0-.131 0-.203-.132-.203-.12 0-.131.06-.131.144-.108 1.9-1.495 2.737-2.654 2.737-.837 0-3.12-.502-3.12-3.993 0-3.455 2.247-3.98 3.108-3.98 1.255 0 2.355 1.063 2.594 2.857.024.143.024.179.167.179.168 0 .168-.036.168-.275v-2.833Z"></path><path id="5e3060a3be3cde36132afda440b51629320a98f4_b" d="M7.137-7.257c0-.442.036-.562.897-.562h.239v-.346c-.287.024-1.267.024-1.614.024-.359 0-1.339 0-1.626-.024v.346h.24c.86 0 .896.12.896.562v2.834H2.594v-2.834c0-.442.036-.562.897-.562h.239v-.346c-.287.024-1.267.024-1.614.024-.359 0-1.339 0-1.626-.024v.346h.24c.86 0 .896.12.896.562v6.348c0 .443-.036.562-.897.562H.49V0c.287-.024 1.267-.024 1.614-.024.359 0 1.34 0 1.626.024v-.347h-.24c-.86 0-.896-.12-.896-.562v-3.168H6.17v3.168c0 .443-.036.562-.897.562h-.239V0C5.32-.024 6.3-.024 6.647-.024c.359 0 1.34 0 1.626.024v-.347h-.24c-.86 0-.896-.12-.896-.562v-6.348Z"></path></defs><use x="4.388" xlink:href="#5e3060a3be3cde36132afda440b51629320a98f4_a" transform="translate(-4.227)"></use><use x="4.388" xlink:href="#5e3060a3be3cde36132afda440b51629320a98f4_b" transform="translate(-4.388 -35.118)"></use><path d="M4.387-10.164v-22.961" stroke="#000" fill="none" stroke-width=".399" stroke-miterlimit="10"></path><use x="4.388" xlink:href="#5e3060a3be3cde36132afda440b51629320a98f4_b" transform="translate(-4.388 35.118)"></use><path d="M5.383 1.992v22.965M3.39 1.992v22.965" stroke="#000" fill="none" stroke-width=".399" stroke-miterlimit="10"></path></svg></span></p>
 <h3 id="蛋白质">二、蛋白质</h3>
 <h3 id="核酸">三、核酸</h3>
 <h3 id="">四、</h3><!-- flag of hidden posts -->
@@ -401,14 +417,9 @@ mjx-container[display="true"] + br {
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/School-Notes/" rel="tag"># School Notes</a>
-              <a href="/tags/High-School/" rel="tag"># High School</a>
               <a href="/tags/Chemistry/" rel="tag"># Chemistry</a>
+              <a href="/tags/High-School/" rel="tag"># High School</a>
           </div>
-
-        
-
-
-        
       </footer>
     
   </article>
@@ -420,6 +431,7 @@ mjx-container[display="true"] + br {
 
           </div>
           
+  <button class="show-comments" onclick="document.querySelector('.comments').classList.toggle('active');this.innerText = this.innerText === 'Show Comments' ? 'Hide Comments' : 'Show Comments'">Show Comments</button>
     
   <div class="comments">
     <div id="disqus_thread">
@@ -469,12 +481,12 @@ mjx-container[display="true"] + br {
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="Symbols count total">61k</span>
+    <span title="Symbols count total">75k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">3:40</span>
+    <span title="Reading time total">4:34</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT</a>
   </div>
@@ -593,19 +605,19 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

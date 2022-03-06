@@ -22,15 +22,31 @@
     document.querySelectorAll("p").forEach(e=>{
       e.innerHTML = e.innerHTML.replaceAll(/==(.+?)==/g, "<mark>$1</mark>").replaceAll(/​\s+?/g, "<span class='tab'></span>");
     });
+    
+    [...document.querySelectorAll("pre > code")].forEach(e=> {
+        var codeClass = e.parentElement.classList.value;
+        if (codeClass == null || codeClass === "") {
+            e.classList.add("hljs");
+        } else {
+            var map = {
+                js: "javascript"
+            };
+            if (map[codeClass]) {
+                codeClass = map[codeClass];
+            }
+            codeClass.split(" ").forEach(i=>e.classList.add(i));
+            hljs.highlightElement(e);
+        }
+    });
   }
 </script>
 <script async src="/js/cursor.js"></script>
+<script async src="/js/highlight.min.js"></script>
 <script data-ad-client="ca-pub-2275811890061218" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"hoarfroster.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqusjs","storage":true,"lazyload":false,"nav":null,"activeClass":"disqusjs"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
-
   <meta name="description" content="课程标准 1.1 细胞由多种多样的分子组成，包括水、无机盐、糖类、脂质、蛋白质和核酸等，其中蛋白质和核酸是两类最重要的生物大分子 1.1.1 说出细胞主要由C、H、O、N、P、S等元素构成，它们以碳链为骨架形成复杂的生物大分子。 1.1.2 指出水大约占细胞重量的2&#x2F;3，以自由水和结合水的形式存在，赋予了细胞许多特性，在生命活动中具有重要作用。 1.1.3 举例说出无机盐在细胞内含量虽少，但与生命">
 <meta property="og:type" content="article">
 <meta property="og:title" content="组成细胞的分子">
@@ -39,7 +55,7 @@
 <meta property="og:description" content="课程标准 1.1 细胞由多种多样的分子组成，包括水、无机盐、糖类、脂质、蛋白质和核酸等，其中蛋白质和核酸是两类最重要的生物大分子 1.1.1 说出细胞主要由C、H、O、N、P、S等元素构成，它们以碳链为骨架形成复杂的生物大分子。 1.1.2 指出水大约占细胞重量的2&#x2F;3，以自由水和结合水的形式存在，赋予了细胞许多特性，在生命活动中具有重要作用。 1.1.3 举例说出无机盐在细胞内含量虽少，但与生命">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-02-22T14:53:03.000Z">
-<meta property="article:modified_time" content="2022-02-27T15:57:08.290Z">
+<meta property="article:modified_time" content="2022-02-27T15:57:10.000Z">
 <meta property="article:author" content="Hoarfroster">
 <meta property="article:tag" content="School Notes">
 <meta property="article:tag" content="Biology">
@@ -340,7 +356,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-02-27 23:57:08" itemprop="dateModified" datetime="2022-02-27T23:57:08+08:00">2022-02-27</time>
+                <time title="Modified: 2022-02-27 23:57:10" itemprop="dateModified" datetime="2022-02-27T23:57:10+08:00">2022-02-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -705,7 +721,7 @@ School, Chemistry], 生物大分子]。</p>
 </blockquote>
 <h3 id="蛋白质是生命活动的主要承担者">五、蛋白质是生命活动的主要承担者</h3>
 <p>​
-氨基酸（结构简式</p><p class="math latex display" data-md5="2864c5a2bdefe9af51dc0bcee6c74505"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="124.353" height="36.696" viewBox="0 -25.761 93.264 27.522"><defs><path id="2864c5a2bdefe9af51dc0bcee6c74505_a" d="M7.795-8.141c0-.216 0-.275-.12-.275-.072 0-.083.023-.155.143l-.586.944c-.538-.669-1.35-1.087-2.212-1.087C2.534-8.416.646-6.528.646-4.09c0 2.475 1.912 4.34 4.076 4.34 1.96 0 3.073-1.71 3.073-3.025 0-.131 0-.203-.132-.203-.12 0-.131.06-.131.144-.108 1.9-1.495 2.737-2.654 2.737-.837 0-3.12-.502-3.12-3.993 0-3.455 2.247-3.98 3.108-3.98 1.255 0 2.355 1.063 2.594 2.857.024.143.024.179.167.179.168 0 .168-.036.168-.275v-2.833Z"></path><path id="2864c5a2bdefe9af51dc0bcee6c74505_b" d="M7.137-7.257c0-.442.036-.562.897-.562h.239v-.346c-.287.024-1.267.024-1.614.024-.359 0-1.339 0-1.626-.024v.346h.24c.86 0 .896.12.896.562v2.834H2.594v-2.834c0-.442.036-.562.897-.562h.239v-.346c-.287.024-1.267.024-1.614.024-.359 0-1.339 0-1.626-.024v.346h.24c.86 0 .896.12.896.562v6.348c0 .443-.036.562-.897.562H.49V0c.287-.024 1.267-.024 1.614-.024.359 0 1.34 0 1.626.024v-.347h-.24c-.86 0-.896-.12-.896-.562v-3.168H6.17v3.168c0 .443-.036.562-.897.562h-.239V0C5.32-.024 6.3-.024 6.647-.024c.359 0 1.34 0 1.626.024v-.347h-.24c-.86 0-.896-.12-.896-.562v-6.348Z"></path><path id="2864c5a2bdefe9af51dc0bcee6c74505_e" d="M2.702-7.998c-.108-.155-.12-.167-.383-.167H.49v.346c.514 0 .813 0 1.136.084v6.48c0 .346 0 .908-1.136.908V0c.311-.024.945-.024 1.28-.024s.968 0 1.279.024v-.347c-1.136 0-1.136-.562-1.136-.908v-6.289c.095.096.095.12.203.263L6.78-.179c.12.167.131.179.215.179.107 0 .131-.048.143-.072V-6.91c0-.347 0-.909 1.136-.909v-.346c-.31.024-.944.024-1.28.024s-.968 0-1.278-.024v.346c1.135 0 1.135.562 1.135.909v5.224L2.702-7.998Z"></path><path id="2864c5a2bdefe9af51dc0bcee6c74505_d" d="M8.452-4.053c0-2.475-1.817-4.363-3.897-4.363-2.128 0-3.91 1.912-3.91 4.363C.646-1.626 2.452.251 4.544.251c2.14 0 3.91-1.9 3.91-4.304ZM4.555-.023c-1.22 0-2.798-1.149-2.798-4.21 0-2.928 1.662-3.92 2.786-3.92 1.184 0 2.797 1.028 2.797 3.92 0 3.11-1.625 4.21-2.785 4.21Z"></path><path id="2864c5a2bdefe9af51dc0bcee6c74505_c" d="M5.045-4.065C6.23-4.34 7.15-5.093 7.15-6.013c0-1.16-1.35-2.152-3.072-2.152H.502v.346h.24c.86 0 .896.12.896.562v6.348c0 .443-.036.562-.897.562H.502V0c.275-.024 1.255-.024 1.602-.024s1.34 0 1.614.024v-.347H3.48c-.86 0-.897-.12-.897-.562v-3.06H3.97c.466 0 .909.131 1.231.466.407.454.407.705.407 1.53 0 .945 0 1.256.526 1.77.18.18.681.454 1.35.454.933 0 1.089-1.04 1.089-1.291 0-.072 0-.18-.132-.18-.12 0-.12.072-.131.192-.06.717-.407 1.04-.79 1.04-.55 0-.669-.562-.764-1.196a55.695 55.695 0 0 1-.12-.896c-.084-.598-.131-.98-.49-1.351-.132-.132-.442-.454-1.1-.634Zm-1.124-.143H2.582V-7.34c0-.275 0-.419.251-.467.108-.012.467-.012.706-.012.968 0 2.498 0 2.498 1.806 0 1.04-.562 1.805-2.116 1.805Z"></path><path id="2864c5a2bdefe9af51dc0bcee6c74505_f" d="M2.472-1.788c.14-.132.509-.421.65-.544.543-.5 1.06-.982 1.06-1.78 0-1.043-.877-1.718-1.973-1.718-1.052 0-1.744.798-1.744 1.578 0 .43.342.49.464.49a.451.451 0 0 0 .456-.464c0-.456-.438-.456-.543-.456.254-.64.841-.859 1.27-.859.816 0 1.237.693 1.237 1.43 0 .911-.64 1.577-1.674 2.638L.57-.333C.465-.237.465-.22.465 0h3.463l.254-1.57H3.91c-.026.176-.096.614-.202.781-.052.07-.718.07-.859.07H1.29l1.183-1.07Z"></path></defs><use x="35.878" xlink:href="#2864c5a2bdefe9af51dc0bcee6c74505_a" transform="translate(-4.227)"></use><use x="35.878" xlink:href="#2864c5a2bdefe9af51dc0bcee6c74505_b" transform="translate(4.227)"></use><use x="35.878" xlink:href="#2864c5a2bdefe9af51dc0bcee6c74505_c" transform="translate(-4.308 -17.592)"></use><path d="M35.879-10.16v-5.375" stroke="#000" fill="none" stroke-width=".399" stroke-miterlimit="10"></path><use x="35.878" xlink:href="#2864c5a2bdefe9af51dc0bcee6c74505_a" transform="translate(21.947 -.033)"></use><use x="35.878" xlink:href="#2864c5a2bdefe9af51dc0bcee6c74505_d" transform="translate(30.401 -.033)"></use><use x="35.878" xlink:href="#2864c5a2bdefe9af51dc0bcee6c74505_d" transform="translate(39.506 -.033)"></use><use x="35.878" xlink:href="#2864c5a2bdefe9af51dc0bcee6c74505_b" transform="translate(48.61 -.033)"></use><path d="M50.871-4.086h4.961" stroke="#000" fill="none" stroke-width=".399" stroke-miterlimit="10"></path><use x="35.878" xlink:href="#2864c5a2bdefe9af51dc0bcee6c74505_e" transform="translate(-21.947 -.033)"></use><path d="M29.656-4.086H24.7" stroke="#000" fill="none" stroke-width=".399" stroke-miterlimit="10"></path><g transform="translate(-35.878 -.033)"><use x="35.878" xlink:href="#2864c5a2bdefe9af51dc0bcee6c74505_b"></use><use x="44.653" y="1.793" xlink:href="#2864c5a2bdefe9af51dc0bcee6c74505_f"></use></g></svg></p>）是组成蛋白质的基本单位，基本元素组成为C、H、O、N，少部分含有S、P。人体中，氨基酸共有21种，分为必需氨基酸和非必需氨基酸（人体可以自体合成）。<p></p>
+氨基酸（结构简式<span class="math latex inline" data-sha1="a8b51039e08e6ed8c19ffe0dd7cff931524b3546"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="123.788" height="36.696" viewBox="0 -25.729 92.841 27.522"><defs><path id="a8b51039e08e6ed8c19ffe0dd7cff931524b3546_a" d="M7.795-8.141c0-.216 0-.275-.12-.275-.072 0-.083.023-.155.143l-.586.944c-.538-.669-1.35-1.087-2.212-1.087C2.534-8.416.646-6.528.646-4.09c0 2.475 1.912 4.34 4.076 4.34 1.96 0 3.073-1.71 3.073-3.025 0-.131 0-.203-.132-.203-.12 0-.131.06-.131.144-.108 1.9-1.495 2.737-2.654 2.737-.837 0-3.12-.502-3.12-3.993 0-3.455 2.247-3.98 3.108-3.98 1.255 0 2.355 1.063 2.594 2.857.024.143.024.179.167.179.168 0 .168-.036.168-.275v-2.833Z"></path><path id="a8b51039e08e6ed8c19ffe0dd7cff931524b3546_b" d="M7.137-7.257c0-.442.036-.562.897-.562h.239v-.346c-.287.024-1.267.024-1.614.024-.359 0-1.339 0-1.626-.024v.346h.24c.86 0 .896.12.896.562v2.834H2.594v-2.834c0-.442.036-.562.897-.562h.239v-.346c-.287.024-1.267.024-1.614.024-.359 0-1.339 0-1.626-.024v.346h.24c.86 0 .896.12.896.562v6.348c0 .443-.036.562-.897.562H.49V0c.287-.024 1.267-.024 1.614-.024.359 0 1.34 0 1.626.024v-.347h-.24c-.86 0-.896-.12-.896-.562v-3.168H6.17v3.168c0 .443-.036.562-.897.562h-.239V0C5.32-.024 6.3-.024 6.647-.024c.359 0 1.34 0 1.626.024v-.347h-.24c-.86 0-.896-.12-.896-.562v-6.348Z"></path><path id="a8b51039e08e6ed8c19ffe0dd7cff931524b3546_e" d="M2.702-7.998c-.108-.155-.12-.167-.383-.167H.49v.346c.514 0 .813 0 1.136.084v6.48c0 .346 0 .908-1.136.908V0c.311-.024.945-.024 1.28-.024s.968 0 1.279.024v-.347c-1.136 0-1.136-.562-1.136-.908v-6.289c.095.096.095.12.203.263L6.78-.179c.12.167.131.179.215.179.107 0 .131-.048.143-.072V-6.91c0-.347 0-.909 1.136-.909v-.346c-.31.024-.944.024-1.28.024s-.968 0-1.278-.024v.346c1.135 0 1.135.562 1.135.909v5.224L2.702-7.998Z"></path><path id="a8b51039e08e6ed8c19ffe0dd7cff931524b3546_d" d="M8.452-4.053c0-2.475-1.817-4.363-3.897-4.363-2.128 0-3.91 1.912-3.91 4.363C.646-1.626 2.452.251 4.544.251c2.14 0 3.91-1.9 3.91-4.304ZM4.555-.023c-1.22 0-2.798-1.149-2.798-4.21 0-2.928 1.662-3.92 2.786-3.92 1.184 0 2.797 1.028 2.797 3.92 0 3.11-1.625 4.21-2.785 4.21Z"></path><path id="a8b51039e08e6ed8c19ffe0dd7cff931524b3546_c" d="M5.045-4.065C6.23-4.34 7.15-5.093 7.15-6.013c0-1.16-1.35-2.152-3.072-2.152H.502v.346h.24c.86 0 .896.12.896.562v6.348c0 .443-.036.562-.897.562H.502V0c.275-.024 1.255-.024 1.602-.024s1.34 0 1.614.024v-.347H3.48c-.86 0-.897-.12-.897-.562v-3.06H3.97c.466 0 .909.131 1.231.466.407.454.407.705.407 1.53 0 .945 0 1.256.526 1.77.18.18.681.454 1.35.454.933 0 1.089-1.04 1.089-1.291 0-.072 0-.18-.132-.18-.12 0-.12.072-.131.192-.06.717-.407 1.04-.79 1.04-.55 0-.669-.562-.764-1.196a55.695 55.695 0 0 1-.12-.896c-.084-.598-.131-.98-.49-1.351-.132-.132-.442-.454-1.1-.634Zm-1.124-.143H2.582V-7.34c0-.275 0-.419.251-.467.108-.012.467-.012.706-.012.968 0 2.498 0 2.498 1.806 0 1.04-.562 1.805-2.116 1.805Z"></path><path id="a8b51039e08e6ed8c19ffe0dd7cff931524b3546_f" d="M2.248-1.626c.127-.12.462-.382.59-.494.494-.454.964-.893.964-1.618 0-.948-.797-1.562-1.794-1.562-.956 0-1.586.725-1.586 1.434 0 .391.311.447.423.447a.41.41 0 0 0 .414-.423c0-.414-.398-.414-.494-.414a1.232 1.232 0 0 1 1.156-.781c.741 0 1.124.63 1.124 1.299 0 .829-.582 1.435-1.523 2.399L.518-.303C.422-.215.422-.199.422 0h3.149l.23-1.427h-.246c-.024.16-.088.558-.184.71-.047.063-.653.063-.78.063H1.17l1.077-.972Z"></path></defs><use x="35.454" xlink:href="#a8b51039e08e6ed8c19ffe0dd7cff931524b3546_a" transform="translate(-4.227)"></use><use x="35.454" xlink:href="#a8b51039e08e6ed8c19ffe0dd7cff931524b3546_b" transform="translate(4.227)"></use><use x="35.454" xlink:href="#a8b51039e08e6ed8c19ffe0dd7cff931524b3546_c" transform="translate(-4.308 -17.56)"></use><path d="M35.453-10.16v-5.406" stroke="#000" fill="none" stroke-width=".399" stroke-miterlimit="10"></path><use x="35.454" xlink:href="#a8b51039e08e6ed8c19ffe0dd7cff931524b3546_a" transform="translate(21.947)"></use><use x="35.454" xlink:href="#a8b51039e08e6ed8c19ffe0dd7cff931524b3546_d" transform="translate(30.401)"></use><use x="35.454" xlink:href="#a8b51039e08e6ed8c19ffe0dd7cff931524b3546_d" transform="translate(39.506)"></use><use x="35.454" xlink:href="#a8b51039e08e6ed8c19ffe0dd7cff931524b3546_b" transform="translate(48.61)"></use><path d="M50.45-4.086h4.96" stroke="#000" fill="none" stroke-width=".399" stroke-miterlimit="10"></path><use x="35.454" xlink:href="#a8b51039e08e6ed8c19ffe0dd7cff931524b3546_e" transform="translate(-21.947)"></use><path d="M29.234-4.086h-4.96" stroke="#000" fill="none" stroke-width=".399" stroke-miterlimit="10"></path><g transform="translate(-35.455)"><use x="35.454" xlink:href="#a8b51039e08e6ed8c19ffe0dd7cff931524b3546_b"></use><use x="44.23" y="1.793" xlink:href="#a8b51039e08e6ed8c19ffe0dd7cff931524b3546_f"></use></g></svg></span>）是组成蛋白质的基本单位，基本元素组成为C、H、O、N，少部分含有S、P。人体中，氨基酸共有21种，分为必需氨基酸和非必需氨基酸（人体可以自体合成）。</p>
 <p>​
 蛋白质是由氨基酸脱水缩合形成多肽，多肽折叠弯曲形成空间结构后，由一个或多个氨基酸构成的有机物，是生命活动的主要承担者。蛋白质的主要作用有<strong>组成细胞结构、催化、运输、信息传递、防御</strong>，具体分工如下：</p>
 <ol type="1">
@@ -875,21 +891,6 @@ DNA一般是<strong>两条脱氧核苷酸链</strong>构成，RNA一般是<stron
               <a href="/tags/Biology/" rel="tag"># Biology</a>
               <a href="/tags/High-School/" rel="tag"># High School</a>
           </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/High-School/Biology/Cell-Biology/%E7%BB%86%E8%83%9E%E5%8F%8A%E5%85%B6%E7%BB%84%E6%88%90/" rel="prev" title="细胞及其组成">
-      <i class="fa fa-chevron-left"></i> 细胞及其组成
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/High-School/Biology/Cell-Biology/%E7%BB%86%E8%83%9E%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84/" rel="next" title="细胞的基本结构">
-      细胞的基本结构 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
       </footer>
     
   </article>
@@ -901,6 +902,7 @@ DNA一般是<strong>两条脱氧核苷酸链</strong>构成，RNA一般是<stron
 
           </div>
           
+  <button class="show-comments" onclick="document.querySelector('.comments').classList.toggle('active');this.innerText = this.innerText === 'Show Comments' ? 'Hide Comments' : 'Show Comments'">Show Comments</button>
     
   <div class="comments">
     <div id="disqus_thread">
@@ -950,12 +952,12 @@ DNA一般是<strong>两条脱氧核苷酸链</strong>构成，RNA一般是<stron
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="Symbols count total">61k</span>
+    <span title="Symbols count total">75k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">3:40</span>
+    <span title="Reading time total">4:34</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT</a>
   </div>
@@ -1075,19 +1077,19 @@ DNA一般是<strong>两条脱氧核苷酸链</strong>构成，RNA一般是<stron
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

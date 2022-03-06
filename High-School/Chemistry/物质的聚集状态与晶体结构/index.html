@@ -22,15 +22,31 @@
     document.querySelectorAll("p").forEach(e=>{
       e.innerHTML = e.innerHTML.replaceAll(/==(.+?)==/g, "<mark>$1</mark>").replaceAll(/​\s+?/g, "<span class='tab'></span>");
     });
+    
+    [...document.querySelectorAll("pre > code")].forEach(e=> {
+        var codeClass = e.parentElement.classList.value;
+        if (codeClass == null || codeClass === "") {
+            e.classList.add("hljs");
+        } else {
+            var map = {
+                js: "javascript"
+            };
+            if (map[codeClass]) {
+                codeClass = map[codeClass];
+            }
+            codeClass.split(" ").forEach(i=>e.classList.add(i));
+            hljs.highlightElement(e);
+        }
+    });
   }
 </script>
 <script async src="/js/cursor.js"></script>
+<script async src="/js/highlight.min.js"></script>
 <script data-ad-client="ca-pub-2275811890061218" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"hoarfroster.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqusjs","storage":true,"lazyload":false,"nav":null,"activeClass":"disqusjs"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
-
   <meta name="description" content="知识聚焦 一、物质的聚集状态  物质不止三态，而有更多的聚集状态类别。 许多常见的晶体中并无分子（氯化钠、石墨、二氧化硅、金刚石和各种金属）。 气态和液态物质也不一定都由分子构成（等离子体：电子+阳离子+分子或原子，离子液体：熔点不高的仅由离子构成的液体物质）。 晶态、液晶态、塑晶态、非晶态。  二、晶体与非晶体 1. 晶体与非晶体         固体 自范性 微观结构     晶体 有（能自发">
 <meta property="og:type" content="article">
 <meta property="og:title" content="物质的聚集状态与晶体结构">
@@ -39,11 +55,11 @@
 <meta property="og:description" content="知识聚焦 一、物质的聚集状态  物质不止三态，而有更多的聚集状态类别。 许多常见的晶体中并无分子（氯化钠、石墨、二氧化硅、金刚石和各种金属）。 气态和液态物质也不一定都由分子构成（等离子体：电子+阳离子+分子或原子，离子液体：熔点不高的仅由离子构成的液体物质）。 晶态、液晶态、塑晶态、非晶态。  二、晶体与非晶体 1. 晶体与非晶体         固体 自范性 微观结构     晶体 有（能自发">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-02-04T17:46:12.000Z">
-<meta property="article:modified_time" content="2022-03-01T16:03:12.926Z">
+<meta property="article:modified_time" content="2022-03-06T11:48:21.098Z">
 <meta property="article:author" content="Hoarfroster">
 <meta property="article:tag" content="School Notes">
-<meta property="article:tag" content="High School">
 <meta property="article:tag" content="Chemistry">
+<meta property="article:tag" content="High School">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://hoarfroster.github.io/High-School/Chemistry/%E7%89%A9%E8%B4%A8%E7%9A%84%E8%81%9A%E9%9B%86%E7%8A%B6%E6%80%81%E4%B8%8E%E6%99%B6%E4%BD%93%E7%BB%93%E6%9E%84/">
@@ -340,7 +356,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2022-03-02 00:03:12" itemprop="dateModified" datetime="2022-03-02T00:03:12+08:00">2022-03-02</time>
+                <time title="Modified: 2022-03-06 19:48:21" itemprop="dateModified" datetime="2022-03-06T19:48:21+08:00">2022-03-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -368,7 +384,7 @@ mjx-container[display="true"] + br {
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>790</span>
+              <span>762</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -437,7 +453,7 @@ mjx-container[display="true"] + br {
 值得注意的是，一定要注意题目给出的物质是晶体还是非晶体，如果给出的是团簇分子或纳米颗粒，则所含微粒是独有的，不与其他分子或颗粒所共用。</p>
 <p>​
 如果需要计算晶体的密度，可以按两个思路：计算1个晶胞；计算1mol晶胞。首先通过一个晶胞拥有的微粒数目计算一个晶胞的平均质量，再根据给出的核间距、键参等计算体积。
-<span class="math display"><mjx-container class="MathJax" jax="SVG" display="true"><svg style="vertical-align: -1.973ex" xmlns="http://www.w3.org/2000/svg" width="10.571ex" height="5.047ex" role="img" focusable="false" viewBox="0 -1359 4672.4 2230.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D70C" d="M58 -216Q25 -216 23 -186Q23 -176 73 26T127 234Q143 289 182 341Q252 427 341 441Q343 441 349 441T359 442Q432 442 471 394T510 276Q510 219 486 165T425 74T345 13T266 -10H255H248Q197 -10 165 35L160 41L133 -71Q108 -168 104 -181T92 -202Q76 -216 58 -216ZM424 322Q424 359 407 382T357 405Q322 405 287 376T231 300Q217 269 193 170L176 102Q193 26 260 26Q298 26 334 62Q367 92 389 158T418 266T424 322Z"></path></g><g data-mml-node="mo" transform="translate(794.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mfrac" transform="translate(1850.6,0)"><g data-mml-node="mrow" transform="translate(367.2,676)"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mn" transform="translate(633,-150) scale(0.707)"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></g></g><g data-mml-node="mi" transform="translate(1036.6,0)"><path data-c="1D440" d="M289 629Q289 635 232 637Q208 637 201 638T194 648Q194 649 196 659Q197 662 198 666T199 671T201 676T203 679T207 681T212 683T220 683T232 684Q238 684 262 684T307 683Q386 683 398 683T414 678Q415 674 451 396L487 117L510 154Q534 190 574 254T662 394Q837 673 839 675Q840 676 842 678T846 681L852 683H948Q965 683 988 683T1017 684Q1051 684 1051 673Q1051 668 1048 656T1045 643Q1041 637 1008 637Q968 636 957 634T939 623Q936 618 867 340T797 59Q797 55 798 54T805 50T822 48T855 46H886Q892 37 892 35Q892 19 885 5Q880 0 869 0Q864 0 828 1T736 2Q675 2 644 2T609 1Q592 1 592 11Q592 13 594 25Q598 41 602 43T625 46Q652 46 685 49Q699 52 704 61Q706 65 742 207T813 490T848 631L654 322Q458 10 453 5Q451 4 449 3Q444 0 433 0Q418 0 415 7Q413 11 374 317L335 624L267 354Q200 88 200 79Q206 46 272 46H282Q288 41 289 37T286 19Q282 3 278 1Q274 0 267 0Q265 0 255 0T221 1T157 2Q127 2 95 1T58 0Q43 0 39 2T35 11Q35 13 38 25T43 40Q45 46 65 46Q135 46 154 86Q158 92 223 354T289 629Z"></path></g></g><g data-mml-node="mrow" transform="translate(220,-719.2)"><g data-mml-node="msup"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mn" transform="translate(562,289) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g></g><g data-mml-node="msub" transform="translate(965.6,0)"><g data-mml-node="mi"><path data-c="1D441" d="M234 637Q231 637 226 637Q201 637 196 638T191 649Q191 676 202 682Q204 683 299 683Q376 683 387 683T401 677Q612 181 616 168L670 381Q723 592 723 606Q723 633 659 637Q635 637 635 648Q635 650 637 660Q641 676 643 679T653 683Q656 683 684 682T767 680Q817 680 843 681T873 682Q888 682 888 672Q888 650 880 642Q878 637 858 637Q787 633 769 597L620 7Q618 0 599 0Q585 0 582 2Q579 5 453 305L326 604L261 344Q196 88 196 79Q201 46 268 46H278Q284 41 284 38T282 19Q278 6 272 0H259Q228 2 151 2Q123 2 100 2T63 2T46 1Q31 1 31 10Q31 14 34 26T39 40Q41 46 62 46Q130 49 150 85Q154 91 221 362L289 634Q287 635 234 637Z"></path></g><g data-mml-node="mi" transform="translate(836,-152.7) scale(0.707)"><path data-c="1D434" d="M208 74Q208 50 254 46Q272 46 272 35Q272 34 270 22Q267 8 264 4T251 0Q249 0 239 0T205 1T141 2Q70 2 50 0H42Q35 7 35 11Q37 38 48 46H62Q132 49 164 96Q170 102 345 401T523 704Q530 716 547 716H555H572Q578 707 578 706L606 383Q634 60 636 57Q641 46 701 46Q726 46 726 36Q726 34 723 22Q720 7 718 4T704 0Q701 0 690 0T651 1T578 2Q484 2 455 0H443Q437 6 437 9T439 27Q443 40 445 43L449 46H469Q523 49 533 63L521 213H283L249 155Q208 86 208 74ZM516 260Q516 271 504 416T490 562L463 519Q447 492 400 412L310 260L413 259Q516 259 516 260Z"></path></g></g></g><rect width="2581.9" height="60" x="120" y="220"></rect></g></g></g></svg></mjx-container></span></p>
+</p><p class="math latex display" data-sha1="38ef3fe27bf217ae3ea54b6b44bcb46544d82877"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="59.162" height="20.962" viewBox="0 -10.259 44.372 15.721"><defs><path id="38ef3fe27bf217ae3ea54b6b44bcb46544d82877_a" d="M.37 2.068c-.011.06-.035.132-.035.203 0 .18.143.3.323.3s.346-.12.418-.288c.048-.107.383-1.542.765-3.012.24.597.682.849 1.148.849 1.35 0 2.881-1.674 2.881-3.48 0-1.279-.777-1.912-1.602-1.912-1.052 0-2.331 1.088-2.726 2.678L.371 2.068ZM2.978-.12c-.813 0-1.016-.944-1.016-1.087 0-.072.299-1.208.334-1.387.61-2.38 1.782-2.44 1.961-2.44.538 0 .837.491.837 1.196 0 .61-.323 1.794-.526 2.296-.359.825-.98 1.422-1.59 1.422Z"></path><path id="38ef3fe27bf217ae3ea54b6b44bcb46544d82877_e" d="M7.739-4.798c.08-.31.096-.383.654-.383.183 0 .278 0 .278-.151 0-.112-.103-.112-.247-.112H7.396c-.215 0-.239 0-.342.16L4.049-.734l-.71-4.494c-.031-.2-.04-.216-.278-.216H1.985c-.144 0-.248 0-.248.152 0 .111.104.111.232.111.263 0 .494 0 .494.128 0 .032-.008.04-.032.143L1.419-.853c-.096.399-.303.574-.837.59-.048 0-.144.008-.144.151 0 .048.04.112.12.112.032 0 .215-.024.789-.024.63 0 .75.024.82.024.033 0 .152 0 .152-.151 0-.096-.087-.112-.143-.112-.287-.008-.526-.056-.526-.335 0-.04.024-.151.024-.16l1.084-4.327h.008l.773 4.87c.024.127.032.215.143.215s.168-.088.215-.16l3.276-4.989.008.008L6.057-.63c-.071.303-.087.367-.677.367-.152 0-.247 0-.247.151 0 .032.024.112.127.112s.343-.016.455-.024h.51c.74 0 .932.024.988.024.048 0 .16 0 .16-.151 0-.112-.104-.112-.24-.112-.024 0-.167 0-.303-.016-.167-.016-.183-.04-.183-.112 0-.04.016-.087.024-.127l1.068-4.28Z"></path><path id="38ef3fe27bf217ae3ea54b6b44bcb46544d82877_h" d="M6.312-4.575c.096-.39.271-.582.845-.606.08 0 .144-.047.144-.151a.116.116 0 0 0-.12-.112c-.056 0-.207.024-.797.024-.638 0-.741-.024-.813-.024-.127 0-.151.088-.151.152 0 .103.103.111.175.111.486.016.486.232.486.343 0 .04 0 .08-.032.207L5.173-1.14 3.252-5.3c-.064-.144-.08-.144-.271-.144H1.945c-.144 0-.247 0-.247.152 0 .111.095.111.263.111.063 0 .303 0 .486.048L1.379-.853c-.096.399-.303.574-.837.59-.048 0-.143.008-.143.151 0 .048.04.112.12.112.03 0 .214-.024.788-.024.63 0 .75.024.821.024.032 0 .151 0 .151-.151 0-.096-.087-.112-.143-.112-.287-.008-.526-.056-.526-.335 0-.04.024-.151.024-.16l1.044-4.16h.008L4.902-.143c.055.127.063.143.151.143.112 0 .12-.032.151-.167l1.108-4.408Z"></path><path id="38ef3fe27bf217ae3ea54b6b44bcb46544d82877_f" d="M3.124-3.037a.88.88 0 0 0-.789-.478c-.948 0-1.992 1.108-1.992 2.288C.343-.4.877.08 1.49.08c.51 0 .949-.407 1.092-.566.144.55.686.566.781.566.367 0 .55-.303.614-.439.16-.287.271-.749.271-.78 0-.049-.032-.104-.127-.104s-.112.047-.16.247c-.111.438-.263.853-.574.853-.183 0-.255-.152-.255-.375 0-.136.072-.407.12-.606s.167-.677.2-.82l.158-.606c.04-.192.128-.526.128-.566 0-.184-.151-.247-.255-.247a.37.37 0 0 0-.359.326ZM2.582-.86c-.398.55-.813.718-1.068.718-.366 0-.55-.335-.55-.75 0-.374.216-1.227.39-1.578.232-.486.623-.82.99-.82.517 0 .669.581.669.677 0 .032-.2.813-.247 1.02-.104.375-.104.39-.184.733Z"></path><path id="38ef3fe27bf217ae3ea54b6b44bcb46544d82877_c" d="M1.594-1.307c.024-.12.104-.423.128-.542.111-.43.111-.438.294-.701.263-.391.638-.742 1.172-.742.287 0 .454.168.454.542 0 .439-.334 1.347-.486 1.738-.103.263-.103.31-.103.414 0 .455.374.678.717.678.78 0 1.108-1.116 1.108-1.22 0-.08-.064-.103-.12-.103-.095 0-.111.055-.135.135-.192.654-.526.965-.83.965-.127 0-.19-.08-.19-.263s.063-.36.143-.558c.12-.303.47-1.22.47-1.666 0-.598-.414-.885-.988-.885-.646 0-1.06.39-1.291.694-.056-.439-.407-.694-.813-.694-.287 0-.486.183-.614.43a3.149 3.149 0 0 0-.27.79c0 .071.055.103.119.103.103 0 .111-.032.167-.239.096-.39.24-.86.574-.86.207 0 .255.199.255.374 0 .143-.04.295-.104.558-.016.064-.135.534-.167.645L.789-.518c-.032.12-.08.319-.08.35C.71.017.861.08.964.08a.385.385 0 0 0 .32-.192c.023-.047.087-.318.127-.486l.183-.71Z"></path><path id="38ef3fe27bf217ae3ea54b6b44bcb46544d82877_b" d="M8.07-3.873c.167 0 .382 0 .382-.216 0-.227-.203-.227-.382-.227H1.028c-.167 0-.382 0-.382.215 0 .228.203.228.382.228H8.07Zm0 2.223c.167 0 .382 0 .382-.215 0-.227-.203-.227-.382-.227H1.028c-.167 0-.382 0-.382.215 0 .227.203.227.382.227H8.07Z"></path><path id="38ef3fe27bf217ae3ea54b6b44bcb46544d82877_i" d="M1.35-.73c-.226.347-.43.467-.764.49C.502-.232.43-.226.43-.09c0 .06.048.09.09.09.167 0 .365-.024.538-.024.143 0 .496.024.64.024.065 0 .131-.03.131-.15 0-.083-.084-.09-.101-.09-.144-.005-.275-.04-.275-.172 0-.072.065-.174.083-.21l.49-.735h1.8l.155.962c0 .156-.347.156-.406.156-.078 0-.174 0-.174.15 0 .03.03.089.102.089.18 0 .616-.024.795-.024.12 0 .233.006.353.006S4.9 0 5.015 0c.036 0 .132 0 .132-.15 0-.09-.078-.09-.168-.09-.37 0-.376-.04-.4-.19L3.98-4.107c-.018-.107-.024-.161-.155-.161-.126 0-.162.048-.216.132L1.35-.73Zm.832-.866 1.291-1.943.31 1.943H2.183Z"></path><path id="38ef3fe27bf217ae3ea54b6b44bcb46544d82877_d" d="M3.288-1.907c0-.436 0-2.068-1.465-2.068S.36-2.343.36-1.907c0 .43 0 2.033 1.464 2.033s1.465-1.602 1.465-2.033ZM1.823-.066a.812.812 0 0 1-.8-.615C.926-1.028.926-1.614.926-1.985c0-.4 0-.86.083-1.183.15-.538.604-.616.813-.616.275 0 .67.132.801.586.09.317.096.753.096 1.213 0 .383 0 .987-.102 1.321a.813.813 0 0 1-.795.598Z"></path><path id="38ef3fe27bf217ae3ea54b6b44bcb46544d82877_g" d="M1.757-1.985c.509 0 .85.341.85.95 0 .658-.395.945-.832.945C1.614-.09.998-.126.73-.472c.233-.024.329-.18.329-.341a.326.326 0 0 0-.34-.34c-.162 0-.341.1-.341.352 0 .592.657.927 1.416.927.885 0 1.477-.568 1.477-1.16 0-.436-.335-.897-1.046-1.076.472-.156.854-.538.854-1.028 0-.478-.561-.837-1.279-.837-.7 0-1.231.323-1.231.813 0 .257.197.329.317.329.155 0 .316-.108.316-.317 0-.185-.131-.293-.292-.317.28-.31.824-.31.878-.31.305 0 .688.143.688.639 0 .329-.186.902-.783.938-.108.006-.27.018-.323.018-.06.006-.126.012-.126.102 0 .095.066.095.168.095h.346Z"></path></defs><use xlink:href="#38ef3fe27bf217ae3ea54b6b44bcb46544d82877_a"></use><use x="9.359" xlink:href="#38ef3fe27bf217ae3ea54b6b44bcb46544d82877_b"></use><use x="24.54" y="-4.813" xlink:href="#38ef3fe27bf217ae3ea54b6b44bcb46544d82877_c"></use><use x="29.678" y="-3.706" xlink:href="#38ef3fe27bf217ae3ea54b6b44bcb46544d82877_d"></use><use x="33.829" y="-4.813" xlink:href="#38ef3fe27bf217ae3ea54b6b44bcb46544d82877_e"></use><path d="M22.98-3.228h21.392v.478H22.98z"></path><use x="22.98" y="4.123" xlink:href="#38ef3fe27bf217ae3ea54b6b44bcb46544d82877_f"></use><use x="27.478" y="1.853" xlink:href="#38ef3fe27bf217ae3ea54b6b44bcb46544d82877_g"></use><use x="31.629" y="4.123" xlink:href="#38ef3fe27bf217ae3ea54b6b44bcb46544d82877_h"></use><use x="38.35" y="5.462" xlink:href="#38ef3fe27bf217ae3ea54b6b44bcb46544d82877_i"></use></svg></p><p></p>
 </blockquote>
     </div>
 
@@ -448,24 +464,9 @@ mjx-container[display="true"] + br {
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/School-Notes/" rel="tag"># School Notes</a>
-              <a href="/tags/High-School/" rel="tag"># High School</a>
               <a href="/tags/Chemistry/" rel="tag"># Chemistry</a>
+              <a href="/tags/High-School/" rel="tag"># High School</a>
           </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/High-School/Chemistry/%E6%99%B6%E4%BD%93%E7%BB%93%E6%9E%84%E4%B8%8E%E6%80%A7%E8%B4%A8/" rel="prev" title="晶体结构与性质">
-      <i class="fa fa-chevron-left"></i> 晶体结构与性质
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/High-School/Chemistry/%E7%A0%94%E7%A9%B6%E6%9C%89%E6%9C%BA%E5%8C%96%E5%90%88%E7%89%A9%E7%9A%84%E4%B8%80%E8%88%AC%E6%96%B9%E6%B3%95/" rel="next" title="研究有机化合物的一般方法">
-      研究有机化合物的一般方法 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
       </footer>
     
   </article>
@@ -477,6 +478,7 @@ mjx-container[display="true"] + br {
 
           </div>
           
+  <button class="show-comments" onclick="document.querySelector('.comments').classList.toggle('active');this.innerText = this.innerText === 'Show Comments' ? 'Hide Comments' : 'Show Comments'">Show Comments</button>
     
   <div class="comments">
     <div id="disqus_thread">
@@ -526,12 +528,12 @@ mjx-container[display="true"] + br {
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="Symbols count total">61k</span>
+    <span title="Symbols count total">75k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">3:40</span>
+    <span title="Reading time total">4:34</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT</a>
   </div>
@@ -650,19 +652,19 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
