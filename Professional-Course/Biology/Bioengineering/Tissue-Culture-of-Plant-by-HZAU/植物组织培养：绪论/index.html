@@ -55,7 +55,7 @@
 <meta property="og:description" content="思考问题  为什么要学习植物组织培养； 植物组织培养设计的内容； 怎么样学好植物组织培养；  学习策略  练好扎实基本功（理论学习）； 重视实验课（动手能力）； 重视新知识的吸收与总结（网上纳新）； 与理论和生产实践相结合（技术转化）；  目录与学习目标 ​ 本章分为如下部分： 植物组织培养的概念理论基础——植物细胞全能性植物组织培养发展历史植物组织培养技术应用 ​ 本章的学习目标为：  掌握植物">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-03-06T06:42:00.000Z">
-<meta property="article:modified_time" content="2022-03-06T14:33:24.969Z">
+<meta property="article:modified_time" content="2022-03-06T14:49:23.902Z">
 <meta property="article:author" content="Hoarfroster">
 <meta property="article:tag" content="School Notes">
 <meta property="article:tag" content="Biology">
@@ -352,7 +352,7 @@ mjx-container[display="true"] + br {
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-03-06 14:42:00 / Modified: 22:33:24" itemprop="dateCreated datePublished" datetime="2022-03-06T14:42:00+08:00">2022-03-06</time>
+              <time title="Created: 2022-03-06 14:42:00 / Modified: 22:49:23" itemprop="dateCreated datePublished" datetime="2022-03-06T14:42:00+08:00">2022-03-06</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -493,27 +493,22 @@ culture）：诱导无根组培苗产生根，形成完整植株的过程。目�
 <p>​ 细胞（分裂分化）组织（组成）器官（构建）植物体。</p>
 <pre class="mermaid">stateDiagram-v2
     direction LR
-    s1: 分化成熟细胞
-    s2: 分生态细胞
     state forkstate &lt;<fork>&gt;
-    s3: 根、茎芽
-    s4: 胚状体
     state joinstate &lt;<join>&gt;
-    s5: 再生植株
 
     state 脱分化 {
         direction LR
-        s1 --&gt; s2
+        分化成熟细胞 --&gt; 分生态细胞
     }
     state 再分化 {
         direction LR
-        s2 --&gt; forkstate
-        forkstate --&gt; s3
-        forkstate --&gt; s4
-    s3 --&gt; joinstate
-    s4 --&gt; joinstate
+        分生态细胞 --&gt; forkstate
+        forkstate --&gt; 根、茎芽
+        forkstate --&gt; 胚状体
+        根、茎芽 --&gt; joinstate
+        胚状体 --&gt; joinstate
     }
-    joinstate --&gt; s5</join></fork></pre>
+    joinstate --&gt; 再生植株</join></fork></pre>
 <blockquote>
 <h4 id="植物细胞表达全能性的方式与过程">植物细胞表达全能性的方式与过程</h4>
 <ol type="1">

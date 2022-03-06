@@ -684,7 +684,7 @@ pH值变化及缓冲剂的使用：一般培养基pH值调到5.6左右，但接�
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2022-03-06 14:42:00 / Modified: 22:33:24" itemprop="dateCreated datePublished" datetime="2022-03-06T14:42:00+08:00">2022-03-06</time>
+              <time title="Created: 2022-03-06 14:42:00 / Modified: 22:49:23" itemprop="dateCreated datePublished" datetime="2022-03-06T14:42:00+08:00">2022-03-06</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -825,27 +825,22 @@ culture）：诱导无根组培苗产生根，形成完整植株的过程。目�
 <p>​ 细胞（分裂分化）组织（组成）器官（构建）植物体。</p>
 <pre class="mermaid">stateDiagram-v2
     direction LR
-    s1: 分化成熟细胞
-    s2: 分生态细胞
     state forkstate &lt;<fork>&gt;
-    s3: 根、茎芽
-    s4: 胚状体
     state joinstate &lt;<join>&gt;
-    s5: 再生植株
 
     state 脱分化 {
         direction LR
-        s1 --&gt; s2
+        分化成熟细胞 --&gt; 分生态细胞
     }
     state 再分化 {
         direction LR
-        s2 --&gt; forkstate
-        forkstate --&gt; s3
-        forkstate --&gt; s4
-    s3 --&gt; joinstate
-    s4 --&gt; joinstate
+        分生态细胞 --&gt; forkstate
+        forkstate --&gt; 根、茎芽
+        forkstate --&gt; 胚状体
+        根、茎芽 --&gt; joinstate
+        胚状体 --&gt; joinstate
     }
-    joinstate --&gt; s5</join></fork></pre>
+    joinstate --&gt; 再生植株</join></fork></pre>
 <blockquote>
 <h4 id="植物细胞表达全能性的方式与过程">植物细胞表达全能性的方式与过程</h4>
 <ol type="1">
