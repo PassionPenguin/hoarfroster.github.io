@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://hoarfroster.github.io/Professional-Course/Biology/Bioengineering/Tissue-Culture-of-Plant-by-HZAU/%E6%A4%8D%E7%89%A9%E7%BB%84%E7%BB%87%E5%9F%B9%E5%85%BB%EF%BC%9A%E5%AE%9E%E9%AA%8C%E8%AE%BE%E5%A4%87%E5%92%8C%E5%9F%B9%E5%85%BB%E6%9D%A1%E4%BB%B6/</loc>
+    <loc>https://hoarfroster.github.io/Professional-Course/Biology/Bioengineering/Tissue-Culture-of-Plant-by-HZAU/%E6%A4%8D%E7%89%A9%E7%BB%84%E7%BB%87%E5%9F%B9%E5%85%BB%EF%BC%9A%E7%BB%AA%E8%AE%BA/</loc>
     
     <lastmod>2022-03-06</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>https://hoarfroster.github.io/Professional-Course/Biology/Bioengineering/Tissue-Culture-of-Plant-by-HZAU/%E6%A4%8D%E7%89%A9%E7%BB%84%E7%BB%87%E5%9F%B9%E5%85%BB%EF%BC%9A%E7%BB%AA%E8%AE%BA/</loc>
+    <loc>https://hoarfroster.github.io/Professional-Course/Biology/Bioengineering/Tissue-Culture-of-Plant-by-HZAU/%E6%A4%8D%E7%89%A9%E7%BB%84%E7%BB%87%E5%9F%B9%E5%85%BB%EF%BC%9A%E5%AE%9E%E9%AA%8C%E8%AE%BE%E5%A4%87%E5%92%8C%E5%9F%B9%E5%85%BB%E6%9D%A1%E4%BB%B6/</loc>
     
     <lastmod>2022-03-06</lastmod>
     
@@ -375,13 +375,6 @@
   </url>
   
   <url>
-    <loc>https://hoarfroster.github.io/tags/Mathematics/</loc>
-    <lastmod>2022-03-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://hoarfroster.github.io/tags/Computer-Science/</loc>
     <lastmod>2022-03-06</lastmod>
     <changefreq>weekly</changefreq>
@@ -397,6 +390,13 @@
   
   <url>
     <loc>https://hoarfroster.github.io/tags/Git/</loc>
+    <lastmod>2022-03-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://hoarfroster.github.io/tags/Mathematics/</loc>
     <lastmod>2022-03-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -426,13 +426,6 @@
   </url>
   
   <url>
-    <loc>https://hoarfroster.github.io/categories/Professional-Course/Biology/Bioengineering/</loc>
-    <lastmod>2022-03-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://hoarfroster.github.io/categories/High-School/</loc>
     <lastmod>2022-03-06</lastmod>
     <changefreq>weekly</changefreq>
@@ -440,7 +433,7 @@
   </url>
   
   <url>
-    <loc>https://hoarfroster.github.io/categories/Professional-Course/Biology/Bioengineering/Tissue-Culture-of-Plant-by-HZAU/</loc>
+    <loc>https://hoarfroster.github.io/categories/Professional-Course/Biology/Bioengineering/</loc>
     <lastmod>2022-03-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -454,7 +447,7 @@
   </url>
   
   <url>
-    <loc>https://hoarfroster.github.io/categories/High-School/Mathematics/</loc>
+    <loc>https://hoarfroster.github.io/categories/Professional-Course/Biology/Bioengineering/Tissue-Culture-of-Plant-by-HZAU/</loc>
     <lastmod>2022-03-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -462,6 +455,13 @@
   
   <url>
     <loc>https://hoarfroster.github.io/categories/Computer-Science/</loc>
+    <lastmod>2022-03-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://hoarfroster.github.io/categories/High-School/Mathematics/</loc>
     <lastmod>2022-03-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -482,14 +482,14 @@
   </url>
   
   <url>
-    <loc>https://hoarfroster.github.io/categories/High-School/Mathematics/Function/</loc>
+    <loc>https://hoarfroster.github.io/categories/Computer-Science/Source-Control/</loc>
     <lastmod>2022-03-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://hoarfroster.github.io/categories/Computer-Science/Source-Control/</loc>
+    <loc>https://hoarfroster.github.io/categories/High-School/Mathematics/Function/</loc>
     <lastmod>2022-03-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
