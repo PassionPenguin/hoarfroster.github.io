@@ -2782,6 +2782,13 @@ body {
   padding: 16px 32px;
   background: var(--color-scale-white);
 }
+.post-body .contents::before {
+  content: "Contents";
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: block;
+}
 .post-body .contents .contents-section-title a {
   text-decoration: none;
   border-bottom: 0;
