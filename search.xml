@@ -1,6 +1,369 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Pandoc 将 Markdown 中的所有 latex 代码直接以 SVG 形式嵌入在导出的 HTML 中</title>
+    <url>/Computer-Science/Pandoc/Filter/pandoc-%E5%B0%86-markdown-%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89-latex-%E4%BB%A3%E7%A0%81%E7%9B%B4%E6%8E%A5%E4%BB%A5-svg-%E5%BD%A2%E5%BC%8F%E5%B5%8C%E5%85%A5%E5%9C%A8%E5%AF%BC%E5%87%BA%E7%9A%84-html-%E4%B8%AD/</url>
+    <content><![CDATA[<h2 id="前言">前言</h2>
+<h3 id="为什么要这样做">为什么要这样做</h3>
+<p>​ 日常写的笔记等文章，或多或少会存在一部分的 latex
+代码来实现数学公式的输入与化学结构式的表达，但是 pandoc
+默认并不支持完备的 latex，只支持有限的一部分
+package，存在一定的限制，故而一直在想着去整一个插件去让 pandoc 支持
+latex 转 svg 来嵌入到输出的 HTML 文件中，实现 latex 的嵌入功能。</p>
+<h3 id="搜索资料">搜索资料</h3>
+<p>​ 参考了一下，使用了 Lua 作为 <a href="https://pandoc.org/lua-filters.html">pandoc filter</a>
+的语言，主要还是因为它简单，而且不少语法与 C 相似。</p>
+<p>​ 整理一下目的，我需要抓出所有 Markdown 里面的 latex
+代码，提取出来后使用命令行工具转换为 svg 文件，再把生成的 svg 返回给
+pandoc 供替换。</p>
+<span id="more"></span>
+<h2 id="开始秃头">开始秃头</h2>
+<h3 id="提取-latex">提取 latex</h3>
+<p>​ 既然我们要提取所有的 latex 代码，首先要抓出所有存放 latex
+代码的部分，包括
+<code>InlineMath</code>、<code>DisplayMath</code>、<code>CodeBlock+latex</code>。</p>
+<blockquote>
+<h5 id="pandoc-tex_math_dollars-错误解析">pandoc
+<code>tex_math_dollars</code> 错误解析</h5>
+<p>​ 因为 dollar-symbol <code>$</code> 在 pandoc
+<code>commonmark+tex_math_dollars</code> 中会被<a href="https://github.com/jgm/pandoc/issues/7942#issuecomment-1053858533">错误解析</a>，会导致
+<code>DisplayMath</code> 中的 <code>$</code>（指示 latex
+使用数学模式）被当做 <code>InlineMath</code> 解析，从而使整个
+<code>DisplayMath</code> 乱套。</p>
+<p>​ （当时遇到这个问题的时候头都快薅秃了，一脸茫然 😒），最终选择把
+latex 代码扔进 <code>CodeBlock</code> 中存着，不让 pandoc 去解析了。</p>
+<hr>
+<h3 id="后续">后续</h3>
+<p>​ 维护者 <code>jgm</code> 就此将 pandoc 自带的 latex
+解析器中的逻辑作为蓝本，向 <code>tex_math_dollars</code> 的仓库
+<code>jgm/commonmark-hs</code> 提交了 <a href="https://github.com/jgm/commonmark-hs/commit/e136525716b1a0b55e367b07fe5146f88344e7cb">commit#e136525</a>，目前已得到了解决（虽然我已经为此改掉了全部存在问题的代码……）。</p>
+<div class="external-code github"><pre class="haskell"><code>dollarsMath :: PandocMonad m =&gt; LP m Inlines
+dollarsMath = do
+  symbol '$'
+  display &lt;- option False (True &lt;$ symbol '$')
+  (do contents &lt;- try $ untokenize &lt;$&gt; pDollarsMath 0
+      if display
+         then mathDisplay contents &lt;$ symbol '$'
+         else return $ mathInline contents)
+   &lt;|&gt; (guard display &gt;&gt; return (mathInline ""))
+
+-- Int is number of embedded groupings
+pDollarsMath :: PandocMonad m =&gt; Int -&gt; LP m [Tok]
+pDollarsMath n = do
+  tk@(Tok _ toktype t) &lt;- anyTok
+  case toktype of
+       Symbol | t <mark> "$"
+              , n </mark> 0 -&gt; return []
+              | t <mark> "\\" -&gt; do
+                  tk' &lt;- anyTok
+                  (tk :) . (tk' :) &lt;$&gt; pDollarsMath n
+              | t </mark> "{" -&gt; (tk :) &lt;$&gt; pDollarsMath (n+1)
+              | t <mark> "}" -&gt;
+                if n &gt; 0
+                then (tk :) &lt;$&gt; pDollarsMath (n-1)
+                else mzero
+       _ -&gt; (tk :) &lt;$&gt; pDollarsMath n</mark></code></pre>
+        <p class="source">
+        <span class="filename">Math.hs</span><a href="https://github.com/jgm/pandoc/blob/6ed8999f75be11b4ef9f561599d4dd80fcca92ec/master/src/Text/Pandoc/Readers/LaTeX/Math.hs#L29" class="viewraw">View Raw</a>
+        </p></div>
+<div class="external-code github"><pre class="diff"><code>(_, toks) &lt;- withRaw $ many1 $
+                  choice [ () &lt;$ symbol '\\' &gt;&gt; anyTok
+                         , noneOfToks [Symbol '$']
++                        , try (symbol '$' &lt;* notFollowedBy (symbol '$'))
+                         ]
+  count 2 $ symbol '$'
+  return $! displayMath (untokenize toks)</code></pre>
+        <p class="source">
+        <span class="filename">Math.hs</span><a href="https://github.com/jgm/commonmark-hs/blob/e136525716b1a0b55e367b07fe5146f88344e7cb/commonmark-extensions/src/Commonmark/Extensions/Math.hs#L55" class="viewraw">View Raw</a>
+        </p></div>
+</blockquote>
+<p>​ 在这里我们直接在 <code>return</code> 处定义（为了后续维护）：</p>
+<pre class="lua"><code>function exec_math()
+end
+
+function exec_codeblock()
+end
+
+return {{
+  Math = exec_math,
+  CodeBlock = exec_codeblock
+}}</code></pre>
+<h3 id="转换-svg">转换 SVG</h3>
+<p>​ 因为 <code>CodeBlock</code> 和 <code>Math</code>
+的属性不同，我们无法合并，于是不如写一个接口出来，输入 latex 代码，输出
+svg 代码（忽略了
+<code>default_preamble</code>、<code>begin_statement</code>、<code>ending_statement</code>，具体内容见文末）：</p>
+<pre class="lua"><code>local open = io.open
+
+local function read_file(path)
+  -- r read mode and b binary mode
+  local file = open(path, "rb")
+  if not file then
+    return nil
+  end
+  -- *a or *all reads the whole file
+  local content = file:read "*a"
+  file:close()
+  return content
+end
+
+function convert_svg(elem, type)
+  -- Combine latex source code --
+  local mathEq = default_preamble .. begin_statement .. elem.text .. ending_statement
+  -- Make latex with `latex` --
+  local tex = io.open("input.tex", "w")
+  tex:write(mathEq)
+  tex:close()
+  os.execute("latex input.tex")
+  -- Convert dvi to svg and optimize the output svg --
+  os.execute("dvisvgm --no-fonts input.dvi -o output.svg &amp;&amp; svgo output.svg")
+  cleanup()
+  return output(type, read_file(filename), hex_value)
+end
+
+function cleanup()
+  -- Clean up directory --
+  for _, name in ipairs({"input.tex", "input.aux", "input.dvi", "input.log", "output.svg"}) do
+    print("Deleting " .. name)
+    os.remove(name)
+  end
+end</code></pre>
+<p>​ <code>convert_svg</code> 末尾的那一句 <code>output</code> 是输出给
+pandoc：</p>
+<pre class="lua"><code>function output(type, svg, hex_value)
+  return pandoc.RawInline('html',
+    type  "InlineMath" and "&lt;span class='math latex inline' data-sha1='" .. hex_value .. "'&gt;" .. svg ..
+      "&lt;/span&gt;" or "&lt;p class='math latex display' data-sha1='" .. hex_value .. "'&gt;" .. svg .. "&lt;/p&gt;")
+end</code></pre>
+<p>​ 修改 <code>exec_math</code> 和 <code>exec_codeblock</code>
+让它们接上 <code>convert_svg</code> 函数：</p>
+<pre class="lua"><code>function exec_math(elem)
+  if string.find(elem.text, "chemfig") or elem.mathtype <mark> "DisplayMath" then --- Select those who are not supported by mathjax
+    return convert_svg(elem, elem.mathtype)
+  end
+  return elem
+end
+
+function exec_codeblock(elem)
+  if elem.classes[1] </mark> "latex" then
+    return convert_svg(elem, "CodeBlock")
+  end
+  return elem
+end</code></pre>
+<p>​ 下面的是终端命令用于应用这一个 filter 到 pandoc 上：</p>
+<pre class="sh"><code>pandoc --lua-filter=tex2svg.lua -f markdown -s tmp.md -o tmp.html --standalone</code></pre>
+<h3 id="添加缓存机制">添加缓存机制</h3>
+<p>​ 试着对所有的笔记执行了一下，发现运行效果还可以，但是出于 latex
+的慢，因而有点拖沓……就想着能不能做缓存，下次执行的时候先检查一下有没有已经输出。恰逢
+pandoc 库自带 <code>sha1</code>，就用它做了一下缓存机制，为每一段 latex
+代码按照它们的内容 <code>sha1</code> 编码为文件名：</p>
+<pre class="diff"><code>+ -- Check if a file or directory exists in this path --
++ function exists(file)
++   local ok, err, code = os.rename(file, file)
++   if not ok then
++       if code <mark> 13 then
++           -- Permission denied, but it exists --
++           return true
++       end
++   end
++   return ok
++ end
++ -- Check if a directory exists in this path --
++ function isdir(path)
++     -- "/" works on both Unix and Windows --
++     return exists(path .. "/")
++ end
++
++ pandoc.utils = require 'pandoc.utils'
+
+function convert_svg(elem, type)
++ local hex_value = pandoc.utils.sha1(elem.text)
++ local filename = ".texsvg/texsvg-" .. hex_value .. ".svg"
++ 
++ if not isdir(".texsvg") then
++   os.execute("mkdir .texsvg")
++ end
++ -- Check if it's generated previously --
++ if exists(filename) then
++   cleanup()
++   print("Using previously generated svg")
++   return output(elem, read_file(filename), hex_value)
++ end
+
+  -- Combine latex source code --
+  local mathEq = default_preamble .. begin_statement .. elem.text .. ending_statement
+  -- Make latex with `latex` --
+  local tex = io.open("input.tex", "w")
+  tex:write(mathEq)
+  tex:close()
+  os.execute("latex input.tex")
+  -- Convert dvi to svg and optimize the output svg --
+- os.execute("dvisvgm --no-fonts input.dvi -o output.svg &amp;&amp; svgo output.svg")
++ os.execute("dvisvgm --no-fonts input.dvi -o " .. filename .. " &amp;&amp; svgo " .. filename)
+  cleanup()
+  return output(type, read_file(filename), hex_value)
+end
+
+function cleanup()
+  -- Clean up directory --
+- for _, name in ipairs({"input.tex", "input.aux", "input.dvi", "input.log", "output.svg"}) do
++ for _, name in ipairs({"input.tex", "input.aux", "input.dvi", "input.log"}) do
+    print("Deleting " .. name)
+    os.remove(name)
+  end
+end</mark></code></pre>
+<h3 id="解决不正常的引用">解决不正常的引用</h3>
+<p>​ 不过值得注意的是，如果一页里面有多个 latex 代码被渲染，因为导出的
+svg 中会有大量的 <code>&lt;use&gt;</code>，且 <code>id</code>
+都是以同一个顺序起始，会导致 HTML 页面中 svg 渲染不正常（svg
+能够跨标签引用），此时就用上 JavaScript 简单筛一遍加一个
+<code>id</code>：</p>
+<pre class="javascript"><code>[...document.querySelectorAll(".math.latex")].forEach(e =&gt; {
+  [...e.querySelectorAll("defs [id]")].forEach(i =&gt; {
+    i.id = e.attributes['data-sha1'].value + "_" + i.id;
+  });
+  [...e.querySelectorAll("[xlink:href]")].forEach(i =&gt; {
+    i.attributes['xlink:href'].value = i.attributes['xlink:href'].value.replace("#", "#" + e.attributes['data-sha1'].value + "_");
+  });
+});</code></pre>
+<p>​ 大功告成 🎉~</p>
+<h2 id="完整代码">完整代码</h2>
+<p>​ 完整代码如下：</p>
+<pre class="lua"><code>pandoc.utils = require 'pandoc.utils'
+
+local begin_statement, ending_statement = [[
+\begin{document}
+\begin{preview}
+]], [[
+\end{preview}
+\end{document}
+]]
+
+local default_preamble = [[
+\documentclass[12pt,preview]{standalone}
+\usepackage{ctex}
+\usepackage[version=4]{mhchem}
+\usepackage{chemfig}
+\usepackage{amsthm,amssymb}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
+\DeclareOldFontCommand{\sf}{\normalfont\sffamily}{\mathsf}
+\DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
+\DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\mathbf}
+\DeclareOldFontCommand{\it}{\normalfont\itshape}{\mathit}
+\DeclareOldFontCommand{\sl}{\normalfont\slshape}{\@nomath\sl}
+\DeclareOldFontCommand{\sc}{\normalfont\scshape}{\@nomath\sc}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+]]
+
+-- Check if a file or directory exists in this path --
+function exists(file)
+  local ok, err, code = os.rename(file, file)
+  if not ok then
+    if code  13 then
+      -- Permission denied, but it exists --
+      return true
+    end
+  end
+  return ok
+end
+
+-- Check if a directory exists in this path --
+function isdir(path)
+  -- "/" works on both Unix and Windows --
+  return exists(path .. "/")
+end
+
+local open = io.open
+
+local function read_file(path)
+  -- r read mode and b binary mode
+  local file = open(path, "rb")
+  if not file then
+    return nil
+  end
+  -- *a or *all reads the whole file
+  local content = file:read "*a"
+  file:close()
+  return content
+end
+
+if FORMAT:match 'html' then
+-- Convert Math El -&gt; DVI via latex --
+function exec_math(elem)
+  if string.find(elem.text, "chemfig") or elem.mathtype <mark> "DisplayMath" then
+    return convert_svg(elem, elem.mathtype)
+  end
+  return elem
+end
+
+function exec_codeblock(elem)
+  if elem.classes[1] </mark> "latex" then
+    return convert_svg(elem, "CodeBlock")
+  end
+  return elem
+end
+
+function convert_svg(elem, type)
+  local hex_value = pandoc.utils.sha1(elem.text)
+  local filename = ".texsvg/texsvg-" .. hex_value .. ".svg"
+
+  if not isdir(".texsvg") then
+    os.execute("mkdir .texsvg")
+  end
+  -- Check if it's generated previously --
+  if exists(filename) then
+    cleanup()
+    print("Using previously generated svg")
+    return output(elem, read_file(filename), hex_value)
+  end
+
+  -- Combine latex source code --
+  local mathEq = default_preamble .. begin_statement .. elem.text .. ending_statement
+  -- Make latex with `latex` --
+  local tex = io.open("input.tex", "w")
+  tex:write(mathEq)
+  tex:close()
+  os.execute("latex input.tex")
+  -- Convert dvi to svg and optimize the output svg --
+  os.execute("dvisvgm --no-fonts input.dvi -o " .. filename .. " &amp;&amp; svgo " .. filename)
+  cleanup()
+  return output(type, read_file(filename), hex_value)
+end
+
+function output(type, svg, hex_value)
+  return pandoc.RawInline('html',
+    type == "InlineMath" and "&lt;span class='math latex inline' data-sha1='" .. hex_value .. "'&gt;" .. svg ..
+      "&lt;/span&gt;" or "&lt;p class='math latex display' data-sha1='" .. hex_value .. "'&gt;" .. svg .. "&lt;/p&gt;")
+end
+
+function cleanup()
+  -- Clean up directory --
+  for _, name in ipairs({"input.tex", "input.aux", "input.dvi", "input.log"}) do
+    print("Deleting " .. name)
+    os.remove(name)
+  end
+end
+end
+
+return {{
+  Math = exec_math,
+  CodeBlock = exec_codeblock
+}}</code></pre>]]></content>
+      <categories>
+        <category>Computer Science</category>
+        <category>Pandoc</category>
+        <category>Filter</category>
+      </categories>
+      <tags>
+        <tag>Computer Science</tag>
+        <tag>Pandoc</tag>
+        <tag>Lua</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>光的干涉、衍射、偏振与激光</title>
     <url>/High-School/Physics/Optics/%E5%85%89%E7%9A%84%E5%B9%B2%E6%B6%89%E3%80%81%E8%A1%8D%E5%B0%84%E3%80%81%E5%81%8F%E6%8C%AF%E4%B8%8E%E6%BF%80%E5%85%89/</url>
     <content><![CDATA[<h2 id="知识聚焦">知识聚焦</h2>
@@ -42,7 +405,7 @@
 时出现亮条纹，也就是说，亮条纹中心的位置为：
 <p class="math latex display" data-sha1="e98a1fa06f8fcdb963b096af7c1dbfaf1a89420e"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="59.584" height="32.787" viewBox="171.927 -24.591 44.688 24.591"><defs><path id="e98a1fa06f8fcdb963b096af7c1dbfaf1a89420e_f" d="M3.694-7.448c-.299-.849-1.243-.849-1.399-.849-.071 0-.203 0-.203.12 0 .095.072.107.132.12.179.023.322.047.514.394.12.227 1.35 3.801 1.35 3.825 0 .012-.011.024-.107.12L.873-.574c-.144.144-.24.24-.24.395 0 .167.144.31.335.31.048 0 .18-.023.251-.095.192-.18 1.901-2.272 2.99-3.563.31.933.693 2.033 1.063 3.037.06.18.12.347.287.502.12.108.144.108.478.108h.228c.047 0 .131 0 .131-.096 0-.048-.012-.06-.06-.108-.107-.131-.191-.346-.239-.49L3.694-7.448Z"></path><path id="e98a1fa06f8fcdb963b096af7c1dbfaf1a89420e_e" d="M6.013-7.998c.012-.048.036-.12.036-.18 0-.119-.12-.119-.143-.119-.012 0-.598.048-.658.06-.203.012-.382.036-.597.048-.3.024-.383.036-.383.25 0 .12.096.12.263.12.586 0 .598.108.598.227a.78.78 0 0 1-.036.204l-.73 2.905c-.13-.311-.454-.79-1.075-.79-1.351 0-2.81 1.746-2.81 3.516C.478-.574 1.172.12 1.985.12c.657 0 1.219-.515 1.554-.909.12.705.681.909 1.04.909s.645-.216.86-.646c.192-.407.36-1.136.36-1.184 0-.06-.049-.107-.12-.107-.108 0-.12.06-.168.239-.179.705-.406 1.458-.896 1.458-.347 0-.37-.31-.37-.55 0-.047 0-.298.083-.633l1.685-6.695ZM3.6-1.423c-.06.204-.06.227-.228.455-.263.334-.789.848-1.35.848-.49 0-.766-.442-.766-1.147 0-.658.37-1.997.598-2.499.407-.837.968-1.267 1.435-1.267.789 0 .944.98.944 1.076 0 .012-.036.167-.048.191L3.6-1.423Z"></path><path id="e98a1fa06f8fcdb963b096af7c1dbfaf1a89420e_d" d="M3.037-7.998c.012-.048.035-.12.035-.18 0-.119-.12-.119-.143-.119-.012 0-.442.036-.658.06-.203.012-.382.036-.597.048-.287.024-.37.036-.37.25 0 .12.119.12.238.12.61 0 .61.108.61.227 0 .048 0 .072-.06.287L.61-1.375a1.35 1.35 0 0 0-.06.419C.55-.36.992.12 1.602.12c.395 0 .658-.263.849-.634.203-.395.37-1.148.37-1.196 0-.06-.047-.107-.12-.107-.107 0-.119.06-.167.239-.215.825-.43 1.458-.908 1.458-.359 0-.359-.382-.359-.55 0-.047 0-.298.084-.633l1.686-6.695Z"></path><path id="e98a1fa06f8fcdb963b096af7c1dbfaf1a89420e_c" d="M2.463-3.503c.024-.072.323-.67.765-1.052.31-.287.717-.478 1.183-.478.479 0 .646.359.646.837 0 .681-.49 2.044-.73 2.69-.107.287-.167.442-.167.657 0 .538.371.969.945.969 1.112 0 1.53-1.758 1.53-1.83 0-.06-.048-.107-.12-.107-.107 0-.119.036-.179.239-.275.98-.729 1.458-1.195 1.458-.12 0-.311-.012-.311-.394 0-.299.131-.658.203-.825.24-.658.741-1.996.741-2.678 0-.717-.418-1.255-1.327-1.255-1.064 0-1.626.753-1.84 1.052-.037-.682-.527-1.052-1.053-1.052-.382 0-.645.227-.849.633C.49-4.209.323-3.49.323-3.443s.048.108.131.108c.096 0 .108-.012.18-.287.19-.73.406-1.411.884-1.411.275 0 .37.191.37.55 0 .263-.119.73-.202 1.1l-.335 1.29c-.048.228-.18.766-.24.981-.083.311-.214.873-.214.933 0 .167.131.299.31.299.144 0 .311-.072.407-.252.024-.06.131-.478.191-.717l.263-1.076.395-1.578Z"></path><path id="e98a1fa06f8fcdb963b096af7c1dbfaf1a89420e_a" d="M5.667-4.878c-.383.072-.526.359-.526.586 0 .287.227.383.394.383.359 0 .61-.311.61-.634 0-.502-.574-.73-1.076-.73-.73 0-1.136.718-1.243.945-.275-.896-1.017-.944-1.232-.944C1.374-5.272.73-3.706.73-3.443c0 .048.048.108.132.108.095 0 .12-.072.143-.12.407-1.327 1.208-1.578 1.554-1.578.538 0 .646.502.646.789 0 .263-.072.538-.215 1.112l-.407 1.638C2.403-.777 2.056-.12 1.422-.12c-.06 0-.358 0-.609-.155a.617.617 0 0 0 .526-.586c0-.239-.18-.382-.406-.382a.623.623 0 0 0-.598.633c0 .502.562.73 1.076.73.574 0 .98-.455 1.231-.945.191.705.79.945 1.231.945 1.22 0 1.865-1.567 1.865-1.83 0-.06-.047-.107-.12-.107-.107 0-.119.06-.154.155C5.14-.61 4.447-.12 3.909-.12c-.418 0-.645-.31-.645-.8 0-.264.048-.455.239-1.244L3.92-3.79c.18-.717.586-1.243 1.136-1.243.024 0 .359 0 .61.155Z"></path><path id="e98a1fa06f8fcdb963b096af7c1dbfaf1a89420e_b" d="M8.07-3.873c.167 0 .382 0 .382-.216 0-.227-.203-.227-.382-.227H1.028c-.167 0-.382 0-.382.215 0 .228.203.228.382.228H8.07Zm0 2.223c.167 0 .382 0 .382-.215 0-.227-.203-.227-.382-.227H1.028c-.167 0-.382 0-.382.215 0 .227.203.227.382.227H8.07Z"></path></defs><use x="171.927" y="-8.201" xlink:href="#e98a1fa06f8fcdb963b096af7c1dbfaf1a89420e_a"></use><use x="181.9" y="-8.201" xlink:href="#e98a1fa06f8fcdb963b096af7c1dbfaf1a89420e_b"></use><use x="194.326" y="-8.201" xlink:href="#e98a1fa06f8fcdb963b096af7c1dbfaf1a89420e_c"></use><use x="203.675" y="-16.288" xlink:href="#e98a1fa06f8fcdb963b096af7c1dbfaf1a89420e_d"></use><path d="M202.509-11.429h6.083v.478h-6.083z"></path><use x="202.509" xlink:href="#e98a1fa06f8fcdb963b096af7c1dbfaf1a89420e_e"></use><use x="209.787" y="-8.201" xlink:href="#e98a1fa06f8fcdb963b096af7c1dbfaf1a89420e_f"></use></svg></p>
 ​ 相邻两个亮条纹或暗条纹的中心间距是
-<p class="math latex display" data-sha1="955e067c0abfdd9b56318fcdd9e0bb3390b87b60"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="288.821" height="32.787" viewBox="171.927 -24.591 216.616 24.591"><defs><path id="955e067c0abfdd9b56318fcdd9e0bb3390b87b60_f" d="M3.694-7.448c-.299-.849-1.243-.849-1.399-.849-.071 0-.203 0-.203.12 0 .095.072.107.132.12.179.023.322.047.514.394.12.227 1.35 3.801 1.35 3.825 0 .012-.011.024-.107.12L.873-.574c-.144.144-.24.24-.24.395 0 .167.144.31.335.31.048 0 .18-.023.251-.095.192-.18 1.901-2.272 2.99-3.563.31.933.693 2.033 1.063 3.037.06.18.12.347.287.502.12.108.144.108.478.108h.228c.047 0 .131 0 .131-.096 0-.048-.012-.06-.06-.108-.107-.131-.191-.346-.239-.49L3.694-7.448Z"></path><path id="955e067c0abfdd9b56318fcdd9e0bb3390b87b60_e" d="M6.013-7.998c.012-.048.036-.12.036-.18 0-.119-.12-.119-.143-.119-.012 0-.598.048-.658.06-.203.012-.382.036-.597.048-.3.024-.383.036-.383.25 0 .12.096.12.263.12.586 0 .598.108.598.227a.78.78 0 0 1-.036.204l-.73 2.905c-.13-.311-.454-.79-1.075-.79-1.351 0-2.81 1.746-2.81 3.516C.478-.574 1.172.12 1.985.12c.657 0 1.219-.515 1.554-.909.12.705.681.909 1.04.909s.645-.216.86-.646c.192-.407.36-1.136.36-1.184 0-.06-.049-.107-.12-.107-.108 0-.12.06-.168.239-.179.705-.406 1.458-.896 1.458-.347 0-.37-.31-.37-.55 0-.047 0-.298.083-.633l1.685-6.695ZM3.6-1.423c-.06.204-.06.227-.228.455-.263.334-.789.848-1.35.848-.49 0-.766-.442-.766-1.147 0-.658.37-1.997.598-2.499.407-.837.968-1.267 1.435-1.267.789 0 .944.98.944 1.076 0 .012-.036.167-.048.191L3.6-1.423Z"></path><path id="955e067c0abfdd9b56318fcdd9e0bb3390b87b60_d" d="M3.037-7.998c.012-.048.035-.12.035-.18 0-.119-.12-.119-.143-.119-.012 0-.442.036-.658.06-.203.012-.382.036-.597.048-.287.024-.37.036-.37.25 0 .12.119.12.238.12.61 0 .61.108.61.227 0 .048 0 .072-.06.287L.61-1.375a1.35 1.35 0 0 0-.06.419C.55-.36.992.12 1.602.12c.395 0 .658-.263.849-.634.203-.395.37-1.148.37-1.196 0-.06-.047-.107-.12-.107-.107 0-.119.06-.167.239-.215.825-.43 1.458-.908 1.458-.359 0-.359-.382-.359-.55 0-.047 0-.298.084-.633l1.686-6.695Z"></path><path id="955e067c0abfdd9b56318fcdd9e0bb3390b87b60_c" d="M2.463-3.503c.024-.072.323-.67.765-1.052.31-.287.717-.478 1.183-.478.479 0 .646.359.646.837 0 .681-.49 2.044-.73 2.69-.107.287-.167.442-.167.657 0 .538.371.969.945.969 1.112 0 1.53-1.758 1.53-1.83 0-.06-.048-.107-.12-.107-.107 0-.119.036-.179.239-.275.98-.729 1.458-1.195 1.458-.12 0-.311-.012-.311-.394 0-.299.131-.658.203-.825.24-.658.741-1.996.741-2.678 0-.717-.418-1.255-1.327-1.255-1.064 0-1.626.753-1.84 1.052-.037-.682-.527-1.052-1.053-1.052-.382 0-.645.227-.849.633C.49-4.209.323-3.49.323-3.443s.048.108.131.108c.096 0 .108-.012.18-.287.19-.73.406-1.411.884-1.411.275 0 .37.191.37.55 0 .263-.119.73-.202 1.1l-.335 1.29c-.048.228-.18.766-.24.981-.083.311-.214.873-.214.933 0 .167.131.299.31.299.144 0 .311-.072.407-.252.024-.06.131-.478.191-.717l.263-1.076.395-1.578Z"></path><path id="955e067c0abfdd9b56318fcdd9e0bb3390b87b60_a" d="M5.667-4.878c-.383.072-.526.359-.526.586 0 .287.227.383.394.383.359 0 .61-.311.61-.634 0-.502-.574-.73-1.076-.73-.73 0-1.136.718-1.243.945-.275-.896-1.017-.944-1.232-.944C1.374-5.272.73-3.706.73-3.443c0 .048.048.108.132.108.095 0 .12-.072.143-.12.407-1.327 1.208-1.578 1.554-1.578.538 0 .646.502.646.789 0 .263-.072.538-.215 1.112l-.407 1.638C2.403-.777 2.056-.12 1.422-.12c-.06 0-.358 0-.609-.155a.617.617 0 0 0 .526-.586c0-.239-.18-.382-.406-.382a.623.623 0 0 0-.598.633c0 .502.562.73 1.076.73.574 0 .98-.455 1.231-.945.191.705.79.945 1.231.945 1.22 0 1.865-1.567 1.865-1.83 0-.06-.047-.107-.12-.107-.107 0-.119.06-.154.155C5.14-.61 4.447-.12 3.909-.12c-.418 0-.645-.31-.645-.8 0-.264.048-.455.239-1.244L3.92-3.79c.18-.717.586-1.243 1.136-1.243.024 0 .359 0 .61.155Z"></path><path id="955e067c0abfdd9b56318fcdd9e0bb3390b87b60_g" d="M3.885 2.905c0-.036 0-.06-.203-.263-1.195-1.207-1.865-3.18-1.865-5.619 0-2.32.562-4.316 1.949-5.726.12-.108.12-.132.12-.168 0-.071-.06-.095-.108-.095-.156 0-1.136.86-1.722 2.032-.61 1.207-.884 2.487-.884 3.957 0 1.064.167 2.487.789 3.766.705 1.435 1.685 2.212 1.817 2.212.048 0 .107-.024.107-.096Z"></path><path id="955e067c0abfdd9b56318fcdd9e0bb3390b87b60_i" d="M3.371-2.977c0-.908-.12-2.39-.789-3.778C1.877-8.189.897-8.966.765-8.966c-.048 0-.107.024-.107.095 0 .036 0 .06.203.263 1.195 1.208 1.865 3.18 1.865 5.62 0 2.319-.562 4.315-1.949 5.726-.12.107-.12.131-.12.167 0 .072.06.096.108.096C.921 3 1.901 2.14 2.487.968c.61-1.22.884-2.51.884-3.945Z"></path><path id="955e067c0abfdd9b56318fcdd9e0bb3390b87b60_h" d="M5.356-3.826c0-.992-.06-1.96-.49-2.869-.49-.992-1.351-1.255-1.937-1.255-.693 0-1.542.347-1.985 1.339C.61-5.858.49-5.117.49-3.826c0 1.16.084 2.033.514 2.882A2.126 2.126 0 0 0 2.917.25c1.04 0 1.638-.622 1.985-1.315.43-.897.454-2.068.454-2.762ZM2.917.012c-.383 0-1.16-.215-1.387-1.518C1.4-2.224 1.4-3.132 1.4-3.97c0-.98 0-1.865.191-2.57.203-.801.813-1.172 1.327-1.172.454 0 1.148.275 1.375 1.303.155.681.155 1.626.155 2.439 0 .8 0 1.71-.131 2.439C4.089-.215 3.336.012 2.917.012Z"></path><path id="955e067c0abfdd9b56318fcdd9e0bb3390b87b60_b" d="M8.07-3.873c.167 0 .382 0 .382-.216 0-.227-.203-.227-.382-.227H1.028c-.167 0-.382 0-.382.215 0 .228.203.228.382.228H8.07Zm0 2.223c.167 0 .382 0 .382-.215 0-.227-.203-.227-.382-.227H1.028c-.167 0-.382 0-.382.215 0 .227.203.227.382.227H8.07Z"></path></defs><use x="171.927" y="-8.201" xlink:href="#955e067c0abfdd9b56318fcdd9e0bb3390b87b60_a"></use><use x="181.9" y="-8.201" xlink:href="#955e067c0abfdd9b56318fcdd9e0bb3390b87b60_b"></use><use x="194.326" y="-8.201" xlink:href="#955e067c0abfdd9b56318fcdd9e0bb3390b87b60_c"></use><use x="203.675" y="-16.288" xlink:href="#955e067c0abfdd9b56318fcdd9e0bb3390b87b60_d"></use><path d="M202.509-11.429h6.083v.478h-6.083z"></path><use x="202.509" xlink:href="#955e067c0abfdd9b56318fcdd9e0bb3390b87b60_e"></use><use x="209.787" y="-8.201" xlink:href="#955e067c0abfdd9b56318fcdd9e0bb3390b87b60_f"></use><use x="373.585" y="-8.201" xlink:href="#955e067c0abfdd9b56318fcdd9e0bb3390b87b60_g"></use><use x="378.138" y="-8.201" xlink:href="#955e067c0abfdd9b56318fcdd9e0bb3390b87b60_h"></use><use x="383.991" y="-8.201" xlink:href="#955e067c0abfdd9b56318fcdd9e0bb3390b87b60_i"></use></svg></p>
+<p class="math latex display" data-sha1="4d060a8ecef41617251a4020e39a9b3468a24b73"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="295.324" height="32.787" viewBox="167.05 -24.591 221.493 24.591"><defs><path id="4d060a8ecef41617251a4020e39a9b3468a24b73_a" d="M5.153-8.32c-.084-.168-.108-.216-.275-.216-.18 0-.204.048-.287.215L.598-.239a.34.34 0 0 0-.048.155C.55-.012.562 0 .8 0h8.141c.24 0 .252-.012.252-.084a.34.34 0 0 0-.048-.155L5.153-8.321Zm-.646.884L7.771-.825H1.255l3.252-6.611Z"></path><path id="4d060a8ecef41617251a4020e39a9b3468a24b73_h" d="M3.885 2.905c0-.036 0-.06-.203-.263-1.195-1.207-1.865-3.18-1.865-5.619 0-2.32.562-4.316 1.949-5.726.12-.108.12-.132.12-.168 0-.071-.06-.095-.108-.095-.156 0-1.136.86-1.722 2.032-.61 1.207-.884 2.487-.884 3.957 0 1.064.167 2.487.789 3.766.705 1.435 1.685 2.212 1.817 2.212.048 0 .107-.024.107-.096Z"></path><path id="4d060a8ecef41617251a4020e39a9b3468a24b73_j" d="M3.371-2.977c0-.908-.12-2.39-.789-3.778C1.877-8.189.897-8.966.765-8.966c-.048 0-.107.024-.107.095 0 .036 0 .06.203.263 1.195 1.208 1.865 3.18 1.865 5.62 0 2.319-.562 4.315-1.949 5.726-.12.107-.12.131-.12.167 0 .072.06.096.108.096C.921 3 1.901 2.14 2.487.968c.61-1.22.884-2.51.884-3.945Z"></path><path id="4d060a8ecef41617251a4020e39a9b3468a24b73_i" d="M5.356-3.826c0-.992-.06-1.96-.49-2.869-.49-.992-1.351-1.255-1.937-1.255-.693 0-1.542.347-1.985 1.339C.61-5.858.49-5.117.49-3.826c0 1.16.084 2.033.514 2.882A2.126 2.126 0 0 0 2.917.25c1.04 0 1.638-.622 1.985-1.315.43-.897.454-2.068.454-2.762ZM2.917.012c-.383 0-1.16-.215-1.387-1.518C1.4-2.224 1.4-3.132 1.4-3.97c0-.98 0-1.865.191-2.57.203-.801.813-1.172 1.327-1.172.454 0 1.148.275 1.375 1.303.155.681.155 1.626.155 2.439 0 .8 0 1.71-.131 2.439C4.089-.215 3.336.012 2.917.012Z"></path><path id="4d060a8ecef41617251a4020e39a9b3468a24b73_c" d="M8.07-3.873c.167 0 .382 0 .382-.216 0-.227-.203-.227-.382-.227H1.028c-.167 0-.382 0-.382.215 0 .228.203.228.382.228H8.07Zm0 2.223c.167 0 .382 0 .382-.215 0-.227-.203-.227-.382-.227H1.028c-.167 0-.382 0-.382.215 0 .227.203.227.382.227H8.07Z"></path><path id="4d060a8ecef41617251a4020e39a9b3468a24b73_g" d="M3.694-7.448c-.299-.849-1.243-.849-1.399-.849-.071 0-.203 0-.203.12 0 .095.072.107.132.12.179.023.322.047.514.394.12.227 1.35 3.801 1.35 3.825 0 .012-.011.024-.107.12L.873-.574c-.144.144-.24.24-.24.395 0 .167.144.31.335.31.048 0 .18-.023.251-.095.192-.18 1.901-2.272 2.99-3.563.31.933.693 2.033 1.063 3.037.06.18.12.347.287.502.12.108.144.108.478.108h.228c.047 0 .131 0 .131-.096 0-.048-.012-.06-.06-.108-.107-.131-.191-.346-.239-.49L3.694-7.448Z"></path><path id="4d060a8ecef41617251a4020e39a9b3468a24b73_f" d="M6.013-7.998c.012-.048.036-.12.036-.18 0-.119-.12-.119-.143-.119-.012 0-.598.048-.658.06-.203.012-.382.036-.597.048-.3.024-.383.036-.383.25 0 .12.096.12.263.12.586 0 .598.108.598.227a.78.78 0 0 1-.036.204l-.73 2.905c-.13-.311-.454-.79-1.075-.79-1.351 0-2.81 1.746-2.81 3.516C.478-.574 1.172.12 1.985.12c.657 0 1.219-.515 1.554-.909.12.705.681.909 1.04.909s.645-.216.86-.646c.192-.407.36-1.136.36-1.184 0-.06-.049-.107-.12-.107-.108 0-.12.06-.168.239-.179.705-.406 1.458-.896 1.458-.347 0-.37-.31-.37-.55 0-.047 0-.298.083-.633l1.685-6.695ZM3.6-1.423c-.06.204-.06.227-.228.455-.263.334-.789.848-1.35.848-.49 0-.766-.442-.766-1.147 0-.658.37-1.997.598-2.499.407-.837.968-1.267 1.435-1.267.789 0 .944.98.944 1.076 0 .012-.036.167-.048.191L3.6-1.423Z"></path><path id="4d060a8ecef41617251a4020e39a9b3468a24b73_e" d="M3.037-7.998c.012-.048.035-.12.035-.18 0-.119-.12-.119-.143-.119-.012 0-.442.036-.658.06-.203.012-.382.036-.597.048-.287.024-.37.036-.37.25 0 .12.119.12.238.12.61 0 .61.108.61.227 0 .048 0 .072-.06.287L.61-1.375a1.35 1.35 0 0 0-.06.419C.55-.36.992.12 1.602.12c.395 0 .658-.263.849-.634.203-.395.37-1.148.37-1.196 0-.06-.047-.107-.12-.107-.107 0-.119.06-.167.239-.215.825-.43 1.458-.908 1.458-.359 0-.359-.382-.359-.55 0-.047 0-.298.084-.633l1.686-6.695Z"></path><path id="4d060a8ecef41617251a4020e39a9b3468a24b73_d" d="M2.463-3.503c.024-.072.323-.67.765-1.052.31-.287.717-.478 1.183-.478.479 0 .646.359.646.837 0 .681-.49 2.044-.73 2.69-.107.287-.167.442-.167.657 0 .538.371.969.945.969 1.112 0 1.53-1.758 1.53-1.83 0-.06-.048-.107-.12-.107-.107 0-.119.036-.179.239-.275.98-.729 1.458-1.195 1.458-.12 0-.311-.012-.311-.394 0-.299.131-.658.203-.825.24-.658.741-1.996.741-2.678 0-.717-.418-1.255-1.327-1.255-1.064 0-1.626.753-1.84 1.052-.037-.682-.527-1.052-1.053-1.052-.382 0-.645.227-.849.633C.49-4.209.323-3.49.323-3.443s.048.108.131.108c.096 0 .108-.012.18-.287.19-.73.406-1.411.884-1.411.275 0 .37.191.37.55 0 .263-.119.73-.202 1.1l-.335 1.29c-.048.228-.18.766-.24.981-.083.311-.214.873-.214.933 0 .167.131.299.31.299.144 0 .311-.072.407-.252.024-.06.131-.478.191-.717l.263-1.076.395-1.578Z"></path><path id="4d060a8ecef41617251a4020e39a9b3468a24b73_b" d="M5.667-4.878c-.383.072-.526.359-.526.586 0 .287.227.383.394.383.359 0 .61-.311.61-.634 0-.502-.574-.73-1.076-.73-.73 0-1.136.718-1.243.945-.275-.896-1.017-.944-1.232-.944C1.374-5.272.73-3.706.73-3.443c0 .048.048.108.132.108.095 0 .12-.072.143-.12.407-1.327 1.208-1.578 1.554-1.578.538 0 .646.502.646.789 0 .263-.072.538-.215 1.112l-.407 1.638C2.403-.777 2.056-.12 1.422-.12c-.06 0-.358 0-.609-.155a.617.617 0 0 0 .526-.586c0-.239-.18-.382-.406-.382a.623.623 0 0 0-.598.633c0 .502.562.73 1.076.73.574 0 .98-.455 1.231-.945.191.705.79.945 1.231.945 1.22 0 1.865-1.567 1.865-1.83 0-.06-.047-.107-.12-.107-.107 0-.119.06-.154.155C5.14-.61 4.447-.12 3.909-.12c-.418 0-.645-.31-.645-.8 0-.264.048-.455.239-1.244L3.92-3.79c.18-.717.586-1.243 1.136-1.243.024 0 .359 0 .61.155Z"></path></defs><use x="167.05" y="-8.201" xlink:href="#4d060a8ecef41617251a4020e39a9b3468a24b73_a"></use><use x="176.805" y="-8.201" xlink:href="#4d060a8ecef41617251a4020e39a9b3468a24b73_b"></use><use x="186.778" y="-8.201" xlink:href="#4d060a8ecef41617251a4020e39a9b3468a24b73_c"></use><use x="199.203" y="-8.201" xlink:href="#4d060a8ecef41617251a4020e39a9b3468a24b73_d"></use><use x="208.553" y="-16.288" xlink:href="#4d060a8ecef41617251a4020e39a9b3468a24b73_e"></use><path d="M207.386-11.429h6.083v.478h-6.083z"></path><use x="207.386" xlink:href="#4d060a8ecef41617251a4020e39a9b3468a24b73_f"></use><use x="214.665" y="-8.201" xlink:href="#4d060a8ecef41617251a4020e39a9b3468a24b73_g"></use><use x="373.585" y="-8.201" xlink:href="#4d060a8ecef41617251a4020e39a9b3468a24b73_h"></use><use x="378.138" y="-8.201" xlink:href="#4d060a8ecef41617251a4020e39a9b3468a24b73_i"></use><use x="383.991" y="-8.201" xlink:href="#4d060a8ecef41617251a4020e39a9b3468a24b73_j"></use></svg></p>
 ​ 根据这个关系式可以测出波长。<p></p>
 </blockquote>
 <h4 id="薄膜干涉">2. 薄膜干涉</h4>
@@ -54,33 +417,31 @@
 
 </figure>
 <h4 id="exp-用双缝干涉测量光的波长">3. 实验：用双缝干涉测量光的波长 </h4>
-<h5 id="实验原理">实验原理</h5>
+<h5 id="实验原理">一、实验原理</h5>
 <p>​ 利用干涉条纹间距与光的波长之间的关系 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -1.575ex" xmlns="http://www.w3.org/2000/svg" width="9.687ex" height="4.674ex" role="img" focusable="false" viewBox="0 -1370 4281.6 2066"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mstyle"><g data-mml-node="mi"><path data-c="394" d="M51 0Q46 4 46 7Q46 9 215 357T388 709Q391 716 416 716Q439 716 444 709Q447 705 616 357T786 7Q786 4 781 0H51ZM507 344L384 596L137 92L383 91H630Q630 93 507 344Z"></path></g><g data-mml-node="mi" transform="translate(833,0)"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mo" transform="translate(1682.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mfrac" transform="translate(2738.6,0)"><g data-mml-node="mi" transform="translate(331,676)"><path data-c="1D459" d="M117 59Q117 26 142 26Q179 26 205 131Q211 151 215 152Q217 153 225 153H229Q238 153 241 153T246 151T248 144Q247 138 245 128T234 90T214 43T183 6T137 -11Q101 -11 70 11T38 85Q38 97 39 102L104 360Q167 615 167 623Q167 626 166 628T162 632T157 634T149 635T141 636T132 637T122 637Q112 637 109 637T101 638T95 641T94 647Q94 649 96 661Q101 680 107 682T179 688Q194 689 213 690T243 693T254 694Q266 694 266 686Q266 675 193 386T118 83Q118 81 118 75T117 65V59Z"></path></g><g data-mml-node="mi" transform="translate(220,-686)"><path data-c="1D451" d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g><rect width="720" height="60" x="120" y="220"></rect></g><g data-mml-node="mi" transform="translate(3698.6,0)"><path data-c="1D706" d="M166 673Q166 685 183 694H202Q292 691 316 644Q322 629 373 486T474 207T524 67Q531 47 537 34T546 15T551 6T555 2T556 -2T550 -11H482Q457 3 450 18T399 152L354 277L340 262Q327 246 293 207T236 141Q211 112 174 69Q123 9 111 -1T83 -12Q47 -12 47 20Q47 37 61 52T199 187Q229 216 266 252T321 306L338 322Q338 323 288 462T234 612Q214 657 183 657Q166 657 166 673Z"></path></g></g></g></g></svg></mjx-container></span>，导出光的波长计算式为 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -1.577ex" xmlns="http://www.w3.org/2000/svg" width="9.687ex" height="4.676ex" role="img" focusable="false" viewBox="0 -1370 4281.6 2067"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mstyle"><g data-mml-node="mi"><path data-c="1D706" d="M166 673Q166 685 183 694H202Q292 691 316 644Q322 629 373 486T474 207T524 67Q531 47 537 34T546 15T551 6T555 2T556 -2T550 -11H482Q457 3 450 18T399 152L354 277L340 262Q327 246 293 207T236 141Q211 112 174 69Q123 9 111 -1T83 -12Q47 -12 47 20Q47 37 61 52T199 187Q229 216 266 252T321 306L338 322Q338 323 288 462T234 612Q214 657 183 657Q166 657 166 673Z"></path></g><g data-mml-node="mo" transform="translate(860.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mfrac" transform="translate(1916.6,0)"><g data-mml-node="mi" transform="translate(220,676)"><path data-c="1D451" d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g><g data-mml-node="mi" transform="translate(331,-686)"><path data-c="1D459" d="M117 59Q117 26 142 26Q179 26 205 131Q211 151 215 152Q217 153 225 153H229Q238 153 241 153T246 151T248 144Q247 138 245 128T234 90T214 43T183 6T137 -11Q101 -11 70 11T38 85Q38 97 39 102L104 360Q167 615 167 623Q167 626 166 628T162 632T157 634T149 635T141 636T132 637T122 637Q112 637 109 637T101 638T95 641T94 647Q94 649 96 661Q101 680 107 682T179 688Q194 689 213 690T243 693T254 694Q266 694 266 686Q266 675 193 386T118 83Q118 81 118 75T117 65V59Z"></path></g><rect width="720" height="60" x="120" y="220"></rect></g><g data-mml-node="mi" transform="translate(2876.6,0)"><path data-c="394" d="M51 0Q46 4 46 7Q46 9 215 357T388 709Q391 716 416 716Q439 716 444 709Q447 705 616 357T786 7Q786 4 781 0H51ZM507 344L384 596L137 92L383 91H630Q630 93 507 344Z"></path></g><g data-mml-node="mi" transform="translate(3709.6,0)"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g></g></g></g></svg></mjx-container></span>。</p>
-<h5 id="实验思路">实验思路</h5>
+<h5 id="实验思路">二、实验思路</h5>
 <p>​
 光源发出的光经滤光片（装在单缝前）成为单色光，把单缝照亮。单缝相当于一个线光源，它又把双缝照亮。来自双缝的光在双缝右边的空间发生干涉。遮光筒的一端装有毛玻璃屏，我们可以在这个屏上观察到干涉条纹，并由实验原理计算出光的波长。透镜的作用是使射向单缝的光更集中。</p>
 <figure>
 <img src="https://raw.githubusercontent.com/PassionPenguin/picgo-database/main/image-20220309005527811.png" alt="image-20220309005527811">
 
 </figure>
-<h5 id="测量物理量">测量物理量</h5>
-<p>​ 根据实验原理，本实验需要测量的物理量为双缝到屏的距离 <span class="math inline"><em>l</em></span>、相邻两条亮条纹之间的距离 <span class="math inline"><em>Δ</em><em>x</em></span>（已知双缝间距 <span class="math inline"><em>d</em></span>）。</p>
-<blockquote>
-<h3 id="减少误差">减少误差</h3>
-<ol type="1">
-<li>测出 <span class="math inline"><em>n</em></span> 个亮条纹之间的距离
-<span class="math inline"><em>a</em></span>，再求相邻两个条纹之间的距离
-<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -1.738ex" xmlns="http://www.w3.org/2000/svg" width="12.446ex" height="4.265ex" role="img" focusable="false" viewBox="0 -1117 5501 1885"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mstyle"><g data-mml-node="mi"><path data-c="394" d="M51 0Q46 4 46 7Q46 9 215 357T388 709Q391 716 416 716Q439 716 444 709Q447 705 616 357T786 7Q786 4 781 0H51ZM507 344L384 596L137 92L383 91H630Q630 93 507 344Z"></path></g><g data-mml-node="mi" transform="translate(833,0)"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mo" transform="translate(1682.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mfrac" transform="translate(2738.6,0)"><g data-mml-node="mi" transform="translate(1116.7,676)"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mrow" transform="translate(220,-686)"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(822.2,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(1822.4,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g><rect width="2522.4" height="60" x="120" y="220"></rect></g></g></g></g></svg></mjx-container></span>。</li>
-<li><span class="math inline"><em>l</em></span> 多次测量取平均值。</li>
-</ol>
-</blockquote>
-<h5 id="实验操作">实验操作</h5>
+<h5 id="实验操作">三、实验操作</h5>
 <ol type="1">
 <li>实验前先取下双缝，打开光源，调节光源的高度和角度，使它发出的光束沿着遮光筒的轴线把屏照亮。然后放好单缝和双缝。注意使单缝与双缝相互平行，尽量使缝的中点位于遮光筒的轴线上。</li>
 <li>做好以上调整后，在单缝与光源之间放上滤光片就可以观察到单色光的双缝干涉图样。</li>
 <li>测量双缝到屏的距离 <span class="math inline"><em>l</em></span>
 和相邻两条亮条纹间的距离 <span class="math inline"><em>Δ</em><em>x</em></span>。</li>
 <li>分别改变滤光片的颜色和双缝的距离，观察干涉条纹的变化，并求出相应的波长。</li>
+</ol>
+<h5 id="测量物理量">四、测量物理量</h5>
+<p>​ 根据实验原理，本实验需要测量的物理量为双缝到屏的距离 <span class="math inline"><em>l</em></span>、相邻两条亮条纹之间的距离 <span class="math inline"><em>Δ</em><em>x</em></span>（已知双缝间距 <span class="math inline"><em>d</em></span>）。</p>
+<h5 id="误差控制">五、误差控制</h5>
+<ol type="1">
+<li>测出 <span class="math inline"><em>n</em></span> 个亮条纹之间的距离
+<span class="math inline"><em>a</em></span>，再求相邻两个条纹之间的距离
+<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -1.738ex" xmlns="http://www.w3.org/2000/svg" width="12.446ex" height="4.265ex" role="img" focusable="false" viewBox="0 -1117 5501 1885"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mstyle"><g data-mml-node="mi"><path data-c="394" d="M51 0Q46 4 46 7Q46 9 215 357T388 709Q391 716 416 716Q439 716 444 709Q447 705 616 357T786 7Q786 4 781 0H51ZM507 344L384 596L137 92L383 91H630Q630 93 507 344Z"></path></g><g data-mml-node="mi" transform="translate(833,0)"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mo" transform="translate(1682.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mfrac" transform="translate(2738.6,0)"><g data-mml-node="mi" transform="translate(1116.7,676)"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mrow" transform="translate(220,-686)"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(822.2,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(1822.4,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g><rect width="2522.4" height="60" x="120" y="220"></rect></g></g></g></g></svg></mjx-container></span>。</li>
+<li>多次测量取平均值。</li>
 </ol>
 <h3 id="光的衍射与偏振激光现象">二、光的衍射与偏振，激光现象</h3>
 <h4 id="光的衍射">1. 光的衍射</h4>
@@ -114,13 +475,11 @@
 
 </figure>
 <p>​
-太阳以及日光灯、发光二极管等普通光源发出的光，包含着在垂直于传播方向上沿一切方向振动的光，而且沿着各个方向振动的光波的强度都相同。这种光是“<strong>自
-然光</strong>”。</p>
+太阳以及日光灯、发光二极管等普通光源发出的光，包含着在垂直于传播方向上沿一切方向振动的光，而且沿着各个方向振动的光波的强度都相同。这种光是“<strong>自然光</strong>”。</p>
 <p>​ 自然光在通过偏振片 <span class="math inline"><em>P</em></span>
 时，只有振动方向与偏振片的透振方向一致的光波才能顺利通过。也就是说，通过偏振片
 <span class="math inline"><em>P</em></span>
-的光波，在垂直于传播方向的平面上，沿着某个特定
-的方向振动。这种光叫作<strong>偏振光</strong>。</p>
+的光波，在垂直于传播方向的平面上，沿着某个特定的方向振动。这种光叫作<strong>偏振光</strong>。</p>
 <figure>
 <img src="https://raw.githubusercontent.com/PassionPenguin/picgo-database/main/image-20220309004858520.png" alt="image-20220309004858520">
 
