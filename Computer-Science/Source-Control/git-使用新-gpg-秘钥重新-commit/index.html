@@ -399,14 +399,14 @@ mjx-container[display="true"] + br {
         <p>​ 之前的 gpg 私钥在电脑重装时候丢失了，更早的私钥却还在，GitHub
 上两者又都有，就想着把所有我签名的 commits 都改成更早的那一个 gpg
 私钥。</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> filter-branch <span class="at">--commit-filter</span> <span class="st">'</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="st">if [ "$GIT_COMMITTER_EMAIL" = "your@email.com" ]</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="st">then</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="st">git commit-tree -S "$@";</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="st">fi</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="st">'</span> <span class="at">--</span> <span class="at">--all</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 将 your@email.com 更改为自己以前 commit 时候用的邮箱即可</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 建议运行前先备份！</span></span></code></pre></div>
+<pre class="sh"><code>git filter-branch --commit-filter '
+if [ "$GIT_COMMITTER_EMAIL" = "your@email.com" ]
+then
+git commit-tree -S "$@";
+fi
+' -- --all
+# 将 your@email.com 更改为自己以前 commit 时候用的邮箱即可
+# 建议运行前先备份！</code></pre>
     </div>
 
     

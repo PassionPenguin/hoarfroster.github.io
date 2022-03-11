@@ -2794,6 +2794,33 @@ body {
   border-bottom: 0;
   line-height: 2;
 }
+.post-body .external-code {
+  background: var(--color-scale-gray-2);
+  border-radius: 8px;
+  padding: 8px 4px;
+  margin-top: 8px;
+}
+.post-body .external-code pre {
+  margin: 0 !important;
+  padding: 0 4px;
+  background: var(--color-scale-gray-2);
+}
+.post-body .source {
+  margin: 0 !important;
+  background: var(--color-scale-gray-2);
+  padding: 12px 16px 4px 16px;
+  border-radius: 0 0 4px 4px;
+}
+.post-body .source .viewraw {
+  float: right;
+  font-size: 12px;
+  line-height: 24px;
+  border-bottom: 0;
+  color: var(--color-scale-gray-5);
+}
+.post-body .source .filename {
+  font: 14px/18px 'JetBrains Mono';
+}
 .post-sticky-flag {
   display: inline-block;
   transform: rotate(30deg);
@@ -2804,6 +2831,7 @@ body {
 }
 .post-button a {
   color: var(--color-scale-black);
+  background: var(--color-scale-white) !important;
 }
 .use-motion .post-block,
 .use-motion .pagination,
