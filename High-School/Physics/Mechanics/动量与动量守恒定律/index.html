@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.png">
+  <link rel="mask-icon" href="/images/avatar.png" color="#222">
+  <meta name="google-site-verification" content="iFMbHL1JuWjTlNFq5Rv96vDzpsqakxTpdE2nw7Crr6o">
+  <meta name="msvalidate.01" content="EF6D8CD8A3335E66AB96B4D544FCD96C">
+  <meta name="baidu-site-verification" content="code-80b80Pbzs2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<script>
+  window.onload = function() {
+    document.querySelectorAll("p").forEach(e=>{
+      e.innerHTML = e.innerHTML.replaceAll(/==(.+?)==/g, "<mark>$1</mark>").replaceAll(/​\s+?/g, "<span class='tab'></span>");
+    });
+    
+    [...document.querySelectorAll("pre > code")].forEach(e=> {
+        var codeClass = e.parentElement.classList.value;
+        if (codeClass == null || codeClass === "") {
+            e.classList.add("hljs");
+        } else {
+            var map = {
+                js: "javascript"
+            };
+            if (map[codeClass]) {
+                codeClass = map[codeClass];
+            }
+            codeClass.split(" ").forEach(i=>e.classList.add(i));
+            hljs.highlightElement(e);
+        }
+    });
+  }
+</script>
+<script async src="/js/cursor.js"></script>
+<script async src="/js/highlight.min.js"></script>
+<script data-ad-client="ca-pub-2275811890061218" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hoarfroster.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqusjs","storage":true,"lazyload":false,"nav":null,"activeClass":"disqusjs"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+  <meta name="description" content="知识聚焦 一、动量与动量定理 1. 动量 ​ 物理学中把质量和速度的乘积 mv 定义为物体的动量，用字母 p 表示，单位是千克米每秒，符号 kg ⋅ m&#x2F;s。 2. 动量定理 ​ 物理学中把力与力的作用时间的乘积 FΔt 叫作力的冲量，用字母 I 表示，单位是牛秒 ，符号 N ⋅ s。推导冲量，可以得到如下结果：  ​ 上述推导表明，物体在一个过程中所受力的冲量等于它在这个过程始末的动量变化量的关">
+<meta property="og:type" content="article">
+<meta property="og:title" content="动量与动量守恒定律">
+<meta property="og:url" content="https://hoarfroster.github.io/High-School/Physics/Mechanics/%E5%8A%A8%E9%87%8F%E4%B8%8E%E5%8A%A8%E9%87%8F%E5%AE%88%E6%81%92%E5%AE%9A%E5%BE%8B/index.html">
+<meta property="og:site_name" content="Hoarfroster 的小窝">
+<meta property="og:description" content="知识聚焦 一、动量与动量定理 1. 动量 ​ 物理学中把质量和速度的乘积 mv 定义为物体的动量，用字母 p 表示，单位是千克米每秒，符号 kg ⋅ m&#x2F;s。 2. 动量定理 ​ 物理学中把力与力的作用时间的乘积 FΔt 叫作力的冲量，用字母 I 表示，单位是牛秒 ，符号 N ⋅ s。推导冲量，可以得到如下结果：  ​ 上述推导表明，物体在一个过程中所受力的冲量等于它在这个过程始末的动量变化量的关">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-03-12T04:34:32.000Z">
+<meta property="article:modified_time" content="2022-03-12T09:41:15.179Z">
+<meta property="article:author" content="Hoarfroster">
+<meta property="article:tag" content="School Notes">
+<meta property="article:tag" content="High School">
+<meta property="article:tag" content="Physics">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://hoarfroster.github.io/High-School/Physics/Mechanics/%E5%8A%A8%E9%87%8F%E4%B8%8E%E5%8A%A8%E9%87%8F%E5%AE%88%E6%81%92%E5%AE%9A%E5%BE%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>动量与动量守恒定律 | Hoarfroster 的小窝</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <!--<div class="headband"></div>-->
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hoarfroster 的小窝</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section">Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section">About</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section">Categories</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+          Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://hoarfroster.github.io/High-School/Physics/Mechanics/%E5%8A%A8%E9%87%8F%E4%B8%8E%E5%8A%A8%E9%87%8F%E5%AE%88%E6%81%92%E5%AE%9A%E5%BE%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Hoarfroster">
+      <meta itemprop="description" content="这里是霜羽~~咕咕咕">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hoarfroster 的小窝">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          动量与动量守恒定律
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-03-12 12:34:32 / Modified: 17:41:15" itemprop="dateCreated datePublished" datetime="2022-03-12T12:34:32+08:00">2022-03-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/High-School/" itemprop="url" rel="index"><span itemprop="name">High School</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/High-School/Physics/" itemprop="url" rel="index"><span itemprop="name">Physics</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/High-School/Physics/Mechanics/" itemprop="url" rel="index"><span itemprop="name">Mechanics</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="firestore-visitors-count"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+              <span>4 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="知识聚焦">知识聚焦</h2>
+<h3 id="动量与动量定理">一、动量与动量定理</h3>
+<h4 id="动量">1. 动量</h4>
+<p>​ 物理学中把质量和速度的乘积 <span class="math inline"><em>m</em><em>v</em></span>
+定义为物体的<strong>动量</strong>，用字母 <span class="math inline"><strong>p</strong></span>
+表示，单位是千克米每秒，符号 <span class="math inline"><em>k</em><em>g</em> ⋅ <em>m</em>/<em>s</em></span>。</p>
+<h4 id="动量定理">2. 动量定理</h4>
+<p>​ 物理学中把力与力的作用时间的乘积 <span class="math inline"><strong>F</strong><em>Δ</em><em>t</em></span>
+叫作力的<strong>冲量</strong>，用字母 <span class="math inline"><strong>I</strong></span> 表示，单位是牛秒 ，符号
+<span class="math inline"><em>N</em> ⋅ <em>s</em></span>。推导冲量，可以得到如下结果：</p>
+<p class="math latex display" data-sha1="ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="153.064" height="168.918" viewBox="136.873 -132.323 114.798 126.689"><defs><path id="ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_d" d="M7.532-8.141H.454v.514h1.268v7.113H.454V0c.347-.024 1.71-.024 2.152-.024.634 0 1.698 0 2.284.024v-.514H3.3v-3.3h.657c1.148 0 1.243.526 1.243 1.4h.503v-3.313H5.2c0 .873-.095 1.4-1.243 1.4H3.3v-3.3h1.71c1.9 0 2.199.872 2.366 2.319h.502l-.346-2.833Z"></path><path id="ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_a" d="M3.288-7.687h1.339v-.514c-.43.024-1.626.024-2.128.024S.8-8.177.37-8.201v.514H1.71v7.173H.37V0C.802-.024 1.998-.024 2.5-.024s1.697 0 2.128.024v-.514h-1.34v-7.173Z"></path><path id="ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_g" d="M3.371 1.805h-.825V-.49c.3.263.825.562 1.543.562 1.638 0 2.917-.993 2.917-2.738 0-1.65-1.112-2.714-2.726-2.714-.705 0-1.315.24-1.793.622v-.622l-2.069.096v.514c.742 0 .825 0 .825.466v6.11H.418v.513c.275-.024 1.136-.024 1.47-.024s1.208 0 1.483.024v-.514Zm-.825-5.99a1.964 1.964 0 0 1 1.543-.764c.777 0 1.482.705 1.482 2.283 0 1.733-.86 2.343-1.626 2.343-.514 0-1.028-.263-1.399-.825v-3.036Z"></path><path id="ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_m" d="M5.918-4.52c.083-.178.131-.274.884-.274v-.514c-.43.024-.454.024-.944.024-.323 0-.347 0-1.028-.024v.514c.323 0 .586.06.586.143 0 .012 0 .024-.06.144L3.957-1.435 2.415-4.794h.657v-.514c-.274.024-1.111.024-1.434.024-.347 0-1.04 0-1.351-.024v.514h.753L3.144-.227c.108.227.132.287.407.287.191 0 .287-.024.394-.263L5.918-4.52Z"></path><path id="ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_h" d="M5.153-8.32c-.084-.168-.108-.216-.275-.216-.18 0-.204.048-.287.215L.598-.239a.34.34 0 0 0-.048.155C.55-.012.562 0 .8 0h8.141c.24 0 .252-.012.252-.084a.34.34 0 0 0-.048-.155L5.153-8.321Zm-.646.884L7.771-.825H1.255l3.252-6.611Z"></path><path id="ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_b" d="M8.07-3.873c.167 0 .382 0 .382-.216 0-.227-.203-.227-.382-.227H1.028c-.167 0-.382 0-.382.215 0 .228.203.228.382.228H8.07Zm0 2.223c.167 0 .382 0 .382-.215 0-.227-.203-.227-.382-.227H1.028c-.167 0-.382 0-.382.215 0 .227.203.227.382.227H8.07Z"></path><path id="ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_e" d="M3.587-8.165v.346c.813 0 .908.084.908.67v2.642a1.86 1.86 0 0 0-1.494-.765C1.614-5.272.418-4.101.418-2.57.418-1.052 1.554.12 2.87.12c.909 0 1.435-.598 1.602-.825V.12L6.157 0v-.347c-.813 0-.909-.083-.909-.67v-7.28l-1.661.132ZM4.47-1.4c0 .215 0 .251-.167.514-.287.419-.777.765-1.375.765-.31 0-1.602-.12-1.602-2.438 0-.861.143-1.34.406-1.734.24-.37.718-.741 1.316-.741.74 0 1.16.538 1.279.73.143.202.143.226.143.441v2.463Z"></path><path id="ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_k" d="M4.615-4.914c0-.346-.287-.633-.634-.633s-.634.287-.634.633.287.634.634.634a.638.638 0 0 0 .634-.634ZM7.603.263c0-.347-.286-.634-.633-.634s-.634.287-.634.634.287.634.634.634.633-.287.633-.634Zm-5.977 0c0-.347-.287-.634-.634-.634S.36-.084.36.263s.287.634.633.634.634-.287.634-.634Z"></path><path id="ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_j" d="M7.878-2.75c.204 0 .419 0 .419-.239s-.215-.239-.419-.239H1.411c-.204 0-.419 0-.419.24s.215.238.419.238h6.467Z"></path><path id="ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_c" d="M1.243 26.026c.383-.024.586-.287.586-.585a.56.56 0 0 0-.574-.586c-.287 0-.586.18-.586.598 0 .61.598 1.111 1.328 1.111 1.817 0 2.498-2.797 3.347-6.264.92-3.778 1.698-7.592 2.343-11.43.443-2.546.885-4.937 1.291-6.479.144-.586.55-2.128 1.017-2.128.37 0 .669.227.717.275-.395.024-.598.287-.598.586a.56.56 0 0 0 .574.586c.287 0 .586-.18.586-.598C11.274.466 10.628 0 9.97 0c-.909 0-1.578 1.303-2.236 3.742-.036.131-1.662 6.133-2.977 13.952-.31 1.829-.657 3.825-1.052 5.487-.215.873-.765 3.12-1.733 3.12-.43 0-.718-.275-.73-.275Z"></path><path id="ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_l" d="M2.463-3.503c.024-.072.323-.67.765-1.052.31-.287.717-.478 1.183-.478.479 0 .646.359.646.837 0 .071 0 .31-.143.872l-.3 1.232a47.073 47.073 0 0 0-.346 1.375c-.048.179-.12.49-.12.538 0 .167.132.299.311.299.359 0 .419-.275.526-.706l.718-2.857c.024-.096.645-1.59 1.96-1.59.478 0 .646.359.646.837 0 .67-.466 1.972-.73 2.69-.107.287-.167.442-.167.657 0 .538.37.969.945.969 1.111 0 1.53-1.758 1.53-1.83 0-.06-.048-.107-.12-.107-.107 0-.12.036-.179.239C9.313-.622 8.871-.12 8.393-.12c-.12 0-.311-.012-.311-.394 0-.31.143-.693.191-.825.215-.574.753-1.985.753-2.678 0-.717-.418-1.255-1.327-1.255-.8 0-1.446.454-1.925 1.16-.036-.646-.43-1.16-1.327-1.16-1.064 0-1.626.753-1.84 1.052-.037-.682-.527-1.052-1.053-1.052-.347 0-.621.167-.849.621C.49-4.22.323-3.49.323-3.443s.048.108.131.108c.096 0 .108-.012.18-.287.179-.706.406-1.411.884-1.411.275 0 .37.191.37.55 0 .263-.119.73-.202 1.1l-.335 1.29c-.048.228-.18.766-.24.981-.083.311-.214.873-.214.933 0 .167.131.299.31.299.144 0 .311-.072.407-.252.024-.06.131-.478.191-.717l.263-1.076.395-1.578Z"></path><path id="ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_f" d="M2.403-4.806h1.1c.227 0 .347 0 .347-.215 0-.132-.072-.132-.311-.132H2.487l.442-1.745c.048-.168.048-.191.048-.275 0-.191-.156-.299-.311-.299-.096 0-.37.036-.466.418l-.467 1.901H.61c-.24 0-.347 0-.347.227 0 .12.084.12.31.12h1.065L.848-1.65c-.095.419-.13.538-.13.694C.717-.395 1.111.12 1.78.12c1.208 0 1.853-1.746 1.853-1.83 0-.071-.047-.107-.12-.107-.023 0-.07 0-.095.048-.012.012-.024.024-.107.215C3.06-.956 2.51-.12 1.817-.12c-.358 0-.382-.298-.382-.561 0-.012 0-.24.035-.383l.933-3.742Z"></path><path id="ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_i" d="M2.112-3.778c.04-.103.072-.16.072-.239 0-.263-.24-.438-.462-.438-.32 0-.407.279-.439.39L.271-.63c-.032.096-.032.12-.032.128 0 .072.048.088.128.111.143.064.159.064.175.064.024 0 .072 0 .127-.135l1.443-3.316Z"></path></defs><use x="165.591" y="-116.05" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_a"></use><use x="173.921" y="-116.05" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_b"></use><use x="186.346" y="-132.323" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_c"></use><use x="198.302" y="-116.05" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_d"></use><use x="208.748" y="-116.05" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_e"></use><use x="215.252" y="-116.05" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_f"></use><use x="173.921" y="-85.38" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_b"></use><use x="186.346" y="-101.653" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_c"></use><use x="199.497" y="-93.468" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_e"></use><use x="206" y="-93.468" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_g"></use><path d="M199.497-88.608h13.975v.478h-13.975z"></path><use x="201.119" y="-77.18" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_e"></use><use x="207.623" y="-77.18" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_f"></use><use x="216.66" y="-85.38" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_e"></use><use x="223.164" y="-85.38" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_f"></use><use x="173.921" y="-54.828" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_b"></use><use x="186.346" y="-71.1" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_c"></use><use x="198.302" y="-54.828" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_e"></use><use x="204.805" y="-54.828" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_g"></use><use x="173.921" y="-27.402" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_b"></use><use x="186.346" y="-27.402" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_h"></use><use x="196.101" y="-27.402" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_g"></use><use x="206.894" y="-27.402" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_b"></use><use x="219.32" y="-27.402" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_g"></use><use x="226.792" y="-32.339" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_i"></use><use x="232.243" y="-27.402" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_j"></use><use x="244.198" y="-27.402" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_g"></use><use x="136.873" y="-5.634" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_k"></use><use x="148.163" y="-5.634" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_d"></use><use x="156.618" y="-5.634" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_h"></use><use x="166.373" y="-5.634" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_f"></use><use x="173.921" y="-5.634" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_b"></use><use x="186.346" y="-5.634" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_l"></use><use x="196.586" y="-5.634" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_h"></use><use x="206.341" y="-5.634" xlink:href="#ecbaad7f03b33fe422cfb27c296b1a3f93ea12d3_m"></use></svg></p>
+<p>​
+上述推导表明，<mark>物体在一个过程中所受力的冲量等于它在这个过程始末的动量变化量</mark>的关系叫作<strong>动量定理</strong>。</p>
+<h4 id="动量与动能">3. 动量与动能</h4>
+<p>​ 力可以通过动量来表示，即 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -1.577ex" xmlns="http://www.w3.org/2000/svg" width="8.73ex" height="4.726ex" role="img" focusable="false" viewBox="0 -1392 3858.6 2089"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D439" d="M48 1Q31 1 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q146 66 215 342T285 622Q285 629 281 629Q273 632 228 634H197Q191 640 191 642T193 659Q197 676 203 680H742Q749 676 749 669Q749 664 736 557T722 447Q720 440 702 440H690Q683 445 683 453Q683 454 686 477T689 530Q689 560 682 579T663 610T626 626T575 633T503 634H480Q398 633 393 631Q388 629 386 623Q385 622 352 492L320 363H375Q378 363 398 363T426 364T448 367T472 374T489 386Q502 398 511 419T524 457T529 475Q532 480 548 480H560Q567 475 567 470Q567 467 536 339T502 207Q500 200 482 200H470Q463 206 463 212Q463 215 468 234T473 274Q473 303 453 310T364 317H309L277 190Q245 66 245 60Q245 46 334 46H359Q365 40 365 39T363 19Q359 6 353 0H336Q295 2 185 2Q120 2 86 2T48 1Z"></path></g><g data-mml-node="mo" transform="translate(1026.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mstyle" transform="translate(2082.6,0)"><g data-mml-node="mfrac"><g data-mml-node="mrow" transform="translate(220,676)"><g data-mml-node="mi"><path data-c="394" d="M51 0Q46 4 46 7Q46 9 215 357T388 709Q391 716 416 716Q439 716 444 709Q447 705 616 357T786 7Q786 4 781 0H51ZM507 344L384 596L137 92L383 91H630Q630 93 507 344Z"></path></g><g data-mml-node="mi" transform="translate(833,0)"><path data-c="1D45D" d="M23 287Q24 290 25 295T30 317T40 348T55 381T75 411T101 433T134 442Q209 442 230 378L240 387Q302 442 358 442Q423 442 460 395T497 281Q497 173 421 82T249 -10Q227 -10 210 -4Q199 1 187 11T168 28L161 36Q160 35 139 -51T118 -138Q118 -144 126 -145T163 -148H188Q194 -155 194 -157T191 -175Q188 -187 185 -190T172 -194Q170 -194 161 -194T127 -193T65 -192Q-5 -192 -24 -194H-32Q-39 -187 -39 -183Q-37 -156 -26 -148H-6Q28 -147 33 -136Q36 -130 94 103T155 350Q156 355 156 364Q156 405 131 405Q109 405 94 377T71 316T59 280Q57 278 43 278H29Q23 284 23 287ZM178 102Q200 26 252 26Q282 26 310 49T356 107Q374 141 392 215T411 325V331Q411 405 350 405Q339 405 328 402T306 393T286 380T269 365T254 350T243 336T235 326L232 322Q232 321 229 308T218 264T204 212Q178 106 178 102Z"></path></g></g><g data-mml-node="mrow" transform="translate(291,-686)"><g data-mml-node="mi"><path data-c="394" d="M51 0Q46 4 46 7Q46 9 215 357T388 709Q391 716 416 716Q439 716 444 709Q447 705 616 357T786 7Q786 4 781 0H51ZM507 344L384 596L137 92L383 91H630Q630 93 507 344Z"></path></g><g data-mml-node="mi" transform="translate(833,0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g></g><rect width="1536" height="60" x="120" y="220"></rect></g></g></g></g></svg></mjx-container></span>，又可以用动能来表示，即 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -1.577ex" xmlns="http://www.w3.org/2000/svg" width="10.283ex" height="4.726ex" role="img" focusable="false" viewBox="0 -1392 4545 2089"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D439" d="M48 1Q31 1 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q146 66 215 342T285 622Q285 629 281 629Q273 632 228 634H197Q191 640 191 642T193 659Q197 676 203 680H742Q749 676 749 669Q749 664 736 557T722 447Q720 440 702 440H690Q683 445 683 453Q683 454 686 477T689 530Q689 560 682 579T663 610T626 626T575 633T503 634H480Q398 633 393 631Q388 629 386 623Q385 622 352 492L320 363H375Q378 363 398 363T426 364T448 367T472 374T489 386Q502 398 511 419T524 457T529 475Q532 480 548 480H560Q567 475 567 470Q567 467 536 339T502 207Q500 200 482 200H470Q463 206 463 212Q463 215 468 234T473 274Q473 303 453 310T364 317H309L277 190Q245 66 245 60Q245 46 334 46H359Q365 40 365 39T363 19Q359 6 353 0H336Q295 2 185 2Q120 2 86 2T48 1Z"></path></g><g data-mml-node="mo" transform="translate(1026.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mstyle" transform="translate(2082.6,0)"><g data-mml-node="mfrac"><g data-mml-node="mrow" transform="translate(220,676)"><g data-mml-node="mi"><path data-c="394" d="M51 0Q46 4 46 7Q46 9 215 357T388 709Q391 716 416 716Q439 716 444 709Q447 705 616 357T786 7Q786 4 781 0H51ZM507 344L384 596L137 92L383 91H630Q630 93 507 344Z"></path></g><g data-mml-node="msub" transform="translate(833,0)"><g data-mml-node="mi"><path data-c="1D438" d="M492 213Q472 213 472 226Q472 230 477 250T482 285Q482 316 461 323T364 330H312Q311 328 277 192T243 52Q243 48 254 48T334 46Q428 46 458 48T518 61Q567 77 599 117T670 248Q680 270 683 272Q690 274 698 274Q718 274 718 261Q613 7 608 2Q605 0 322 0H133Q31 0 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q146 66 215 342T285 622Q285 629 281 629Q273 632 228 634H197Q191 640 191 642T193 659Q197 676 203 680H757Q764 676 764 669Q764 664 751 557T737 447Q735 440 717 440H705Q698 445 698 453L701 476Q704 500 704 528Q704 558 697 578T678 609T643 625T596 632T532 634H485Q397 633 392 631Q388 629 386 622Q385 619 355 499T324 377Q347 376 372 376H398Q464 376 489 391T534 472Q538 488 540 490T557 493Q562 493 565 493T570 492T572 491T574 487T577 483L544 351Q511 218 508 216Q505 213 492 213Z"></path></g><g data-mml-node="mi" transform="translate(771,-150) scale(0.707)"><path data-c="1D458" d="M121 647Q121 657 125 670T137 683Q138 683 209 688T282 694Q294 694 294 686Q294 679 244 477Q194 279 194 272Q213 282 223 291Q247 309 292 354T362 415Q402 442 438 442Q468 442 485 423T503 369Q503 344 496 327T477 302T456 291T438 288Q418 288 406 299T394 328Q394 353 410 369T442 390L458 393Q446 405 434 405H430Q398 402 367 380T294 316T228 255Q230 254 243 252T267 246T293 238T320 224T342 206T359 180T365 147Q365 130 360 106T354 66Q354 26 381 26Q429 26 459 145Q461 153 479 153H483Q499 153 499 144Q499 139 496 130Q455 -11 378 -11Q333 -11 305 15T277 90Q277 108 280 121T283 145Q283 167 269 183T234 206T200 217T182 220H180Q168 178 159 139T145 81T136 44T129 20T122 7T111 -2Q98 -11 83 -11Q66 -11 57 -1T48 16Q48 26 85 176T158 471L195 616Q196 629 188 632T149 637H144Q134 637 131 637T124 640T121 647Z"></path></g></g></g><g data-mml-node="mi" transform="translate(945.2,-686)"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><rect width="2222.4" height="60" x="120" y="220"></rect></g></g></g></g></svg></mjx-container></span>。</p>
+<p>​ 动量决定了物体在力 <span class="math inline"><em>F</em></span>
+的阻碍下能够运动多长时间，动能则决定了物体在力 <span class="math inline"><em>F</em></span>
+的阻碍下能够运动多长距离，也就是，<mark>动量定理反映了力对时间的累积效应，动能定理反映了力对空间的累积效应</mark>。</p>
+<h3 id="动量守恒定律">二、动量守恒定律</h3>
+<h4 id="动量守恒定律">1. 动量守恒定律</h4>
+<p>​
+我们把由两个（或多个）相互作用的物体构成的整体叫作一个力学系统，简称<strong>系统</strong>，系统内物体间作用力称为<strong>内力</strong>，系统以外物体施加给系统内物体的力叫作<strong>外力</strong>。</p>
+<p>​
+<strong>动量守恒定律</strong>的内容是，<mark>如果一个系统不受外力，或者所受外力的矢量和为
+<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.05ex" xmlns="http://www.w3.org/2000/svg" width="1.131ex" height="2.468ex" role="img" focusable="false" viewBox="0 -1069 500 1091"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD"><g data-mml-node="mover"><g data-mml-node="mn"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></g><g data-mml-node="mo" transform="translate(250,255) translate(-250 0)"><path data-c="20D7" d="M377 694Q377 702 382 708T397 714Q404 714 409 709Q414 705 419 690Q429 653 460 633Q471 626 471 615Q471 606 468 603T454 594Q411 572 379 531Q377 529 374 525T369 519T364 517T357 516Q350 516 344 521T337 536Q337 555 384 595H213L42 596Q29 605 29 615Q29 622 42 635H401Q377 673 377 694Z"></path></g></g></g></g></g></svg></mjx-container></span>，那么这个系统的总动量保持不变</mark>。</p>
+<p>​ 动量守恒定律的成立条件为：</p>
+<ol type="1">
+<li>系统不受外力作用（理想化情况）；</li>
+<li>系统受到外力作用，但外力的矢量和为 <span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.05ex" xmlns="http://www.w3.org/2000/svg" width="1.131ex" height="2.468ex" role="img" focusable="false" viewBox="0 -1069 500 1091"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD"><g data-mml-node="mover"><g data-mml-node="mn"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></g><g data-mml-node="mo" transform="translate(250,255) translate(-250 0)"><path data-c="20D7" d="M377 694Q377 702 382 708T397 714Q404 714 409 709Q414 705 419 690Q429 653 460 633Q471 626 471 615Q471 606 468 603T454 594Q411 572 379 531Q377 529 374 525T369 519T364 517T357 516Q350 516 344 521T337 536Q337 555 384 595H213L42 596Q29 605 29 615Q29 622 42 635H401Q377 673 377 694Z"></path></g></g></g></g></g></svg></mjx-container></span>；</li>
+<li>系统所受的外力远小于系统内各物体间的内力，总动量近似守恒（如爆炸）；</li>
+<li>系统所受合外力不为零，但是在某一方向上为零，则在该方向上动量守恒；</li>
+</ol>
+<blockquote>
+<h3 id="动量守恒中的临界问题">动量守恒中的临界问题</h3>
+<ol type="1">
+<li>物体恰好到达另一带斜面或弧形槽的物体的最高点：两物体的水平速度相等，竖直速度为零；</li>
+<li>两物体恰好不相撞：相接触时速度相等；</li>
+<li>物体刚好不滑出小车：物体滑倒小车一端时与小车速度相等；</li>
+<li>弹簧具有最大弹性势能：弹簧压缩到最短或拉伸到最长，此时弹簧连着的两个物体不能再靠近或远离，具有相同的速度；</li>
+</ol>
+</blockquote>
+<h4 id="exp-验证动量守恒定律">2. 实验：验证动量守恒定律 </h4>
+<h4 id="弹性碰撞与非弹性碰撞反冲现象">3.
+弹性碰撞与非弹性碰撞、反冲现象</h4>
+<p>​
+如果系统在碰撞前后动能不变，这类碰撞叫作<strong>弹性碰撞</strong>。如果系统在碰撞后动能减少，这类碰撞叫作<strong>非弹性碰撞</strong>。</p>
+<p>​
+根据动量守恒定律，类似发射炮弹时，系统内力很大，可以忽略内力，发射前动量为
+<span class="math inline"><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.05ex" xmlns="http://www.w3.org/2000/svg" width="1.131ex" height="2.468ex" role="img" focusable="false" viewBox="0 -1069 500 1091"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD"><g data-mml-node="mover"><g data-mml-node="mn"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></g><g data-mml-node="mo" transform="translate(250,255) translate(-250 0)"><path data-c="20D7" d="M377 694Q377 702 382 708T397 714Q404 714 409 709Q414 705 419 690Q429 653 460 633Q471 626 471 615Q471 606 468 603T454 594Q411 572 379 531Q377 529 374 525T369 519T364 517T357 516Q350 516 344 521T337 536Q337 555 384 595H213L42 596Q29 605 29 615Q29 622 42 635H401Q377 673 377 694Z"></path></g></g></g></g></g></svg></mjx-container></span>，发射后炮身的后退现象称为<strong>反冲现象</strong>。反冲时有其他形式的能量转化，所以总动能增加。又因为作用时间相同，推导可得
+<span class="math inline"><em>m</em><sub>1</sub><em>s</em><sub>1</sub> = <em>m</em><sub>2</sub><em>s</em><sub>2</sub>, <em>s</em><sub><em>相</em><em>对</em></sub> = <em>s</em><sub>1</sub> + <em>s</em><sub>2</sub></span>。</p>
+<h3 id="动量模型">三、动量模型</h3>
+<h4 id="人船模型">1. 人船模型</h4>
+<p>​
+人船模型的特征是<mark>两个原本静止的物体，如果动量守恒，在相互作用的过程中，任意时刻两物体的速度大小之比为质量的反比</mark>。</p>
+<ol type="1">
+<li>系统由两个物体组成，相互作用前静止（A 动 B 动，A 停 B 停）；</li>
+<li>系统内发生相对运动的过程中至少有一个方向动量守恒（<mark>一定要注意是相对同一参考系而言</mark>）；</li>
+</ol>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/School-Notes/" rel="tag"># School Notes</a>
+              <a href="/tags/High-School/" rel="tag"># High School</a>
+              <a href="/tags/Physics/" rel="tag"># Physics</a>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+  <button class="show-comments" onclick="document.querySelector('.comments').classList.toggle('active');this.innerText = this.innerText === 'Show Comments' ? 'Hide Comments' : 'Show Comments'">Show Comments</button>
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+
+          <footer class="footer">
+            <div class="footer-inner">
+              
+
+              
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hoarfroster</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="Symbols count total">90k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">5:27</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT</a>
+  </div>
+
+              
+
+
+
+
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
+  <script>
+    firebase.initializeApp({
+      apiKey   : 'AIzaSyDqM81uUD8yWHAvsGasJzvWBHhpBYnRttI',
+      projectId: 'hoar-froster'
+    });
+
+    function getCount(doc, increaseCount) {
+      // IncreaseCount will be false when not in article page
+      return doc.get().then(d => {
+        var count = 0;
+        if (!d.exists) { // Has no data, initialize count
+          if (increaseCount) {
+            doc.set({
+              count: 1
+            });
+            count = 1;
+          }
+        } else { // Has data
+          count = d.data().count;
+          if (increaseCount) {
+            // If first view this article
+            doc.set({ // Increase count
+              count: count + 1
+            });
+            count++;
+          }
+        }
+
+        return count;
+      });
+    }
+
+    function appendCountTo(el) {
+      return count => {
+        el.innerText = count;
+      }
+    }
+  </script>
+  <script>
+    (function() {
+      var db = firebase.firestore();
+      var articles = db.collection('articles-info');
+
+      if (CONFIG.page.isPost) { // Is article page
+        var title = document.querySelector('.post-title').innerText.trim();
+        var doc = articles.doc(title);
+        var increaseCount = CONFIG.hostname === location.hostname;
+        if (localStorage.getItem(title)) {
+          increaseCount = false;
+        } else {
+          // Mark as visited
+          localStorage.setItem(title, true);
+        }
+        getCount(doc, increaseCount).then(appendCountTo(document.querySelector('.firestore-visitors-count')));
+      } else if (CONFIG.page.isHome) { // Is index page
+        var promises = [...document.querySelectorAll('.post-title')].map(element => {
+          var title = element.innerText.trim();
+          var doc = articles.doc(title);
+          return getCount(doc);
+        });
+        Promise.all(promises).then(counts => {
+          var metas = document.querySelectorAll('.firestore-visitors-count');
+          counts.forEach((val, idx) => {
+            appendCountTo(metas[idx])(val);
+          });
+        });
+      }
+    })();
+  </script>
+
+
+
+
+            </div>
+          </footer>
+        </div>
+          
+  
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E8%81%9A%E7%84%A6"><span class="nav-text">知识聚焦</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E9%87%8F%E4%B8%8E%E5%8A%A8%E9%87%8F%E5%AE%9A%E7%90%86"><span class="nav-text">一、动量与动量定理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E9%87%8F"><span class="nav-text">1. 动量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E9%87%8F%E5%AE%9A%E7%90%86"><span class="nav-text">2. 动量定理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E9%87%8F%E4%B8%8E%E5%8A%A8%E8%83%BD"><span class="nav-text">3. 动量与动能</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E9%87%8F%E5%AE%88%E6%81%92%E5%AE%9A%E5%BE%8B"><span class="nav-text">二、动量守恒定律</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E9%87%8F%E5%AE%88%E6%81%92%E5%AE%9A%E5%BE%8B"><span class="nav-text">1. 动量守恒定律</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E9%87%8F%E5%AE%88%E6%81%92%E4%B8%AD%E7%9A%84%E4%B8%B4%E7%95%8C%E9%97%AE%E9%A2%98"><span class="nav-text">动量守恒中的临界问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#exp-%E9%AA%8C%E8%AF%81%E5%8A%A8%E9%87%8F%E5%AE%88%E6%81%92%E5%AE%9A%E5%BE%8B"><span class="nav-text">2. 实验：验证动量守恒定律 </span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%B9%E6%80%A7%E7%A2%B0%E6%92%9E%E4%B8%8E%E9%9D%9E%E5%BC%B9%E6%80%A7%E7%A2%B0%E6%92%9E%E5%8F%8D%E5%86%B2%E7%8E%B0%E8%B1%A1"><span class="nav-text">3.
+弹性碰撞与非弹性碰撞、反冲现象</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E9%87%8F%E6%A8%A1%E5%9E%8B"><span class="nav-text">三、动量模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%BA%E8%88%B9%E6%A8%A1%E5%9E%8B"><span class="nav-text">1. 人船模型</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hoarfroster"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Hoarfroster</p>
+  <div class="site-description" itemprop="description">这里是霜羽~~咕咕咕</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <ul class="links-of-author motion-element">
+      <li class="links-of-author-item">
+        <a href="https://github.com/PassionPenguin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;PassionPenguin" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+        <span> PassionPenguin</span>
+      </li>
+      <li class="links-of-author-item">
+        <a href="mailto:hoarfroster@outlook.com" title="E-Mail → mailto:hoarfroster@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+        <span> hoarfroster@outlook.com</span>
+      </li>
+      <li class="links-of-author-item">
+        <a href="https://twitter.com/zhangqizhe" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;zhangqizhe" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+        <span> @zhangqizhe</span>
+      </li>
+      <li class="links-of-author-item">
+        <a href="https://www.instagram.com/glacierpenguin/" title="Instagram → https:&#x2F;&#x2F;www.instagram.com&#x2F;glacierpenguin&#x2F;" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+        <span> @glacierpenguin</span>
+      </li>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'default',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/disqusjs@1/dist/disqusjs.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/disqusjs@1/dist/disqus.js', () => {
+    window.dsqjs = new DisqusJS({
+      api       : 'https://disqus.skk.moe/disqus/' || 'https://disqus.com/api/',
+      apikey    : 'Lo65MITAya5vcdTm6cJ8V5qCBNx3PVErvDOsfJ5tUPtEbw3DMS3EIzEx6vrmTzCN',
+      shortname : 'hoarfroster',
+      url       : "https://hoarfroster.github.io/High-School/Physics/Mechanics/%E5%8A%A8%E9%87%8F%E4%B8%8E%E5%8A%A8%E9%87%8F%E5%AE%88%E6%81%92%E5%AE%9A%E5%BE%8B/",
+      identifier: "High-School/Physics/Mechanics/动量与动量守恒定律/",
+      title     : "动量与动量守恒定律",
+    });
+  }, window.DisqusJS);
+});
+</script>
+
+</body>
+</html>
