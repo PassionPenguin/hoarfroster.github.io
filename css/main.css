@@ -1976,7 +1976,8 @@ body {
   line-height: 1.2;
 }
 .post-body h2 {
-  font-size: 1.75em;
+  font-size: 1.5em;
+  text-align: center;
   line-height: 1.225;
 }
 .post-body h3 {
@@ -2749,6 +2750,9 @@ body {
 .post-body .math.inline {
   font-family: 'Times New Roman';
   padding: 0 2px;
+}
+.post-body .math.inline strong {
+  color: var(--color-scale-black);
 }
 .post-body .citation {
   display: inline-block;
