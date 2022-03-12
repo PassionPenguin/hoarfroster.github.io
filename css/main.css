@@ -2825,6 +2825,19 @@ body {
 .post-body .source .filename {
   font: 14px/18px 'JetBrains Mono';
 }
+.post-body .classcial-chinese-literature-and-poetry-translation .original-text {
+  color: var(--color-scale-blue-7);
+  font-family: 'Source Han Serif', serif;
+  font-weight: 600;
+}
+.post-body .classcial-chinese-literature-and-poetry-translation .translation {
+  color: var(--color-scale-red-7);
+  font-family: 'Source Han Serif', serif;
+  font-weight: 600;
+}
+.post-body .classcial-chinese-literature-and-poetry-translation .paragraph {
+  margin-bottom: 64px;
+}
 .post-sticky-flag {
   display: inline-block;
   transform: rotate(30deg);

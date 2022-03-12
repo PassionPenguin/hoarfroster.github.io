@@ -47,15 +47,15 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"hoarfroster.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqusjs","storage":true,"lazyload":false,"nav":null,"activeClass":"disqusjs"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
-  <meta name="description" content="前言 为什么要这样做 ​ 日常写的笔记等文章，或多或少会存在一部分的 latex 代码来实现数学公式的输入与化学结构式的表达，但是 pandoc 默认并不支持完备的 latex，只支持有限的一部分 package，存在一定的限制，故而一直在想着去整一个插件去让 pandoc 支持 latex 转 svg 来嵌入到输出的 HTML 文件中，实现 latex 的嵌入功能。 搜索资料 ​ 参考了一下，使">
+  <meta name="description" content="日常写的笔记等文章，或多或少会存在一部分的 latex 代码来实现数学公式的输入与化学结构式的表达，但是 pandoc 默认并不支持完备的 latex，只支持有限的一部分 package，存在一定的限制，故而一直在想着去整一个插件去让 pandoc 支持 latex 转 svg 来嵌入到输出的 HTML 文件中，实现 latex 的嵌入功能。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Pandoc 将 Markdown 中的所有 latex 代码直接以 SVG 形式嵌入在导出的 HTML 中">
 <meta property="og:url" content="https://hoarfroster.github.io/Computer-Science/Pandoc/Filter/pandoc-%E5%B0%86-markdown-%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89-latex-%E4%BB%A3%E7%A0%81%E7%9B%B4%E6%8E%A5%E4%BB%A5-svg-%E5%BD%A2%E5%BC%8F%E5%B5%8C%E5%85%A5%E5%9C%A8%E5%AF%BC%E5%87%BA%E7%9A%84-html-%E4%B8%AD/index.html">
 <meta property="og:site_name" content="Hoarfroster 的小窝">
-<meta property="og:description" content="前言 为什么要这样做 ​ 日常写的笔记等文章，或多或少会存在一部分的 latex 代码来实现数学公式的输入与化学结构式的表达，但是 pandoc 默认并不支持完备的 latex，只支持有限的一部分 package，存在一定的限制，故而一直在想着去整一个插件去让 pandoc 支持 latex 转 svg 来嵌入到输出的 HTML 文件中，实现 latex 的嵌入功能。 搜索资料 ​ 参考了一下，使">
+<meta property="og:description" content="日常写的笔记等文章，或多或少会存在一部分的 latex 代码来实现数学公式的输入与化学结构式的表达，但是 pandoc 默认并不支持完备的 latex，只支持有限的一部分 package，存在一定的限制，故而一直在想着去整一个插件去让 pandoc 支持 latex 转 svg 来嵌入到输出的 HTML 文件中，实现 latex 的嵌入功能。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-03-09T11:53:32.000Z">
-<meta property="article:modified_time" content="2022-03-09T13:48:26.704Z">
+<meta property="article:modified_time" content="2022-03-12T14:17:28.674Z">
 <meta property="article:author" content="Hoarfroster">
 <meta property="article:tag" content="Computer Science">
 <meta property="article:tag" content="Pandoc">
@@ -348,10 +348,16 @@ mjx-container[display="true"] + br {
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-03-09 19:53:32 / Modified: 21:48:26" itemprop="dateCreated datePublished" datetime="2022-03-09T19:53:32+08:00">2022-03-09</time>
+              <time title="Created: 2022-03-09 19:53:32" itemprop="dateCreated datePublished" datetime="2022-03-09T19:53:32+08:00">2022-03-09</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-12 22:17:28" itemprop="dateModified" datetime="2022-03-12T22:17:28+08:00">2022-03-12</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -390,6 +396,7 @@ mjx-container[display="true"] + br {
               </span>
               <span>38 mins.</span>
             </span>
+            <div class="post-description">日常写的笔记等文章，或多或少会存在一部分的 latex 代码来实现数学公式的输入与化学结构式的表达，但是 pandoc 默认并不支持完备的 latex，只支持有限的一部分 package，存在一定的限制，故而一直在想着去整一个插件去让 pandoc 支持 latex 转 svg 来嵌入到输出的 HTML 文件中，实现 latex 的嵌入功能。</div>
 
         </div>
       </header>
@@ -413,7 +420,6 @@ latex 转 svg 来嵌入到输出的 HTML 文件中，实现 latex 的嵌入功�
 <p>​ 整理一下目的，我需要抓出所有 Markdown 里面的 latex
 代码，提取出来后使用命令行工具转换为 svg 文件，再把生成的 svg 返回给
 pandoc 供替换。</p>
-<span id="more"></span>
 <h2 id="开始秃头">开始秃头</h2>
 <h3 id="提取-latex">提取 latex</h3>
 <p>​ 既然我们要提取所有的 latex 代码，首先要抓出所有存放 latex
@@ -822,12 +828,12 @@ return {{
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="Symbols count total">92k</span>
+    <span title="Symbols count total">155k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">5:33</span>
+    <span title="Reading time total">9:24</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT</a>
   </div>
@@ -947,19 +953,19 @@ tex_math_dollars 错误解析</span></a></li></ol></li></ol></li><li class="nav-
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">47</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
