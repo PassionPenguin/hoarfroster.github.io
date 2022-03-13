@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://hoarfroster.github.io/High-School/Chinese/Classical-Chinese-Literature-and-Poetry/%E9%AB%98%E4%B8%AD%E6%96%87%E8%A8%80%E6%96%87%EF%BC%9A%E5%BF%85%E4%BF%AE%E4%B8%8A-%E7%AC%AC%E5%85%AD%E5%8D%95%E5%85%83/</loc>
+    <loc>https://hoarfroster.github.io/High-School/Chinese/Classical-Chinese-Literature-and-Poetry/%E5%8A%9D%E5%AD%A6-%E8%8D%80%E5%AD%90/</loc>
     
     <lastmod>2022-03-13</lastmod>
     
@@ -11,7 +11,16 @@
   </url>
   
   <url>
-    <loc>https://hoarfroster.github.io/High-School/Chinese/Classical-Chinese-Literature-and-Poetry/%E5%A3%B0%E5%A3%B0%E6%85%A2%C2%B7%E5%AF%BB%E5%AF%BB%E8%A7%85%E8%A7%85-%E6%9D%8E%E6%B8%85%E7%85%A7/</loc>
+    <loc>https://hoarfroster.github.io/High-School/Chinese/Classical-Chinese-Literature-and-Poetry/%E5%B8%88%E8%AF%B4-%E9%9F%A9%E6%84%88/</loc>
+    
+    <lastmod>2022-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hoarfroster.github.io/High-School/Chinese/Classical-Chinese-Literature-and-Poetry/%E9%AB%98%E4%B8%AD%E6%96%87%E8%A8%80%E6%96%87%EF%BC%9A%E5%BF%85%E4%BF%AE%E4%B8%8A-%E7%AC%AC%E5%85%AD%E5%8D%95%E5%85%83/</loc>
     
     <lastmod>2022-03-13</lastmod>
     
@@ -39,15 +48,6 @@
   
   <url>
     <loc>https://hoarfroster.github.io/High-School/Biology/Bioengineering/%E7%BB%86%E8%83%9E%E5%B7%A5%E7%A8%8B/</loc>
-    
-    <lastmod>2022-03-13</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hoarfroster.github.io/High-School/Chinese/Classical-Chinese-Literature-and-Poetry/%E5%A3%B0%E5%A3%B0%E6%85%A2%C2%B7%E5%AF%BB%E5%AF%BB%E8%A7%85%E8%A7%85-%E6%9D%8E%E6%B8%85%E7%85%A7/</loc>
     
     <lastmod>2022-03-13</lastmod>
     
