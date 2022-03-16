@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://hoarfroster.github.io/High-School/Physics/Electricity/%E4%BC%A0%E6%84%9F%E5%99%A8/</loc>
+    
+    <lastmod>2022-03-16</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://hoarfroster.github.io/High-School/Physics/Electromagnetism/%E7%94%B5%E7%A3%81%E6%B3%A2/</loc>
+    
+    <lastmod>2022-03-16</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://hoarfroster.github.io/High-School/Physics/Electromagnetism/%E7%A3%81%E5%9C%BA/</loc>
     
     <lastmod>2022-03-15</lastmod>
@@ -12,15 +30,6 @@
   
   <url>
     <loc>https://hoarfroster.github.io/High-School/Physics/Electromagnetism/%E7%94%B5%E7%A3%81%E6%84%9F%E5%BA%94%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/</loc>
-    
-    <lastmod>2022-03-15</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://hoarfroster.github.io/High-School/Physics/Electromagnetism/%E7%94%B5%E7%A3%81%E6%B3%A2/</loc>
     
     <lastmod>2022-03-15</lastmod>
     
@@ -715,7 +724,7 @@
 
   <url>
     <loc>https://hoarfroster.github.io/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -723,119 +732,119 @@
   
   <url>
     <loc>https://hoarfroster.github.io/tags/School-Notes/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/tags/Biology/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/tags/Botany/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/tags/Cell-Culture/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/tags/Professional-Course/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/tags/Chemistry/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/tags/High-School/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/tags/Computer-Science/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/tags/Pandoc/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/tags/Lua/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/tags/Android/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/tags/Kotlin/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/tags/Mathematics/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/tags/Source-Control/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/tags/Git/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/tags/Chinese/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/tags/Physics/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -844,168 +853,175 @@
   
   <url>
     <loc>https://hoarfroster.github.io/categories/Professional-Course/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/categories/Professional-Course/Biology/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/categories/Professional-Course/Biology/Bioengineering/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/categories/High-School/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/categories/Professional-Course/Biology/Bioengineering/Tissue-Culture-of-Plant-by-HZAU/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/categories/High-School/Chemistry/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/categories/Computer-Science/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/categories/High-School/Biology/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/categories/High-School/Chinese/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/categories/High-School/Mathematics/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/categories/High-School/Physics/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/categories/Computer-Science/Pandoc/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/categories/Computer-Science/Android/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/categories/Computer-Science/Source-Control/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/categories/High-School/Biology/Cell-Biology/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/categories/High-School/Biology/Genetics/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/categories/High-School/Biology/Bioengineering/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/categories/High-School/Chinese/Classical-Chinese-Literature-and-Poetry/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/categories/High-School/Mathematics/Function/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/categories/High-School/Physics/Mechanics/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/categories/High-School/Physics/Waves/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/categories/High-School/Physics/Optics/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/categories/Computer-Science/Pandoc/Filter/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://hoarfroster.github.io/categories/High-School/Physics/Electromagnetism/</loc>
-    <lastmod>2022-03-15</lastmod>
+    <lastmod>2022-03-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://hoarfroster.github.io/categories/High-School/Physics/Electricity/</loc>
+    <lastmod>2022-03-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
