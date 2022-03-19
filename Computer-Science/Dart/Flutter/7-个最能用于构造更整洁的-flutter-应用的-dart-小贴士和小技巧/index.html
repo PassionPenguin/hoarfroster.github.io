@@ -47,20 +47,25 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"hoarfroster.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqusjs","storage":true,"lazyload":false,"nav":null,"activeClass":"disqusjs"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
-  <meta name="description" content="必修三 ​ 能量既不会凭空产生，也不会凭空消失，它只能从一种形式转化为其他形式，或者从一个物体转移到别的物体，在转化或转移的过程中，能量的总量保持不变。这个规律叫作能量守恒定律。 ​ 煤炭、石油和天然气是目前人类生产、生活中使用的主要能源，这类能源又叫作化石能源。化石能源无法在短时间内再生，所以这类能源被叫作不可再生能源。 ​ 水能、风能、潮汐能等能源，归根结底来源于太阳能。这些能源在自然界可以再">
+  <meta name="description" content="Dart 是一门针对客户端进行了优化的编程语言，专门用于快速地构建移动端、桌面端和服务端应用程序。Dart 由 Google 开发，并与 Google 的跨平台框架 Flutter 相互搭配。借助 Flutter 和 Dart，我们可以构建具有流畅 UI 和原生性能的应用程序。今天，我们总结并分享了七个我们认为最实用的 Dart 技巧，来帮助大家改善应用程序的开发。我们可以使用这些技巧来编写简洁的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hoarfroster 的小窝">
-<meta property="og:url" content="https://hoarfroster.github.io/null/index.html">
+<meta property="og:title" content="7 个最能用于构造更整洁的 Flutter 应用的 Dart 小贴士和小技巧">
+<meta property="og:url" content="https://hoarfroster.github.io/Computer-Science/Dart/Flutter/7-%E4%B8%AA%E6%9C%80%E8%83%BD%E7%94%A8%E4%BA%8E%E6%9E%84%E9%80%A0%E6%9B%B4%E6%95%B4%E6%B4%81%E7%9A%84-flutter-%E5%BA%94%E7%94%A8%E7%9A%84-dart-%E5%B0%8F%E8%B4%B4%E5%A3%AB%E5%92%8C%E5%B0%8F%E6%8A%80%E5%B7%A7/index.html">
 <meta property="og:site_name" content="Hoarfroster 的小窝">
-<meta property="og:description" content="必修三 ​ 能量既不会凭空产生，也不会凭空消失，它只能从一种形式转化为其他形式，或者从一个物体转移到别的物体，在转化或转移的过程中，能量的总量保持不变。这个规律叫作能量守恒定律。 ​ 煤炭、石油和天然气是目前人类生产、生活中使用的主要能源，这类能源又叫作化石能源。化石能源无法在短时间内再生，所以这类能源被叫作不可再生能源。 ​ 水能、风能、潮汐能等能源，归根结底来源于太阳能。这些能源在自然界可以再">
+<meta property="og:description" content="Dart 是一门针对客户端进行了优化的编程语言，专门用于快速地构建移动端、桌面端和服务端应用程序。Dart 由 Google 开发，并与 Google 的跨平台框架 Flutter 相互搭配。借助 Flutter 和 Dart，我们可以构建具有流畅 UI 和原生性能的应用程序。今天，我们总结并分享了七个我们认为最实用的 Dart 技巧，来帮助大家改善应用程序的开发。我们可以使用这些技巧来编写简洁的">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-03-18T10:40:04.147Z">
-<meta property="article:modified_time" content="2022-03-18T10:40:59.823Z">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/10368/1*UkUGENyS23H0pweg_EdyNg.jpeg">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/4920/1*8HtnC_I_iMewckScC92stA.png">
+<meta property="article:published_time" content="2021-04-23T01:32:00.000Z">
+<meta property="article:modified_time" content="2022-03-19T10:00:42.335Z">
 <meta property="article:author" content="Hoarfroster">
-<meta property="article:tag" content="notes, blog">
+<meta property="article:tag" content="Computer Science">
+<meta property="article:tag" content="Flutter">
+<meta property="article:tag" content="Dart">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn-images-1.medium.com/max/10368/1*UkUGENyS23H0pweg_EdyNg.jpeg">
 
-<link rel="canonical" href="https://hoarfroster.github.io/null/">
+<link rel="canonical" href="https://hoarfroster.github.io/Computer-Science/Dart/Flutter/7-%E4%B8%AA%E6%9C%80%E8%83%BD%E7%94%A8%E4%BA%8E%E6%9E%84%E9%80%A0%E6%9B%B4%E6%95%B4%E6%B4%81%E7%9A%84-flutter-%E5%BA%94%E7%94%A8%E7%9A%84-dart-%E5%B0%8F%E8%B4%B4%E5%A3%AB%E5%92%8C%E5%B0%8F%E6%8A%80%E5%B7%A7/">
 
 
 <script id="page-configurations">
@@ -73,7 +78,7 @@
   };
 </script>
 
-  <title> | Hoarfroster 的小窝</title>
+  <title>7 个最能用于构造更整洁的 Flutter 应用的 Dart 小贴士和小技巧 | Hoarfroster 的小窝</title>
   
 
 
@@ -324,7 +329,7 @@ mjx-container[display="true"] + br {
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://hoarfroster.github.io/null/">
+    <link itemprop="mainEntityOfPage" href="https://hoarfroster.github.io/Computer-Science/Dart/Flutter/7-%E4%B8%AA%E6%9C%80%E8%83%BD%E7%94%A8%E4%BA%8E%E6%9E%84%E9%80%A0%E6%9B%B4%E6%95%B4%E6%B4%81%E7%9A%84-flutter-%E5%BA%94%E7%94%A8%E7%9A%84-dart-%E5%B0%8F%E8%B4%B4%E5%A3%AB%E5%92%8C%E5%B0%8F%E6%8A%80%E5%B7%A7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -337,7 +342,7 @@ mjx-container[display="true"] + br {
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
+          7 个最能用于构造更整洁的 Flutter 应用的 Dart 小贴士和小技巧
         </h1>
 
         <div class="post-meta">
@@ -346,9 +351,32 @@ mjx-container[display="true"] + br {
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2022-03-18 18:40:04 / Modified: 18:40:59" itemprop="dateCreated datePublished" datetime="2022-03-18T18:40:04+08:00">2022-03-18</time>
+              <time title="Created: 2021-04-23 09:32:00" itemprop="dateCreated datePublished" datetime="2021-04-23T09:32:00+08:00">2021-04-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-19 18:00:42" itemprop="dateModified" datetime="2022-03-19T18:00:42+08:00">2022-03-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computer-Science/" itemprop="url" rel="index"><span itemprop="name">Computer Science</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computer-Science/Dart/" itemprop="url" rel="index"><span itemprop="name">Dart</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computer-Science/Dart/Flutter/" itemprop="url" rel="index"><span itemprop="name">Flutter</span></a>
+                </span>
             </span>
 
           
@@ -363,14 +391,15 @@ mjx-container[display="true"] + br {
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>204</span>
+              <span>4.1k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
-              <span>1 mins.</span>
+              <span>15 mins.</span>
             </span>
+            <div class="post-description">Dart 是一门针对客户端进行了优化的编程语言，专门用于快速地构建移动端、桌面端和服务端应用程序。Dart 由 Google 开发，并与 Google 的跨平台框架 Flutter 相互搭配。借助 Flutter 和 Dart，我们可以构建具有流畅 UI 和原生性能的应用程序。今天，我们总结并分享了七个我们认为最实用的 Dart 技巧，来帮助大家改善应用程序的开发。我们可以使用这些技巧来编写简洁的代码，并充分利用上 Dart 所提供的许多特性。</div>
 
         </div>
       </header>
@@ -381,13 +410,232 @@ mjx-container[display="true"] + br {
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>必修三</p>
-<p>​
-<mark>能量既不会凭空产生，也不会凭空消失，它只能从一种形式转化为其他形式，或者从一个物体转移到别的物体，在转化或转移的过程中，能量的总量保持不变</mark>。这个规律叫作<strong>能量守恒定律</strong>。</p>
-<p>​
-煤炭、石油和天然气是目前人类生产、生活中使用的主要能源，这类能源又叫作化石能源。化石能源无法在短时间内再生，所以这类能源被叫作不可再生能源。</p>
-<p>​
-水能、风能、潮汐能等能源，归根结底来源于太阳能。这些能源在自然界可以再生，叫作可再生能源。</p>
+        <blockquote>
+<ul>
+<li>原文地址：<a target="_blank" rel="noopener" href="https://betterprogramming.pub/top-7-dart-tips-and-tricks-for-cleaner-flutter-apps-562664a15826">Top
+7 Dart Tips and Tricks for Cleaner Flutter Apps</a></li>
+<li>原文作者：<a target="_blank" rel="noopener" href="https://medium.com/@educative-inc">The Educative
+Team</a></li>
+<li>译者：* 译者：<a target="_blank" rel="noopener" href="https://github.com/PassionPenguin">霜羽
+Hoarfroster</a></li>
+<li>校对者：* 校对者：<a target="_blank" rel="noopener" href="https://github.com/5Reasons">5Reasons</a>、<a target="_blank" rel="noopener" href="https://github.com/greycodee">greycodee</a></li>
+</ul>
+</blockquote>
+<figure>
+<img src="https://cdn-images-1.medium.com/max/10368/1*UkUGENyS23H0pweg_EdyNg.jpeg" alt="由 Lucie Hošová 上传至 Unsplash">
+<figcaption aria-hidden="true">由 <a target="_blank" rel="noopener" href="https://unsplash.com/@marjorylucabaxter?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Lucie
+Hošová</a> 上传至 <a target="_blank" rel="noopener" href="https://unsplash.com/s/photos/dart?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></figcaption>
+</figure>
+<p><a target="_blank" rel="noopener" href="https://www.educative.io/blog/dart-2-language-features">Dart</a>
+是一门针对客户端进行了优化的编程语言，专门用于快速地构建移动端、桌面端和服务端应用程序。Dart
+由 Google 开发，并与 Google 的跨平台框架 Flutter 相互搭配。借助 Flutter
+和 Dart，我们可以构建具有流畅 UI 和原生性能的应用程序。</p>
+<p>今天，我们总结并分享了七个我们认为最实用的 Dart
+技巧，来帮助大家改善应用程序的开发。我们可以使用这些技巧来编写简洁的代码，并充分利用上
+Dart 所提供的许多特性。</p>
+<p><strong>速览 —— 贴士和技巧：</strong></p>
+<ol type="1">
+<li>使用匿名函数作为参数</li>
+<li>使用 <code>call</code> 方法让类可以像是个函数一样被调用</li>
+<li>使用 <code>.entries</code> 来在一个 map 上遍历</li>
+<li>如何使用 getter 和 setter</li>
+<li>用 <code>Set</code> 存储唯一值</li>
+<li>使用 Inspect 功能</li>
+<li>使用 sync 和 async 生成器</li>
+</ol>
+<h2 id="使用匿名函数作为参数">1. 使用匿名函数作为参数</h2>
+<p>在 Dart 语言中，我们可以将函数作为参数传递给其他函数，而 Dart
+语言本身还支持无需命名即可调用的匿名函数。</p>
+<p>以下是 Dart
+中使用匿名函数的示例。在本例中，我们将一个匿名的求立方函数传递给内置方法
+<code>forEach</code>，尝试获取 <code>list</code>
+数组中每一项的立方。</p>
+<pre class="dart"><code>main() {
+  var list = [1, 2, 3];
+  list.forEach((item) {
+    print(item * item * item);
+  });
+}</code></pre>
+<h2 id="使用-call-方法让类可以像是个函数一样被调用">2. 使用
+<code>call</code> 方法让类可以像是个函数一样被调用</h2>
+<p>使用 Dart
+语言我们可以构造一个可调用的类，允许将该类的实例作为函数调用。我们可以用
+<code>call()</code> 方法做到这一点,请参见下面的语法：</p>
+<pre class="dart"><code>class class_name {
+  ... // class 
+
+  return_type call ( parameters ) {
+    ... // 调用这个函数内容
+  }
+
+}</code></pre>
+<p>让我们来看一个例子：</p>
+<pre class="dart"><code>class EducativeIntro {
+
+  // 定义 call 方法 
+  String call(String a, String b, String c) =&gt; 'Welcome to $a$b$c';
+}
+
+// 主函数  
+void main() {
+  var educative_input = EducativeIntro();
+
+  // 借助实例调用这个类
+  var educative_output = educative_input('our ', 'Dart ', 'tutorial');
+
+  print(educative_output);
+}</code></pre>
+<blockquote>
+<p><strong>注意：</strong> Dart 不支持多个可调用方法</p>
+</blockquote>
+<h2 id="使用-.entries-来在一个-map-上遍历">3. 使用 <code>.entries</code>
+来在一个 map 上遍历</h2>
+<p>在 Dart 中我们可以使用 <code>entries()</code>
+方法以空安全的方式遍历一张 map。假设我们现在有一张 map
+用于追踪在不同产品上花费的金额（通常我们会使用 <code>!</code> 运算符在此
+map 中进行遍历）：</p>
+<pre class="dart"><code>for (var key in moneySpent.keys) {
+  final value = moneySpent[key]!;
+  print('$key: $value');
+}</code></pre>
+<p>我们可以改进此代码，并使用循环使其更安全。当我们使用
+<code>entries</code>
+变量进行遍历时，我们可以用空安全的方式访问键值对。</p>
+<pre class="dart"><code>for (var entry in moneySpent.entries) {
+  // 使用键值对做一些事情
+  print('${entry.key}: ${entry.value}');
+}</code></pre>
+<h2 id="如何使用-getter-和-setter">4. 如何使用 getter 和 setter</h2>
+<p>getter 和 setter
+是一对特殊的方法，它们能够对一个对象的属性进行读、写操作。我们对 getter
+和 setter
+的调用类似于实例变量：点运算符（<code>.</code>）后面紧跟函数的名称。</p>
+<p>getter 是用于获取对象属性值的函数，使用 <code>get</code>
+关键字定义。</p>
+<p>在下面的示例中，我们在第 13 行创建了一个 getter 函数，返回当前实例的
+<code>name</code> 属性的值。而在第 21 行，我们调用了 getter
+函数，这里的输出应是 <code>Sarah</code>。</p>
+<pre class="dart"><code>class Person {
+  String name;
+  String gender;
+  int age;
+
+  Person(this.name, this.gender, this.age);
+
+  Person.newBorn(){
+    this.age = 0;
+  }
+
+    // getter 函数，获取 name 的值
+  String get personName =&gt; name;
+
+  walking() =&gt; print('$name is walking');
+
+  talking() =&gt; print('$name is talking');
+}
+
+int main() {
+  var firstPerson = Person("Sarah", "Female", 25);
+  print(firstPerson.personName);
+}</code></pre>
+<p>setter 则是用于写入一个对象的属性的函数，使用 <code>set</code>
+关键词：</p>
+<pre class="dart"><code>class Person {
+  String name;
+  String gender;
+  int age;
+
+  String get personName =&gt; name;
+
+    // setter 函数用于设置 age 的值
+  void set personAge(num val) {
+    if (val &lt; 0) {
+      print("Age cannot be negative");
+    } else {
+      this.age = val;
+    }
+  }
+
+  walking() =&gt; print('$name is walking');
+
+  talking() =&gt; print('$name is talking');
+}
+
+int main() {
+  var firstPerson = Person();
+  firstPerson.personAge = -5;
+  print(firstPerson.age);
+}</code></pre>
+<p>第 9 行到第 15 行代码中我们创建了一个 setter 函数用于设置
+<code>age</code>
+的值。该函数还被添加了一个条件判断，让我们不能输入负的年龄。在第 23
+行，我们使用 <code>personAge</code> setter 函数为
+<code>firstPerson</code> 设置了年龄值。</p>
+<h2 id="用-set-存储唯一值">用 <code>Set</code> 存储唯一值</h2>
+<p>列表是 Dart
+中最常见的集合类型之一，但是列表可以容纳重复项。有时我们只想要唯一值的集合，这就是
+<code>Set</code> 用武之处。</p>
+<pre class="dart"><code>
+final countriesSet = {
+  'USA',
+  'India',
+  'Iceland',
+  'USA',
+};</code></pre>
+<p>在一个 <code>Set</code> 中两个元素不能相同，因此上面的代码会有一个
+warning 并且无法被编译。同理使用 <code>const set</code>
+也无法被编译。</p>
+<h2 id="使用-inspect-功能">6. 使用 Inspect 功能</h2>
+<p>在网络开发中我们经常会需要用到 Inspect 功能，因为它能够告诉我们应用于
+HTML 标记的所有属性。Dart 也提供了类似的功能，我们称之为 Flutter
+Inspect。这个功能可以有效简化 Flutter
+应用程序的开发，用于找到屏幕上的任何控件并查看应用于它的属性。</p>
+<p>Inspect 还可以帮助我们可视化 Flutter
+控件树以了解布局或确定布局问题。</p>
+<p>要使用它，请按照下列步骤操作：</p>
+<ul>
+<li>单击 <code>Flutter Inspector</code>。</li>
+<li>单击 <code>启用选择 Widget 模式</code>。</li>
+<li>选择屏幕上的控件以获取更多信息</li>
+</ul>
+<figure>
+<img src="https://cdn-images-1.medium.com/max/4920/1*8HtnC_I_iMewckScC92stA.png">
+</figure>
+<h2 id="使用-sync-和-async-生成器">7. 使用 Sync 和 Async 生成器</h2>
+<p>在 Dart 中，生成器可以生成一系列值。而 Dart
+一共有两个生成器函数：</p>
+<ul>
+<li><strong>同步生成器：</strong> 返回一个可迭代的对象</li>
+<li><strong>异步生成器：</strong> 返回 <code>Stream</code> 对象</li>
+</ul>
+<p>换句话说，同步生成器返回可以顺序访问的值的集合。为此，我们将函数体标记为
+<code>sync*</code>。我们会以 <code>yield</code> 语句用作值。</p>
+<pre class="dart"><code>Iterable&lt;int&gt; count(int n) sync* {
+  for (var i = 1; i &lt;= n; i++) {
+    yield i;
+  }
+}</code></pre>
+<p>异步生成器则会返回一个 <code>Stream</code>
+对象，让接收一系列事件成为可能。我们可以通过将函数体标记为
+<code>async*</code> 来做到这一点。我们会以 <code>yield</code>
+语句用作值。</p>
+<pre class="dart"><code>Stream&lt;int&gt; countStream(int n) async* {
+  for (var i = 1; i &lt;= n; i++) {
+    yield i;
+  }
+}</code></pre>
+<h2 id="你下一步将学习什么">你下一步将学习什么？</h2>
+<p>我们希望这些技巧能帮助您充分利用 Dart 及其提供的所有特性。Flutter 和
+Dart
+是一套强大的工具，用于构建具有原生感和流畅感的应用程序。接下来要研究的其他高级的
+Dart 特性应该是：</p>
+<ul>
+<li>嵌套 <code>if</code> 语句的传播运算符</li>
+<li>命名构造函数和初始化列表</li>
+<li>Dart 库</li>
+<li>枚举类型</li>
+</ul>
+<p>学习愉快！</p>
     </div>
 
     
@@ -395,6 +643,11 @@ mjx-container[display="true"] + br {
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Computer-Science/" rel="tag"># Computer Science</a>
+              <a href="/tags/Flutter/" rel="tag"># Flutter</a>
+              <a href="/tags/Dart/" rel="tag"># Dart</a>
+          </div>
       </footer>
     
   </article>
@@ -456,12 +709,12 @@ mjx-container[display="true"] + br {
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="Symbols count total">386k</span>
+    <span title="Symbols count total">493k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">23:22</span>
+    <span title="Reading time total">29:54</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT</a>
   </div>
@@ -565,6 +818,9 @@ mjx-container[display="true"] + br {
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E5%8F%82%E6%95%B0"><span class="nav-text">1. 使用匿名函数作为参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-call-%E6%96%B9%E6%B3%95%E8%AE%A9%E7%B1%BB%E5%8F%AF%E4%BB%A5%E5%83%8F%E6%98%AF%E4%B8%AA%E5%87%BD%E6%95%B0%E4%B8%80%E6%A0%B7%E8%A2%AB%E8%B0%83%E7%94%A8"><span class="nav-text">2. 使用
+call 方法让类可以像是个函数一样被调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-.entries-%E6%9D%A5%E5%9C%A8%E4%B8%80%E4%B8%AA-map-%E4%B8%8A%E9%81%8D%E5%8E%86"><span class="nav-text">3. 使用 .entries
+来在一个 map 上遍历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8-getter-%E5%92%8C-setter"><span class="nav-text">4. 如何使用 getter 和 setter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8-set-%E5%AD%98%E5%82%A8%E5%94%AF%E4%B8%80%E5%80%BC"><span class="nav-text">用 Set 存储唯一值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-inspect-%E5%8A%9F%E8%83%BD"><span class="nav-text">6. 使用 Inspect 功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-sync-%E5%92%8C-async-%E7%94%9F%E6%88%90%E5%99%A8"><span class="nav-text">7. 使用 Sync 和 Async 生成器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%A0%E4%B8%8B%E4%B8%80%E6%AD%A5%E5%B0%86%E5%AD%A6%E4%B9%A0%E4%BB%80%E4%B9%88"><span class="nav-text">你下一步将学习什么？</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -579,19 +835,19 @@ mjx-container[display="true"] + br {
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-count">103</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -717,9 +973,9 @@ NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
       api       : 'https://disqus.skk.moe/disqus/' || 'https://disqus.com/api/',
       apikey    : 'Lo65MITAya5vcdTm6cJ8V5qCBNx3PVErvDOsfJ5tUPtEbw3DMS3EIzEx6vrmTzCN',
       shortname : 'hoarfroster',
-      url       : "https://hoarfroster.github.io/null/",
-      identifier: "null//",
-      title     : "",
+      url       : "https://hoarfroster.github.io/Computer-Science/Dart/Flutter/7-%E4%B8%AA%E6%9C%80%E8%83%BD%E7%94%A8%E4%BA%8E%E6%9E%84%E9%80%A0%E6%9B%B4%E6%95%B4%E6%B4%81%E7%9A%84-flutter-%E5%BA%94%E7%94%A8%E7%9A%84-dart-%E5%B0%8F%E8%B4%B4%E5%A3%AB%E5%92%8C%E5%B0%8F%E6%8A%80%E5%B7%A7/",
+      identifier: "Computer-Science/Dart/Flutter/7-个最能用于构造更整洁的-flutter-应用的-dart-小贴士和小技巧/",
+      title     : "7 个最能用于构造更整洁的 Flutter 应用的 Dart 小贴士和小技巧",
     });
   }, window.DisqusJS);
 });

@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/avatar.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/avatar.png">
+  <link rel="mask-icon" href="/images/avatar.png" color="#222">
+  <meta name="google-site-verification" content="iFMbHL1JuWjTlNFq5Rv96vDzpsqakxTpdE2nw7Crr6o">
+  <meta name="msvalidate.01" content="EF6D8CD8A3335E66AB96B4D544FCD96C">
+  <meta name="baidu-site-verification" content="code-80b80Pbzs2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<script>
+  window.onload = function() {
+    document.querySelectorAll("p").forEach(e=>{
+      e.innerHTML = e.innerHTML.replaceAll(/==(.+?)==/g, "<mark>$1</mark>").replaceAll(/​\s+?/g, "<span class='tab'></span>");
+    });
+    
+    [...document.querySelectorAll("pre > code")].forEach(e=> {
+        var codeClass = e.parentElement.classList.value;
+        if (codeClass == null || codeClass === "") {
+            e.classList.add("hljs");
+        } else {
+            var map = {
+                js: "javascript"
+            };
+            if (map[codeClass]) {
+                codeClass = map[codeClass];
+            }
+            codeClass.split(" ").forEach(i=>e.classList.add(i));
+            hljs.highlightElement(e);
+        }
+    });
+  }
+</script>
+<script async src="/js/cursor.js"></script>
+<script async src="/js/highlight.min.js"></script>
+<script data-ad-client="ca-pub-2275811890061218" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"hoarfroster.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqusjs","storage":true,"lazyload":false,"nav":null,"activeClass":"disqusjs"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+  <meta name="description" content="不知道你有没有接触过 Web Share API？我想你们中的很多人应该都听说过这个词吧！Web Share API 其实已经出现一段时间了，只不过最初只有移动设备支持 Web Share API。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="现代 Web 应用程序中的 Web 分享">
+<meta property="og:url" content="https://hoarfroster.github.io/Computer-Science/Frontend/JavaScript/%E7%8E%B0%E4%BB%A3-web-%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%B8%AD%E7%9A%84-web-%E5%88%86%E4%BA%AB/index.html">
+<meta property="og:site_name" content="Hoarfroster 的小窝">
+<meta property="og:description" content="不知道你有没有接触过 Web Share API？我想你们中的很多人应该都听说过这个词吧！Web Share API 其实已经出现一段时间了，只不过最初只有移动设备支持 Web Share API。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/5760/1*QXEz4H_A4nons0JRZmblhQ.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2000/1*sHKOD8KJJxktrFqgPyAQwA.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2000/1*YSWUxwngdvAWwQOtAHYzvg.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2000/1*CtRllCb7OzXfmPxJk4eaew.png">
+<meta property="article:published_time" content="2021-05-16T09:09:00.000Z">
+<meta property="article:modified_time" content="2022-03-19T09:55:51.193Z">
+<meta property="article:author" content="Hoarfroster">
+<meta property="article:tag" content="Computer Science">
+<meta property="article:tag" content="Frontend">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn-images-1.medium.com/max/5760/1*QXEz4H_A4nons0JRZmblhQ.png">
+
+<link rel="canonical" href="https://hoarfroster.github.io/Computer-Science/Frontend/JavaScript/%E7%8E%B0%E4%BB%A3-web-%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%B8%AD%E7%9A%84-web-%E5%88%86%E4%BA%AB/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>现代 Web 应用程序中的 Web 分享 | Hoarfroster 的小窝</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <!--<div class="headband"></div>-->
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hoarfroster 的小窝</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section">Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section">About</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section">Categories</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+          Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://hoarfroster.github.io/Computer-Science/Frontend/JavaScript/%E7%8E%B0%E4%BB%A3-web-%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%B8%AD%E7%9A%84-web-%E5%88%86%E4%BA%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Hoarfroster">
+      <meta itemprop="description" content="这里是霜羽~~咕咕咕">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hoarfroster 的小窝">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          现代 Web 应用程序中的 Web 分享
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-05-16 17:09:00" itemprop="dateCreated datePublished" datetime="2021-05-16T17:09:00+08:00">2021-05-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-19 17:55:51" itemprop="dateModified" datetime="2022-03-19T17:55:51+08:00">2022-03-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computer-Science/" itemprop="url" rel="index"><span itemprop="name">Computer Science</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computer-Science/Frontend/" itemprop="url" rel="index"><span itemprop="name">Frontend</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computer-Science/Frontend/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="firestore-visitors-count"></span>
+            </span><br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+              <span>2.7k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+              <span>10 mins.</span>
+            </span>
+            <div class="post-description">不知道你有没有接触过 Web Share API？我想你们中的很多人应该都听说过这个词吧！Web Share API 其实已经出现一段时间了，只不过最初只有移动设备支持 Web Share API。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<ul>
+<li>原文地址：<a target="_blank" rel="noopener" href="https://blog.bitsrc.io/web-share-for-modern-web-apps-43c3e2329093">Web
+Share for Modern Web Apps</a></li>
+<li>原文作者：<a target="_blank" rel="noopener" href="https://medium.com/@clickforjanaka">Janaka
+Ekanayake</a></li>
+<li>译者：* 译者：<a target="_blank" rel="noopener" href="https://github.com/PassionPenguin">霜羽
+Hoarfroster</a></li>
+<li>校对者：* 校对者：<a target="_blank" rel="noopener" href="https://github.com/Chorer">Chorer</a>、<a target="_blank" rel="noopener" href="https://github.com/Usualminds">Usualminds</a></li>
+</ul>
+</blockquote>
+<figure>
+<img src="https://cdn-images-1.medium.com/max/5760/1*QXEz4H_A4nons0JRZmblhQ.png">
+</figure>
+<blockquote>
+<p>最近，Windows 和 Chrome OS（译者注：其实还有 macOS）开始支持 Web 分享
+和 Web Share API，这吸引了不少 Web 开发者的目光。</p>
+</blockquote>
+<p>不知道你有没有接触过 Web Share
+API？我想你们中的很多人应该都听说过这个词吧！Web Share API
+其实已经出现一段时间了，只不过最初只有移动设备支持 Web Share API。</p>
+<h2 id="web-share-api-快速演示">Web Share API —— 快速演示</h2>
+<p>我们可以按照以下步骤，对 Web Share API 进行快速测试 ——
+在网页与其他应用程序之间进行数据分享。</p>
+<figure>
+<img src="https://cdn-images-1.medium.com/max/2000/1*sHKOD8KJJxktrFqgPyAQwA.png" alt="来源: https://web-share.glitch.me/">
+<figcaption aria-hidden="true">来源: <a target="_blank" rel="noopener" href="https://web-share.glitch.me/">https://web-share.glitch.me/</a></figcaption>
+</figure>
+<ol type="1">
+<li>首先，确保你使用的是最新版本的谷歌浏览器。</li>
+<li>打开浏览器，打开<a target="_blank" rel="noopener" href="https://web-share.glitch.me/">这个链接</a>，点击<strong>分享</strong>按钮。</li>
+<li>你可以打开任何允许分享的应用程序。此外，它还支持与附近的设备分享。</li>
+<li>点击分享后，你就可以在目标应用程序中查看分享的数据。我这里使用<strong>邮件</strong>作为应用程序。如图所示，应用程序会将
+Web Share API 传递过来的文本数据添加到电子邮件正文中。</li>
+</ol>
+<figure>
+<img src="https://cdn-images-1.medium.com/max/2000/1*YSWUxwngdvAWwQOtAHYzvg.png">
+</figure>
+<p><strong>我希望你在尝试以后会感到高兴！</strong> ——
+至少这是我在浏览器中查看 Web Share 功能演示时的第一印象。</p>
+<h2 id="在实践中使用-web-share">在实践中使用 Web Share</h2>
+<h3 id="分享链接和文本">分享链接和文本</h3>
+<p>你可以使用一个简单的 <code>share()</code>
+方法来分享你想要的链接和文本。下面给出的代码片段可以帮助你完成 Web
+Share：</p>
+<pre class="javascript"><code>if (navigator.share) {
+    navigator.share({
+        title: 'juejin.cn',
+        text: '访问掘金开发者社区',
+        url: 'https://www.juejin.com/',
+    }).then(() =&gt; console.log('分享成功！'))
+        .catch((error) =&gt; console.log('分享时候遇到了错误……', error));
+}</code></pre>
+<h3 id="分享文件">分享文件</h3>
+<p>文件分享与 URL 分享有些不同 —— 你必须先调用
+<code>navigator.canShare()</code> 确认是否可以分享文件，然后才可以在调用
+<code>navigator.share()</code> 时添加一个文件数组。</p>
+<pre class="js"><code>if (navigator.canShare &amp;&amp; navigator.canShare({files: fileArr})) {
+    navigator.share({
+        files: fileArr,
+        title: '我的相片集',
+        text: '北极de假期',
+    }).then(() =&gt; console.log('分享成功！'))
+        .catch((error) =&gt; console.log('分享时候遇到了错误……', error));
+} else {
+    console.log(`你的浏览器不支持分享这些文件……`);
+}</code></pre>
+<h3 id="分享目标">分享目标</h3>
+<p>要成为分享目标，应用程序需要满足 Chrome
+设置的一些标准。你可以浏览一下<a target="_blank" rel="noopener" href="https://developers.google.com/web/fundamentals/app-install-banners/#criteria">这篇帮助文档</a>来查看这些条件。</p>
+<p>要在网络应用清单中注册，你必须添加一个
+<code>share_target</code>。这会提醒浏览器将该应用视为一个可能的分享选项，如下文所示：</p>
+<ol type="1">
+<li>接收基本信息</li>
+<li>接收文件</li>
+<li>接收应用程序变更</li>
+</ol>
+<p>你必须使用 Web Share Target API
+来声明分享目标。它可以明确与其他应用程序分享的文件和内容：</p>
+<pre class="json"><code>{
+  "share_target": {
+    "action": "/?share-target",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "files": [
+        {
+          "name": "file",
+          "accept": [
+            "image/*"
+          ]
+        }
+      ]
+    }
+  }
+}</code></pre>
+<p>不过在已安装的应用程序之间传输文件会比较容易。你可以分享链接、文件等多种类型。</p>
+<pre class="js"><code>async function share(title, text, url) {
+    try {
+        await navigator.share({title, text, url});
+        return true;
+    } catch (ex) {
+        console.error('分享失败……', ex);
+        return false;
+    }
+}</code></pre>
+<h2 id="web-share-api-功能和局限性">Web Share API —— 功能和局限性</h2>
+<h3 id="功能">功能</h3>
+<ul>
+<li>使用 Web Share，你的 Web
+应用程序可以像特定平台的原生应用程序那样使用系统提供的分享功能。</li>
+<li>开发者可以获得更全面的分享选项。</li>
+<li>可以在设备中自定义分享目标和设备。因此，你可以提高页面加载速度。</li>
+<li>Web Share API 有助于分享文本、URL 和文件。此外，Web Share
+也扩展来其支持分享的范围。</li>
+<li>它适用于 Chrome OS、Windows 平台的 Chrome、Safari 和 Android 的
+Chromium 内核浏览器。</li>
+</ul>
+<h3 id="局限性">局限性</h3>
+<p>然而，无论这个功能有多好，它也有不少缺点和局限性。</p>
+<ul>
+<li><p>首先，只有通过 https 访问的网站才能使用 Web Share。</p></li>
+<li><p>还有一点就是，你不能用类似于 <code>onload</code>
+的操作来调用它，它必须通过用户的交互行为进行调用。比如说，用户可以通过点击调用它。</p></li>
+<li><p>另外，Mac 平台的 Chrome 的这个功能还在开发中。</p></li>
+</ul>
+<h2 id="小结">小结</h2>
+<p>Web Share API 是一个现代化的 Web
+平台功能，它有助于我们在社交网络、短信和注册目标应用之间更轻松地分享内容。</p>
+<p>Chrome 是支持 Web Share Target API 的主要浏览器之一。此外，Safari
+也支持它。</p>
+<figure>
+<img src="https://cdn-images-1.medium.com/max/2000/1*CtRllCb7OzXfmPxJk4eaew.png">
+</figure>
+<blockquote>
+<p>但是，Web Share API
+应该由用户主动操作触发，这样做是为了减少不便和滥用。</p>
+</blockquote>
+<p>谢谢你的阅读。欢迎在下方留言，分享你的经验。</p>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Computer-Science/" rel="tag"># Computer Science</a>
+              <a href="/tags/Frontend/" rel="tag"># Frontend</a>
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+  <button class="show-comments" onclick="document.querySelector('.comments').classList.toggle('active');this.innerText = this.innerText === 'Show Comments' ? 'Hide Comments' : 'Show Comments'">Show Comments</button>
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+
+          <footer class="footer">
+            <div class="footer-inner">
+              
+
+              
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hoarfroster</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="Symbols count total">493k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">29:54</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT</a>
+  </div>
+
+              
+
+
+
+
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
+  <script>
+    firebase.initializeApp({
+      apiKey   : 'AIzaSyDqM81uUD8yWHAvsGasJzvWBHhpBYnRttI',
+      projectId: 'hoar-froster'
+    });
+
+    function getCount(doc, increaseCount) {
+      // IncreaseCount will be false when not in article page
+      return doc.get().then(d => {
+        var count = 0;
+        if (!d.exists) { // Has no data, initialize count
+          if (increaseCount) {
+            doc.set({
+              count: 1
+            });
+            count = 1;
+          }
+        } else { // Has data
+          count = d.data().count;
+          if (increaseCount) {
+            // If first view this article
+            doc.set({ // Increase count
+              count: count + 1
+            });
+            count++;
+          }
+        }
+
+        return count;
+      });
+    }
+
+    function appendCountTo(el) {
+      return count => {
+        el.innerText = count;
+      }
+    }
+  </script>
+  <script>
+    (function() {
+      var db = firebase.firestore();
+      var articles = db.collection('articles-info');
+
+      if (CONFIG.page.isPost) { // Is article page
+        var title = document.querySelector('.post-title').innerText.trim();
+        var doc = articles.doc(title);
+        var increaseCount = CONFIG.hostname === location.hostname;
+        if (localStorage.getItem(title)) {
+          increaseCount = false;
+        } else {
+          // Mark as visited
+          localStorage.setItem(title, true);
+        }
+        getCount(doc, increaseCount).then(appendCountTo(document.querySelector('.firestore-visitors-count')));
+      } else if (CONFIG.page.isHome) { // Is index page
+        var promises = [...document.querySelectorAll('.post-title')].map(element => {
+          var title = element.innerText.trim();
+          var doc = articles.doc(title);
+          return getCount(doc);
+        });
+        Promise.all(promises).then(counts => {
+          var metas = document.querySelectorAll('.firestore-visitors-count');
+          counts.forEach((val, idx) => {
+            appendCountTo(metas[idx])(val);
+          });
+        });
+      }
+    })();
+  </script>
+
+
+
+
+            </div>
+          </footer>
+        </div>
+          
+  
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#web-share-api-%E5%BF%AB%E9%80%9F%E6%BC%94%E7%A4%BA"><span class="nav-text">Web Share API —— 快速演示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E5%AE%9E%E8%B7%B5%E4%B8%AD%E4%BD%BF%E7%94%A8-web-share"><span class="nav-text">在实践中使用 Web Share</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E4%BA%AB%E9%93%BE%E6%8E%A5%E5%92%8C%E6%96%87%E6%9C%AC"><span class="nav-text">分享链接和文本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E4%BA%AB%E6%96%87%E4%BB%B6"><span class="nav-text">分享文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E4%BA%AB%E7%9B%AE%E6%A0%87"><span class="nav-text">分享目标</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#web-share-api-%E5%8A%9F%E8%83%BD%E5%92%8C%E5%B1%80%E9%99%90%E6%80%A7"><span class="nav-text">Web Share API —— 功能和局限性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD"><span class="nav-text">功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%80%E9%99%90%E6%80%A7"><span class="nav-text">局限性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-text">小结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Hoarfroster"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Hoarfroster</p>
+  <div class="site-description" itemprop="description">这里是霜羽~~咕咕咕</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">103</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <ul class="links-of-author motion-element">
+      <li class="links-of-author-item">
+        <a href="https://github.com/PassionPenguin" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;PassionPenguin" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+        <span> PassionPenguin</span>
+      </li>
+      <li class="links-of-author-item">
+        <a href="mailto:hoarfroster@outlook.com" title="E-Mail → mailto:hoarfroster@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+        <span> hoarfroster@outlook.com</span>
+      </li>
+      <li class="links-of-author-item">
+        <a href="https://twitter.com/zhangqizhe" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;zhangqizhe" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+        <span> @zhangqizhe</span>
+      </li>
+      <li class="links-of-author-item">
+        <a href="https://www.instagram.com/glacierpenguin/" title="Instagram → https:&#x2F;&#x2F;www.instagram.com&#x2F;glacierpenguin&#x2F;" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+        <span> @glacierpenguin</span>
+      </li>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'default',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/disqusjs@1/dist/disqusjs.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/disqusjs@1/dist/disqus.js', () => {
+    window.dsqjs = new DisqusJS({
+      api       : 'https://disqus.skk.moe/disqus/' || 'https://disqus.com/api/',
+      apikey    : 'Lo65MITAya5vcdTm6cJ8V5qCBNx3PVErvDOsfJ5tUPtEbw3DMS3EIzEx6vrmTzCN',
+      shortname : 'hoarfroster',
+      url       : "https://hoarfroster.github.io/Computer-Science/Frontend/JavaScript/%E7%8E%B0%E4%BB%A3-web-%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E4%B8%AD%E7%9A%84-web-%E5%88%86%E4%BA%AB/",
+      identifier: "Computer-Science/Frontend/JavaScript/现代-web-应用程序中的-web-分享/",
+      title     : "现代 Web 应用程序中的 Web 分享",
+    });
+  }, window.DisqusJS);
+});
+</script>
+
+</body>
+</html>
